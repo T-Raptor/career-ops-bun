@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // career-ops scaffolder — one-command install.
 // Clones the repo at the latest release tag and installs dependencies.
 // It deliberately does NOT create cv.md / config/profile.yml / portals.yml:
@@ -149,7 +149,7 @@ async function main() {
   console.log("roles — just by chatting. Nothing to configure by hand.");
   console.log("\ncareer-ops is AI-agnostic — Claude Code, Codex, Qwen, OpenCode, Copilot, Antigravity and Grok all work.");
   console.log("\nOptional (for PDF generation):");
-  console.log("  npx playwright install chromium\n");
+  console.log("  bunx playwright install chromium\n");
 }
 
 main().catch((err) => die(err?.message || String(err)));

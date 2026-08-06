@@ -7,7 +7,7 @@
  * - Aggregation (grouping, dedup, threshold filtering, sort order)
  * - CLI behavior (args, flags, missing file)
  *
- * Run: node process-quality.test.mjs
+ * Run: bun process-quality.test.mjs
  */
 
 import { parseActiveInterviews, extractFriction, aggregateProcessQuality } from './process-quality.mjs';
@@ -278,14 +278,14 @@ console.log('\n--- 10. CLI behavior ---');
 const scriptPath = join(dirname(fileURLToPath(import.meta.url)), 'process-quality.mjs');
 
 try {
-  execFileSync('node', [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 10000 });
+  execFileSync(process.execPath, [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 10000 });
   ok('--self-test exits 0', true);
 } catch (e) {
   ok('--self-test exits 0', false);
   console.log(`    exit code: ${e.status}, stderr: ${e.stderr?.slice(0, 200)}`);
 }
 
-const defaultOut = execFileSync('node', [scriptPath], {
+const defaultOut = execFileSync(process.execPath, [scriptPath], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
@@ -303,7 +303,7 @@ eq('default minThreshold = 1', defaultJson.metadata.minThreshold, 1);
 const missingFileTmpDir = mkdtempSync(join(tmpdir(), 'process-quality-missing-'));
 const missingFilePath = join(missingFileTmpDir, 'does-not-exist.md');
 try {
-  const missingOut = execFileSync('node', [scriptPath, '--file', missingFilePath], {
+  const missingOut = execFileSync(process.execPath, [scriptPath, '--file', missingFilePath], {
     encoding: 'utf-8', timeout: 10000,
     cwd: dirname(scriptPath),
   });
@@ -324,7 +324,7 @@ try {
   writeFileSync(fixturePath, table([
     '| FixtureCo | Role | Prescreen | 2026-07-01 | Someone | Scheduled | [process-friction: fixture reason] |',
   ]));
-  const fixtureOut = execFileSync('node', [scriptPath, '--file', fixturePath], {
+  const fixtureOut = execFileSync(process.execPath, [scriptPath, '--file', fixturePath], {
     encoding: 'utf-8', timeout: 10000,
     cwd: dirname(scriptPath),
   });
@@ -336,21 +336,21 @@ try {
   rmSync(fixtureTmpDir, { recursive: true, force: true });
 }
 
-const thresholdOut = execFileSync('node', [scriptPath, '--min-threshold', '3'], {
+const thresholdOut = execFileSync(process.execPath, [scriptPath, '--min-threshold', '3'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
 const thresholdJson = JSON.parse(thresholdOut);
 eq('--min-threshold sets minThreshold in metadata', thresholdJson.metadata.minThreshold, 3);
 
-const badThresholdOut = execFileSync('node', [scriptPath, '--min-threshold', 'abc'], {
+const badThresholdOut = execFileSync(process.execPath, [scriptPath, '--min-threshold', 'abc'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
 const badThresholdJson = JSON.parse(badThresholdOut);
 eq('--min-threshold abc falls back to 1', badThresholdJson.metadata.minThreshold, 1);
 
-const summaryOut = execFileSync('node', [scriptPath, '--summary'], {
+const summaryOut = execFileSync(process.execPath, [scriptPath, '--summary'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });

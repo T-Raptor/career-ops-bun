@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * validate-system-paths-coverage.mjs — structural coverage check for the
@@ -10,7 +10,7 @@
  * lives in the repo but the auto-updater won't propagate it to
  * clients on `apply`. That breaks them on the next test run.
  *
- * Run: node validate-system-paths-coverage.mjs
+ * Run: bun validate-system-paths-coverage.mjs
  * Exit 0 = clean. Exit 1 = orphan files listed.
  */
 

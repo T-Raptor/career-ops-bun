@@ -118,7 +118,7 @@ claude   # lub gemini / codex / qwen / opencode — otwórz tutaj swój AI CLI
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # wymagane tylko do generowania PDF
+bunx playwright install chromium   # wymagane tylko do generowania PDF
 claude   # otwórz swój AI CLI — przy pierwszym uruchomieniu przeprowadzi Cię przez onboarding
 ```
 
@@ -211,10 +211,10 @@ Skaner zawiera **45+ firm** gotowych do skanowania i **19 zapytań** przez głó
 
 **Przeszukiwane portale:** Ashby, Greenhouse, Lever, Wellfound, Workable, RemoteFront
 
-Domyślnie `node scan.mjs` (`npm run scan`) ufa temu, co zwraca każdy feed ATS. Niektóre firmy zostawiają nieaktualne ogłoszenia nawet po zamknięciu rekrutacji. Przekaż `--verify`, żeby uruchomić Playwright po fazie API i odfiltrować wygasłe oferty przed dodaniem do pipeline'u:
+Domyślnie `bun scan.mjs` (`bun run scan`) ufa temu, co zwraca każdy feed ATS. Niektóre firmy zostawiają nieaktualne ogłoszenia nawet po zamknięciu rekrutacji. Przekaż `--verify`, żeby uruchomić Playwright po fazie API i odfiltrować wygasłe oferty przed dodaniem do pipeline'u:
 
 ```bash
-node scan.mjs --verify          # zero-tokenowe wyszukiwanie + weryfikacja liveness przez Playwright
+bun scan.mjs --verify          # zero-tokenowe wyszukiwanie + weryfikacja liveness przez Playwright
 ```
 
 Weryfikacja jest sekwencyjna i dotyczy tylko nowych ofert (po deduplikacji), więc koszt jest ograniczony.

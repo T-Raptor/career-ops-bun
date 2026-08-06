@@ -119,7 +119,7 @@ claude   # или gemini / codex / qwen / opencode — открой здесь �
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # нужно только для генерации PDF
+bunx playwright install chromium   # нужно только для генерации PDF
 claude   # открой свой AI-CLI — он проведёт онбординг при первом запуске
 ```
 
@@ -210,8 +210,8 @@ career-ops поддерживает ключевые российские джо
 Встроенный терминальный дашборд для визуального просмотра пайплайна:
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 Возможности: 6 табов фильтрации, 4 режима сортировки, группированный/плоский вид, ленивая подгрузка превью, смена статусов inline.

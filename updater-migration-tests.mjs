@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * updater-migration-tests.mjs — source-level safety checks for update-system.

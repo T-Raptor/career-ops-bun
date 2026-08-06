@@ -92,7 +92,7 @@ pattern). A shared regression test enforces this across providers:
    pattern: dynamic-import the provider, assert `id`, exercise `detect()`
    positive/negative cases, and call `fetch` with a mock `ctx` whose
    `fetchJson`/`fetchText` return fixtures. Run it with
-   `node test-all.mjs --only providers/<name>`.
+   `bun test-all.mjs --only providers/<name>`.
 3. Add a row to
    [docs/SUPPORTED_JOB_BOARDS.md](../docs/SUPPORTED_JOB_BOARDS.md) in the
    same PR.

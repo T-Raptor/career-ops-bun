@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * tracker-columns-tests.mjs — regression tests for header-name column mapping.

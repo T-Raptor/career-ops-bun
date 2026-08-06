@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * detect-reposts.mjs — Repost Detector for career-ops
  *
@@ -13,11 +13,11 @@
  * status (`skipped_expired`, `skipped_invalid_url`, `skipped_blocked_host`)
  * describe dead postings, not reposts, and are skipped.
  *
- * Run: node detect-reposts.mjs             (JSON to stdout)
- *      node detect-reposts.mjs --summary   (human-readable table)
- *      node detect-reposts.mjs --window 60 (override 90-day window)
- *      node detect-reposts.mjs --self-test
- *      node detect-reposts.mjs --help
+ * Run: bun detect-reposts.mjs             (JSON to stdout)
+ *      bun detect-reposts.mjs --summary   (human-readable table)
+ *      bun detect-reposts.mjs --window 60 (override 90-day window)
+ *      bun detect-reposts.mjs --self-test
+ *      bun detect-reposts.mjs --help
  *
  * Issue #1205 — github.com/santifer/career-ops
  */
@@ -37,11 +37,11 @@ const DEFAULT_WINDOW_DAYS = 90;
 // --- CLI args ---
 
 const USAGE = `Usage:
-  node detect-reposts.mjs                       # full JSON repost clusters to stdout
-  node detect-reposts.mjs --summary             # human-readable table
-  node detect-reposts.mjs --window 60           # override the default 90-day window
-  node detect-reposts.mjs --self-test           # run the in-memory test suite
-  node detect-reposts.mjs --help                # print this usage block and exit`;
+  bun detect-reposts.mjs                       # full JSON repost clusters to stdout
+  bun detect-reposts.mjs --summary             # human-readable table
+  bun detect-reposts.mjs --window 60           # override the default 90-day window
+  bun detect-reposts.mjs --self-test           # run the in-memory test suite
+  bun detect-reposts.mjs --help                # print this usage block and exit`;
 
 const args = process.argv.slice(2);
 const summaryMode = args.includes('--summary');

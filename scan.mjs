@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * scan.mjs — Zero-token portal scanner with a plugin-based provider layer.
@@ -21,20 +21,20 @@
  * Zero Claude API tokens — pure HTTP + JSON.
  *
  * Usage:
- *   node scan.mjs                  # scan all enabled companies
- *   node scan.mjs --dry-run        # preview without writing files
- *   node scan.mjs --company Cohere # scan a single company
- *   node scan.mjs --verify         # Playwright-check each new URL; drop expired postings
- *   node scan.mjs --verify --headed-fallback  # retry anti-bot-blocked URLs in a headed browser (needs a display)
- *   node scan.mjs --verify --throttle          # jittered ~5-10s gap between checks (stay under rate limits)
- *   node scan.mjs --verify --throttle=8000     # custom base gap in ms (waits base..2*base)
- *   node scan.mjs --include-blacklisted        # let data/blacklist.md matches through (annotated)
+ *   bun scan.mjs                  # scan all enabled companies
+ *   bun scan.mjs --dry-run        # preview without writing files
+ *   bun scan.mjs --company Cohere # scan a single company
+ *   bun scan.mjs --verify         # Playwright-check each new URL; drop expired postings
+ *   bun scan.mjs --verify --headed-fallback  # retry anti-bot-blocked URLs in a headed browser (needs a display)
+ *   bun scan.mjs --verify --throttle          # jittered ~5-10s gap between checks (stay under rate limits)
+ *   bun scan.mjs --verify --throttle=8000     # custom base gap in ms (waits base..2*base)
+ *   bun scan.mjs --include-blacklisted        # let data/blacklist.md matches through (annotated)
  */
 
 import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync } from 'fs';
 import { pathToFileURL, fileURLToPath } from 'url';
 import path from 'path';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 import { makeHttpCtx } from './providers/_http.mjs';
 import { buildTrustValidator } from './providers/_trust-validator.mjs';
@@ -1843,7 +1843,7 @@ async function verifyOffers(offers, { headedFallback = false, throttleBaseMs = 0
     ({ checkUrlLiveness, checkUrlLivenessWithFallback, createHeadedPageProvider, newLivenessPage, jitteredDelayMs, sleep } = await import('./liveness-browser.mjs'));
   } catch (err) {
     throw new Error(
-      `--verify requires Playwright with Chromium (run "npx playwright install chromium"): ${err.message}`,
+      `--verify requires Playwright with Chromium (run "bunx playwright install chromium"): ${err.message}`,
       { cause: err },
     );
   }
@@ -1853,7 +1853,7 @@ async function verifyOffers(offers, { headedFallback = false, throttleBaseMs = 0
     browser = await chromium.launch({ headless: true });
   } catch (err) {
     throw new Error(
-      `--verify could not launch Chromium (run "npx playwright install chromium" or re-run without --verify): ${err.message}`,
+      `--verify could not launch Chromium (run "bunx playwright install chromium" or re-run without --verify): ${err.message}`,
       { cause: err },
     );
   }
@@ -2541,11 +2541,11 @@ async function main() {
   if (persistentlyDead.length > 0) {
     console.log(`\n🚨 FIX NEEDED: ${persistentlyDead.length} target(s) have been unreachable for ${STREAK_THRESHOLD}+ runs:`);
     console.log(`   ${persistentlyDead.join(', ')}`);
-    console.log(`   Run: node verify-portals.mjs to check if the ATS migrated, or update their board slugs.`);
+    console.log(`   Run: bun verify-portals.mjs to check if the ATS migrated, or update their board slugs.`);
   }
   if (newlyDeadSlug.length > 0) {
     const names = newlyDeadSlug.map(x => x.company).join(', ');
-    console.log(`\n⚠️  ${newlyDeadSlug.length} target(s) unreachable (slug?): ${names} — run: node verify-portals.mjs`);
+    console.log(`\n⚠️  ${newlyDeadSlug.length} target(s) unreachable (slug?): ${names} — run: bun verify-portals.mjs`);
   }
   if (emptyTargets.length > 0) {
     console.log(`🟡 ${emptyTargets.length} target(s) live but empty: ${emptyTargets.join(', ')}`);
@@ -2619,7 +2619,7 @@ async function main() {
   }
 }
 
-// Only run main() when invoked directly (`node scan.mjs`), not when imported by tests.
+// Only run main() when invoked directly (`bun scan.mjs`), not when imported by tests.
 // `|| ''` guards the case where Node is invoked without a script arg (e.g. `node -e`).
 if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
   main().catch(err => {

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // @ts-check
 // plugin-audit.mjs — static safety scan for COMMUNITY/registry plugins (run by
 // `plugins.mjs add` and by the registry-validate CI). Lives at repo ROOT (not
@@ -85,10 +85,10 @@ export function auditPlugin(dir) {
   return { ok: findings.length === 0, findings };
 }
 
-// CLI: node plugin-audit.mjs <dir>
+// CLI: bun plugin-audit.mjs <dir>
 if (import.meta.url === (await import('node:url')).pathToFileURL(process.argv[1] || '').href) {
   const dir = process.argv[2];
-  if (!dir) { console.error('Usage: node plugin-audit.mjs <plugin-dir>'); process.exit(2); }
+  if (!dir) { console.error('Usage: bun plugin-audit.mjs <plugin-dir>'); process.exit(2); }
   let result;
   try { result = auditPlugin(path.resolve(dir)); } catch (e) { console.error('audit failed:', e.message); process.exit(2); }
   if (result.ok) { console.log('✓ audit clean'); process.exit(0); }

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * reserve-report-num.mjs - shared atomic report-number allocator.
@@ -9,11 +9,11 @@
  * as tracker writers, while O_CREAT|O_EXCL keeps claims atomic across processes.
  *
  * Usage:
- *   node reserve-report-num.mjs
- *   node reserve-report-num.mjs --count 8
- *   node reserve-report-num.mjs --release 035
- *   node reserve-report-num.mjs --release 042-049
- *   node reserve-report-num.mjs --gc
+ *   bun reserve-report-num.mjs
+ *   bun reserve-report-num.mjs --count 8
+ *   bun reserve-report-num.mjs --release 035
+ *   bun reserve-report-num.mjs --release 042-049
+ *   bun reserve-report-num.mjs --gc
  */
 
 import {
@@ -290,7 +290,7 @@ async function runCli() {
   if (cmd === '--release') {
     const match = (arg || '').match(/^(\d+)(?:-(\d+))?$/);
     if (!match) {
-      process.stderr.write('Usage: node reserve-report-num.mjs --release <NNN>[-<MMM>]\n');
+      process.stderr.write('Usage: bun reserve-report-num.mjs --release <NNN>[-<MMM>]\n');
       return 1;
     }
     const start = parseInt(match[1], 10);
@@ -316,12 +316,12 @@ async function runCli() {
   let count = 1;
   if (cmd === '--count') {
     if (!/^\d+$/.test(arg || '')) {
-      process.stderr.write(`Usage: node reserve-report-num.mjs --count <1-${MAX_COUNT}>\n`);
+      process.stderr.write(`Usage: bun reserve-report-num.mjs --count <1-${MAX_COUNT}>\n`);
       return 1;
     }
     count = parseInt(arg, 10);
     if (count < 1 || count > MAX_COUNT) {
-      process.stderr.write(`Usage: node reserve-report-num.mjs --count <1-${MAX_COUNT}>\n`);
+      process.stderr.write(`Usage: bun reserve-report-num.mjs --count <1-${MAX_COUNT}>\n`);
       return 1;
     }
   }

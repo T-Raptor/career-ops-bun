@@ -453,14 +453,14 @@ reserve_report_num_unlocked() {
   # sentinel files in reserve-report-num.mjs) instead of the old bash-native
   # max(existing report files, batch-state.tsv numbers)+1 scan. The bash-native
   # version had zero visibility into reservations made by any OTHER process
-  # calling `node reserve-report-num.mjs` directly -- e.g. an interactively
+  # calling `bun reserve-report-num.mjs` directly -- e.g. an interactively
   # dispatched Agent evaluating one offer with a browser tool while a batch
   # run is in flight. Both could independently compute the same "next" number
   # and collide on disk. Found 2026-07-30: two separate collisions (report
   # 049, report 051) in one batch run for exactly this reason -- routing every
-  # caller through the same node script means they all share one real lock.
+  # caller through the same bun script means they all share one real lock.
   local report_num=""
-  report_num=$(node "$PROJECT_DIR/reserve-report-num.mjs" 2>/dev/null | tr -d '[:space:]')
+  report_num=$(bun "$PROJECT_DIR/reserve-report-num.mjs" 2>/dev/null | tr -d '[:space:]')
   if [[ -n "$report_num" ]]; then
     update_state_unlocked "$id" "$url" "processing" "$started" "-" "$report_num" "-" "-" "$retries"
   fi
@@ -474,7 +474,7 @@ reserve_report_num_unlocked() {
 release_report_num() {
   local report_num="$1"
   [[ -n "$report_num" && "$report_num" != "-" ]] || return 0
-  node "$PROJECT_DIR/reserve-report-num.mjs" --release "$report_num" >/dev/null 2>&1 || true
+  bun "$PROJECT_DIR/reserve-report-num.mjs" --release "$report_num" >/dev/null 2>&1 || true
 }
 
 reserve_report_num() {
@@ -649,7 +649,7 @@ process_offer() {
     local worker_failed_match="" worker_error_match="" score="-"
     if [[ -n "$worker_result_json" ]]; then
       local parsed
-      parsed=$(printf '%s' "$worker_result_json" | node -e '
+      parsed=$(printf '%s' "$worker_result_json" | bun -e '
         let data = "";
         process.stdin.on("data", d => data += d);
         process.stdin.on("end", () => {
@@ -739,13 +739,13 @@ process_offer() {
 merge_tracker() {
   echo ""
   echo "=== Merging tracker additions ==="
-  node "$PROJECT_DIR/merge-tracker.mjs"
+  bun "$PROJECT_DIR/merge-tracker.mjs"
   echo ""
   echo "=== Reconciling pipeline.md ==="
-  node "$PROJECT_DIR/reconcile-pipeline.mjs" || echo "⚠️  Pipeline reconcile had issues (see above)"
+  bun "$PROJECT_DIR/reconcile-pipeline.mjs" || echo "⚠️  Pipeline reconcile had issues (see above)"
   echo ""
   echo "=== Verifying pipeline integrity ==="
-  node "$PROJECT_DIR/verify-pipeline.mjs" || echo "⚠️  Verification found issues (see above)"
+  bun "$PROJECT_DIR/verify-pipeline.mjs" || echo "⚠️  Verification found issues (see above)"
 }
 
 # Print summary
@@ -786,7 +786,7 @@ print_summary() {
   fi
 
   if [[ -f "$BATCH_DIR/aggregate-tokens.mjs" ]]; then
-    if ! node "$BATCH_DIR/aggregate-tokens.mjs"; then
+    if ! bun "$BATCH_DIR/aggregate-tokens.mjs"; then
       echo "Warning: token aggregation failed." >&2
     fi
   fi
@@ -895,7 +895,7 @@ watch_status() {
   if [[ -f "$PROJECT_DIR/verify-pipeline.mjs" ]]; then
     echo ""
     echo "=== Running pipeline verification ==="
-    node "$PROJECT_DIR/verify-pipeline.mjs" || echo "⚠️  Verification found issues"
+    bun "$PROJECT_DIR/verify-pipeline.mjs" || echo "⚠️  Verification found issues"
   fi
 }
 

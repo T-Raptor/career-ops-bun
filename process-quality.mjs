@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * process-quality.mjs — Recruiting-Process Friction Aggregator for career-ops
  *
@@ -16,11 +16,11 @@
  * This is a company/process-level signal only — never tied to a named
  * individual recruiter. See issue #1466.
  *
- * Run: node process-quality.mjs             (JSON to stdout)
- *      node process-quality.mjs --summary   (human-readable table)
- *      node process-quality.mjs --min-threshold 2  (min total interviews per company to report)
- *      node process-quality.mjs --file path/to/active-interviews.md  (override the data path; test isolation)
- *      node process-quality.mjs --self-test
+ * Run: bun process-quality.mjs             (JSON to stdout)
+ *      bun process-quality.mjs --summary   (human-readable table)
+ *      bun process-quality.mjs --min-threshold 2  (min total interviews per company to report)
+ *      bun process-quality.mjs --file path/to/active-interviews.md  (override the data path; test isolation)
+ *      bun process-quality.mjs --self-test
  *
  * Issue #1466 — github.com/santifer/career-ops
  */

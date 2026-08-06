@@ -12,7 +12,7 @@
  * - CLI behavior (--self-test, default preview never writes, --write opt-in,
  *   unknown --vendors, --help) via execFileSync — no live network.
  *
- * Run: node discover-ats.test.mjs
+ * Run: bun discover-ats.test.mjs
  *
  * Issue #1864 — github.com/santifer/career-ops
  */
@@ -29,7 +29,7 @@ import {
   buildWorkdayCandidates,
   resolveCompany,
 } from './discover-ats.mjs';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -298,7 +298,7 @@ const scriptPath = join(dirname(fileURLToPath(import.meta.url)), 'discover-ats.m
 
 // --self-test exits 0
 try {
-  execFileSync('node', [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 15000 });
+  execFileSync(process.execPath, [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 15000 });
   ok('--self-test exits 0', true);
 } catch (e) {
   ok('--self-test exits 0', false);
@@ -306,12 +306,12 @@ try {
 }
 
 // --help exits 0 and documents the opt-in --write flag
-const helpOut = execFileSync('node', [scriptPath, '--help'], { encoding: 'utf-8', timeout: 15000 });
+const helpOut = execFileSync(process.execPath, [scriptPath, '--help'], { encoding: 'utf-8', timeout: 15000 });
 ok('--help prints usage', helpOut.includes('Usage:') && helpOut.includes('--write'));
 ok('--help states preview-by-default (never writes without --write)', /never writes[\s\S]*--write/i.test(helpOut));
 
 // Empty input (no --in, no names): valid JSON envelope, no network, exit 0.
-const emptyOut = execFileSync('node', [scriptPath], { encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath) });
+const emptyOut = execFileSync(process.execPath, [scriptPath], { encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath) });
 const emptyJson = JSON.parse(emptyOut);
 ok('empty input → valid JSON envelope', typeof emptyJson === 'object' && 'metadata' in emptyJson);
 eq('empty input → resolved []', emptyJson.resolved, []);
@@ -329,7 +329,7 @@ writeFileSync(scratchPortals, scratchContent);
 try {
   // Empty company list → no network — the point is only to prove the default
   // path writes nothing and reports previewOnly.
-  const previewOut = execFileSync('node', [scriptPath], {
+  const previewOut = execFileSync(process.execPath, [scriptPath], {
     encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath),
     env: { ...process.env, CAREER_OPS_PORTALS: scratchPortals },
   });
@@ -340,7 +340,7 @@ try {
 
   // --write is accepted as a known flag (empty list → no fresh entries → still
   // no write, file unchanged). Proves the flag parses and the guard holds.
-  const writeOut = execFileSync('node', [scriptPath, '--write'], {
+  const writeOut = execFileSync(process.execPath, [scriptPath, '--write'], {
     encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath),
     env: { ...process.env, CAREER_OPS_PORTALS: scratchPortals },
   });
@@ -349,7 +349,7 @@ try {
   eq('--write with nothing fresh → portals.yml still unchanged', readFileSync(scratchPortals, 'utf-8'), scratchContent);
 
   // --dry-run is accepted as a harmless alias for the default (no write).
-  const aliasOut = execFileSync('node', [scriptPath, '--dry-run'], {
+  const aliasOut = execFileSync(process.execPath, [scriptPath, '--dry-run'], {
     encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath),
     env: { ...process.env, CAREER_OPS_PORTALS: scratchPortals },
   });
@@ -364,7 +364,7 @@ try {
 // unknown --vendors → nonzero exit
 let vendorExit = 0;
 try {
-  execFileSync('node', [scriptPath, '--vendors', 'xyz', 'Foo'], { encoding: 'utf-8', timeout: 15000 });
+  execFileSync(process.execPath, [scriptPath, '--vendors', 'xyz', 'Foo'], { encoding: 'utf-8', timeout: 15000 });
 } catch (e) {
   vendorExit = e.status;
 }
@@ -373,7 +373,7 @@ ok('unknown --vendors → nonzero exit', vendorExit !== 0);
 // unknown flag → nonzero exit
 let flagExit = 0;
 try {
-  execFileSync('node', [scriptPath, '--bogus'], { encoding: 'utf-8', timeout: 15000 });
+  execFileSync(process.execPath, [scriptPath, '--bogus'], { encoding: 'utf-8', timeout: 15000 });
 } catch (e) {
   flagExit = e.status;
 }
@@ -382,7 +382,7 @@ ok('unknown flag → nonzero exit', flagExit !== 0);
 // --vendors workday is accepted (no companies → no network, exit 0)
 let workdayVendorOk = true;
 try {
-  const wvOut = execFileSync('node', [scriptPath, '--vendors', 'workday'], { encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath) });
+  const wvOut = execFileSync(process.execPath, [scriptPath, '--vendors', 'workday'], { encoding: 'utf-8', timeout: 15000, cwd: dirname(scriptPath) });
   JSON.parse(wvOut);
 } catch (e) {
   workdayVendorOk = false;

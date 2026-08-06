@@ -1,19 +1,19 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * validate-portals.mjs — schema/shape validator for portals.yml.
  *
  * Usage:
- *   node validate-portals.mjs
- *   node validate-portals.mjs --file templates/portals.example.yml
- *   node validate-portals.mjs --self-test
+ *   bun validate-portals.mjs
+ *   bun validate-portals.mjs --file templates/portals.example.yml
+ *   bun validate-portals.mjs --self-test
  */
 
 import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { tmpdir } from 'os';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { flagValue, hasFlag } from './lib/cli-flags.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -288,7 +288,7 @@ async function main() {
   const fileFlag = hasFlag(args, '--file') ? (flagValue(args, '--file') ?? '') : undefined;
   const filePath = fileFlag === undefined ? resolve(DEFAULT_PORTALS_PATH) : (fileFlag ? resolve(fileFlag) : '');
   if (!filePath) {
-    console.error('Usage: node validate-portals.mjs [--file portals.yml] [--self-test]');
+    console.error('Usage: bun validate-portals.mjs [--file portals.yml] [--self-test]');
     process.exit(1);
   }
 

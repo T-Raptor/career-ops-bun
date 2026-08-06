@@ -123,7 +123,7 @@ claude   # or gemini / codex / qwen / opencode — open your AI CLI here
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # only needed for PDF generation
+bunx playwright install chromium   # only needed for PDF generation
 claude   # open your AI CLI — it onboards you on first launch
 ```
 
@@ -195,8 +195,8 @@ career-ops는 다양한 모드를 가진 하나의 슬래시 커맨드입니다:
 내장 터미널 대시보드로 파이프라인을 시각적으로 탐색할 수 있습니다:
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 기능: 6개의 필터 탭, 4가지 정렬 모드, 그룹/플랫 뷰, 지연 로딩 미리보기, 인라인 상태 변경.

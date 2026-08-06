@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * tracker.mjs — SQLite derived index for the applications tracker (RFC #918, phase 1).
@@ -22,13 +22,13 @@
  * Zero new dependencies — uses node:sqlite (built into Node >= 22.5).
  *
  * Usage:
- *   node tracker.mjs sync [--check]             # (re)build applications.db from applications.md
+ *   bun tracker.mjs sync [--check]             # (re)build applications.db from applications.md
  *                                               # --check: diagnose only, no write; exit 1 if issues found
- *   node tracker.mjs query [--status Applied] [--company acme] [--role designer]
+ *   bun tracker.mjs query [--status Applied] [--company acme] [--role designer]
  *                          [--since 2026-01-01] [--id N] [--limit 20] [--json]
- *   node tracker.mjs history --id N             # status transition log observed across syncs
- *   node tracker.mjs export [--out FILE]        # inverse: applications.db → canonical markdown (stdout by default)
- *   node tracker.mjs delete --num N [--dry-run] # remove one application row from applications.md + reindex
+ *   bun tracker.mjs history --id N             # status transition log observed across syncs
+ *   bun tracker.mjs export [--out FILE]        # inverse: applications.db → canonical markdown (stdout by default)
+ *   bun tracker.mjs delete --num N [--dry-run] # remove one application row from applications.md + reindex
  *
  * query/history auto-resync when applications.md changed since the last sync,
  * so the index can never serve stale reads.
@@ -38,7 +38,7 @@ import { readFileSync, copyFileSync, existsSync, mkdirSync, statSync } from 'fs'
 import { createHash } from 'crypto';
 import { dirname, resolve, join } from 'path';
 import { pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { resolveColumns } from './tracker-parse.mjs';
 import {
   canonicalizeTrackerPath, openTrackerTransaction, writeFileAtomic,
@@ -61,6 +61,10 @@ const SEPARATOR = '|---|------|---------|------|-------|--------|-----|--------|
 // ── node:sqlite loading ─────────────────────────────────────────────
 
 async function loadSqlite() {
+  if (process.versions.bun) {
+    const { Database } = await import('bun:sqlite');
+    return Database;
+  }
   // node:sqlite is stable in behavior but still flagged experimental in some
   // Node lines — silence only that one warning, leave everything else alone.
   const origEmit = process.emitWarning;
@@ -73,7 +77,7 @@ async function loadSqlite() {
     const { DatabaseSync } = await import('node:sqlite');
     return DatabaseSync;
   } catch {
-    console.error('Error: node:sqlite is not available. tracker.mjs needs Node >= 22.5 (you are on ' + process.version + ').');
+    console.error('Error: SQLite is not available. tracker.mjs needs Node >= 22.5 or Bun (you are on ' + process.version + ').');
     console.error('The markdown tracker keeps working without it — the index is optional.');
     process.exit(1);
   } finally {
@@ -296,7 +300,7 @@ function reportDiagnostics(diag) {
   if (diag.badId) console.error(`  ${diag.badId} missing/duplicate id(s), reassigned in the index`);
   if (diag.badDate) console.error(`  ${diag.badDate} malformed date(s), kept as-is`);
   if (diag.strayPipes) console.error(`  ${diag.strayPipes} row(s) with stray pipes, folded into notes`);
-  console.error('Fix at the source with `node normalize-statuses.mjs` / `node dedup-tracker.mjs`, then re-sync.');
+  console.error('Fix at the source with `bun normalize-statuses.mjs` / `bun dedup-tracker.mjs`, then re-sync.');
   return total;
 }
 
@@ -501,7 +505,7 @@ async function exportMd(args) {
 async function deleteApp(args) {
   const num = flagValue(args, '--num');
   if (!num) {
-    console.error('Usage: node tracker.mjs delete --num <N> [--dry-run]   (remove one application row by its number)');
+    console.error('Usage: bun tracker.mjs delete --num <N> [--dry-run]   (remove one application row by its number)');
     process.exit(1);
   }
   if (!existsSync(MD_PATH)) {
@@ -554,7 +558,7 @@ async function main() {
   const [command, ...args] = process.argv.slice(2);
   const fn = COMMANDS[command];
   if (!fn) {
-    console.log('Usage: node tracker.mjs <sync|query|history|export|delete> [flags]');
+    console.log('Usage: bun tracker.mjs <sync|query|history|export|delete> [flags]');
     console.log('See the header comment of this file for examples, or docs/SCRIPTS.md.');
     process.exit(command ? 1 : 0);
   }

@@ -136,7 +136,7 @@ const WINDOWS_CYGPATH_CANDIDATES = [
  * @returns {string} Allowlisted executable path/name.
  */
 function resolveAllowedExecutable(cmd) {
-  if (cmd === process.execPath || cmd === 'node') return process.execPath;
+  if (cmd === process.execPath || cmd === 'node' || cmd === 'bun') return process.execPath;
   if (cmd === 'bash') return 'bash';
   if (cmd === 'git') return 'git';
   if (cmd === 'go') return 'go';

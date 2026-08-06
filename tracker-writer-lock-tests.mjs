@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /** Regression tests for the shared applications.md writer lock. */
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * openai-eval.mjs — OpenAI-compatible Job Offer Evaluator for career-ops
  *
@@ -12,9 +12,9 @@
  * via --file. Mirrors ollama-eval.mjs / gemini-eval.mjs.
  *
  * Usage:
- *   node openai-eval.mjs "Paste full JD text here"
- *   node openai-eval.mjs --file ./jds/my-job.txt
- *   node openai-eval.mjs --url https://openrouter.ai/api/v1 --model meta-llama/llama-3.3-70b-instruct --file ./jds/job.txt
+ *   bun openai-eval.mjs "Paste full JD text here"
+ *   bun openai-eval.mjs --file ./jds/my-job.txt
+ *   bun openai-eval.mjs --url https://openrouter.ai/api/v1 --model meta-llama/llama-3.3-70b-instruct --file ./jds/job.txt
  *
  * Requires (for hosted endpoints):
  *   OPENAI_API_KEY (or --key)   — your provider key
@@ -73,9 +73,9 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
   Evaluate a job offer with any OpenAI-compatible chat API instead of Claude.
 
   USAGE
-    node openai-eval.mjs "<JD text>"
-    node openai-eval.mjs --file ./jds/my-job.txt
-    node openai-eval.mjs --url <base> --model <id> --file ./jds/job.txt
+    bun openai-eval.mjs "<JD text>"
+    bun openai-eval.mjs --file ./jds/my-job.txt
+    bun openai-eval.mjs --url <base> --model <id> --file ./jds/job.txt
 
   OPTIONS
     --file <path>    Read JD from a file instead of inline text
@@ -99,8 +99,8 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
     LM Studio:   --url http://localhost:1234/v1        --model <loaded-model>   (no key)
 
   EXAMPLES
-    OPENAI_API_KEY=sk-... node openai-eval.mjs --file ./jds/job.txt
-    node openai-eval.mjs --url http://localhost:1234/v1 --model local "<JD text>"
+    OPENAI_API_KEY=sk-... bun openai-eval.mjs --file ./jds/job.txt
+    bun openai-eval.mjs --url http://localhost:1234/v1 --model local "<JD text>"
 `);
   process.exit(0);
 }
@@ -181,7 +181,7 @@ let endpointHost;
 ❌  No API key for ${endpointHost}.
 
    Set one and re-run:
-     OPENAI_API_KEY=your_key node openai-eval.mjs ...
+     OPENAI_API_KEY=your_key bun openai-eval.mjs ...
    or pass --key <key>. (Local servers at localhost may not need one.)
 `);
     process.exit(1);

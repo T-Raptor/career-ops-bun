@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * company-funded.mjs - discover recently funded companies for manual review.
@@ -82,9 +82,9 @@ const GENERIC_NAMES = new Set([
 
 function usage() {
   console.log(`Usage:
-  node company-funded.mjs --dry-run
-  node company-funded.mjs --limit 25 --months 6 --sort date
-  node company-funded.mjs --sources techcrunch,prnewswire,guardian,hn --dry-run
+  bun company-funded.mjs --dry-run
+  bun company-funded.mjs --limit 25 --months 6 --sort date
+  bun company-funded.mjs --sources techcrunch,prnewswire,guardian,hn --dry-run
 
 Options:
   --limit <n>             Max companies in the review list. Default: 20.

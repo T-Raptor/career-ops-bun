@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * stats.mjs — Lifetime pipeline stats aggregator (zero-token). #1604
  *
@@ -7,8 +7,8 @@
  * coverage from portals.yml, and follow-up compliance. Reads durable data
  * files only — no LLM cost anywhere.
  *
- * Run: node stats.mjs             (JSON to stdout)
- *      node stats.mjs --summary   (human-readable table)
+ * Run: bun stats.mjs             (JSON to stdout)
+ *      bun stats.mjs --summary   (human-readable table)
  *
  * Sections degrade to null when their source file is missing, and
  * `metadata.sources` says which files were found — a fresh clone with zero
@@ -21,7 +21,7 @@
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { resolveColumns, parseTrackerRow } from './tracker-parse.mjs';
 import { normalizeStatus, analyzeFromContent } from './followup-cadence.mjs';
 

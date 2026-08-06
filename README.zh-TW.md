@@ -125,7 +125,7 @@ claude   # 或 gemini / codex / qwen / opencode — 在此開啟你的 AI CLI
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # 僅 PDF 生成所需
+bunx playwright install chromium   # 僅 PDF 生成所需
 claude   # 開啟你的 AI CLI — 首次啟動時會帶你完成設定
 ```
 
@@ -198,8 +198,8 @@ career-ops 是一個具有多種模式的單一斜線指令：
 內建的終端機儀表板讓你以視覺化方式瀏覽求職管道：
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 功能：6 個篩選分頁、4 種排序模式、分組/平鋪檢視、延遲載入預覽、內嵌狀態修改。

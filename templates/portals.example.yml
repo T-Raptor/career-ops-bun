@@ -32,7 +32,7 @@
 #   recheck_after_days: 30
 
 # -- Interamt.de searches (optional, German public sector) --
-# Read by scan-interamt.mjs (`npm run scan:interamt`), a separate Playwright
+# Read by scan-interamt.mjs (`bun run scan:interamt`), a separate Playwright
 # scanner for Interamt.de, a portal for German federal, state, and municipal
 # government job postings. Interamt has no REST API (Apache Wicket, stateful),
 # so it isn't reachable through the tracked_companies providers above;
@@ -153,7 +153,7 @@
 #
 # Need an ABSOLUTE date window instead (e.g. "only postings from the 17th to
 # the 20th") rather than a relative "N days old" cutoff? Use the CLI flags
-# instead of a portals.yml key: `node scan.mjs --posted-after 2026-07-17
+# instead of a portals.yml key: `bun scan.mjs --posted-after 2026-07-17
 # --posted-before 2026-07-20`. Same "don't penalize missing data" rule.
 
 # -- Trust filter (optional) --

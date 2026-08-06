@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * funnel-velocity.mjs — Funnel calibration vs market benchmarks + stage velocity
  *
@@ -28,16 +28,16 @@
  * Benchmarks lookup order: --benchmarks <path> > config/benchmarks.yml (user
  * layer, survives updates) > templates/benchmarks.yml (shipped default).
  *
- * Run: node funnel-velocity.mjs             (JSON)
- *      node funnel-velocity.mjs --summary   (human-readable)
- *      node funnel-velocity.mjs --self-test
- *      node funnel-velocity.mjs --benchmarks path/to/benchmarks.yml
+ * Run: bun funnel-velocity.mjs             (JSON)
+ *      bun funnel-velocity.mjs --summary   (human-readable)
+ *      bun funnel-velocity.mjs --self-test
+ *      bun funnel-velocity.mjs --benchmarks path/to/benchmarks.yml
  */
 
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { computeFunnel, computeTrackerStats } from './stats.mjs';
 import { resolveColumns, parseTrackerRow } from './tracker-parse.mjs';
 import { resolveTrackerPath, loadCanonicalStates, resolveCanonicalState } from './tracker-utils.mjs';

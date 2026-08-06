@@ -6,7 +6,7 @@ After dozens of evaluations, the tracker holds dozens of verdicts — and no agg
 
 Phase 1 (this mode): aggregate gap map from tracked reports, with an optional LLM synthesis pass and a diff against the previous run. Phase 2b adds a **web-searched learning plan** — free-first resources per gap, grounded in live search results — layered on top of the same gap map (Step 3; trust model in Rules).
 
-**Targeted mode** (`node upskill.mjs --url-text <url-or-file>`, #1739) analyses a *single* JD instead of the tracked history: it extracts the JD's required skills, suppresses the ones already in `cv.md`/`config/profile.yml`, and prints the remaining gaps as JSON (`{ mode: "targeted", gaps, excludedAsKnown, knownSkills }`). Known-skill suppression uses the same canonical extraction as the aggregate path, so a CV skill is never reported as a gap and a real gap is never hidden. `--url-text` accepts either an `http(s)` URL (Playwright, then a redirect-refusing fetch fallback) or a local file path. The web-searched learning plan (Step 3, #1740) is generated for the aggregate report; the targeted single-JD path prints gaps only.
+**Targeted mode** (`bun upskill.mjs --url-text <url-or-file>`, #1739) analyses a *single* JD instead of the tracked history: it extracts the JD's required skills, suppresses the ones already in `cv.md`/`config/profile.yml`, and prints the remaining gaps as JSON (`{ mode: "targeted", gaps, excludedAsKnown, knownSkills }`). Known-skill suppression uses the same canonical extraction as the aggregate path, so a CV skill is never reported as a gap and a real gap is never hidden. `--url-text` accepts either an `http(s)` URL (Playwright, then a redirect-refusing fetch fallback) or a local file path. The web-searched learning plan (Step 3, #1740) is generated for the aggregate report; the targeted single-JD path prints gaps only.
 
 Pattern credit: [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search)'s `/upskill`, adapted to career-ops' tracker and A–F scoring model.
 
@@ -20,7 +20,7 @@ Pattern credit: [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/a
 ## Step 1 — Run the Aggregator
 
 ```bash
-node upskill.mjs
+bun upskill.mjs
 ```
 
 Parse the JSON output:
@@ -71,7 +71,7 @@ Turn the eligible gaps into a resourced, actionable plan. This section is **pure
 
 **Search, budget, and liveness** (the full trust model is frozen in Rules):
 - Hard search budget: **max 2 searches per gap**, capped at **~12 searches per aggregate run**; always include the current year in the query.
-- **Write-time URL liveness:** liveness-check every cited URL at generation time using the check-liveness pattern (`node check-liveness.mjs <url> ...`, backed by `liveness-core.mjs`). Dead links never enter the report.
+- **Write-time URL liveness:** liveness-check every cited URL at generation time using the check-liveness pattern (`bun check-liveness.mjs <url> ...`, backed by `liveness-core.mjs`). Dead links never enter the report.
 - **Free-first with explicit failure:** if no free option surfaces for a gap, the plan SAYS so — it never silently substitutes a paid resource.
 - **Scope boundary:** the plan LINKS each resource to `/career-ops training {name}` for a full judging pass; it never runs training's 6-dimension scoring itself. `upskill` finds; `training` judges.
 

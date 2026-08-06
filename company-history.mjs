@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * company-history.mjs — Per-Company Evidence-Card Aggregator for career-ops
  *
@@ -33,18 +33,18 @@
  *                     than expected: every extraction from it is guarded by
  *                     `typeof x === 'function'`.
  *
- * Run: node company-history.mjs                    (JSON to stdout)
- *      node company-history.mjs --summary           (human-readable cards)
- *      node company-history.mjs --company "Acme"    (single-card lookup)
- *      node company-history.mjs --silence-window 21 (override default window)
- *      node company-history.mjs --include-stale     (include >365d-old facts in labels)
- *      node company-history.mjs --self-test
+ * Run: bun company-history.mjs                    (JSON to stdout)
+ *      bun company-history.mjs --summary           (human-readable cards)
+ *      bun company-history.mjs --company "Acme"    (single-card lookup)
+ *      bun company-history.mjs --silence-window 21 (override default window)
+ *      bun company-history.mjs --include-stale     (include >365d-old facts in labels)
+ *      bun company-history.mjs --self-test
  */
 
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 import { parseScanHistory, detectReposts } from './detect-reposts.mjs';
 import { normalizeCompany, resolveTrackerPath } from './tracker-utils.mjs';
@@ -84,13 +84,13 @@ const KNOWN_FLAGS = ['--summary', '--self-test', '--company', '--silence-window'
 const VALUE_FLAGS = ['--company', '--silence-window', '--scan-history', '--followups'];
 
 const USAGE = `Usage:
-  node company-history.mjs                       # full JSON evidence cards to stdout
-  node company-history.mjs --summary              # human-readable cards
-  node company-history.mjs --company "Acme"       # single-card lookup
-  node company-history.mjs --silence-window 21    # override the default silence window (days)
-  node company-history.mjs --include-stale        # include facts older than 365d in label computation
-  node company-history.mjs --self-test            # run the in-memory test suite
-  node company-history.mjs --help                 # print this usage block and exit`;
+  bun company-history.mjs                       # full JSON evidence cards to stdout
+  bun company-history.mjs --summary              # human-readable cards
+  bun company-history.mjs --company "Acme"       # single-card lookup
+  bun company-history.mjs --silence-window 21    # override the default silence window (days)
+  bun company-history.mjs --include-stale        # include facts older than 365d in label computation
+  bun company-history.mjs --self-test            # run the in-memory test suite
+  bun company-history.mjs --help                 # print this usage block and exit`;
 
 function parseArgs(argv) {
   const args = argv.slice(2);
@@ -348,7 +348,7 @@ export function computeResponsiveness(rows, followupCountsByAppNum, opts = {}) {
         // Real set-status.mjs syntax (it rejects unknown flags, so the
         // instruction must only use flags that exist): the response date is
         // recorded through --note, which appends idempotently.
-        clearInstruction: `if they actually responded, node set-status.mjs ${row.num} <state> --note "responded <date>" clears this`,
+        clearInstruction: `if they actually responded, bun set-status.mjs ${row.num} <state> --note "responded <date>" clears this`,
       });
     } else if (RESPONDED_STATUSES.has(normalized)) {
       // row.date is the EVALUATION date, not the date the company replied. Use
@@ -530,7 +530,7 @@ export function renderSummary(result) {
 
   const aged = result.hygiene?.agedApplied || [];
   if (aged.length > 0) {
-    lines.push(`  ${aged.length} aged-Applied row(s) look silent — confirm real or update (node set-status.mjs <num> <state> --note "responded <date>").`);
+    lines.push(`  ${aged.length} aged-Applied row(s) look silent — confirm real or update (bun set-status.mjs <num> <state> --note "responded <date>").`);
     lines.push('');
   }
 

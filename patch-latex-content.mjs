@@ -1,10 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * patch-latex-content.mjs — Apply prose patches to a user-owned LaTeX CV in place.
  *
  * Usage:
- *   node patch-latex-content.mjs <source.tex> <patches.json> <output.tex>
+ *   bun patch-latex-content.mjs <source.tex> <patches.json> <output.tex>
  *
  * patches.json:
  *   { "patches": [ { "id": "bullet-0", "text": "Tailored bullet text" } ] }
@@ -24,7 +24,7 @@ async function main() {
   const [sourcePath, patchesPath, outputPath] = args;
 
   if (!sourcePath || !patchesPath || !outputPath) {
-    console.error('Usage: node patch-latex-content.mjs <source.tex> <patches.json> <output.tex>');
+    console.error('Usage: bun patch-latex-content.mjs <source.tex> <patches.json> <output.tex>');
     process.exit(1);
   }
 

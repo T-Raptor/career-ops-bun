@@ -123,7 +123,7 @@ claude   # ou gemini / codex / qwen / opencode — abra sua CLI de IA aqui
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # necessário apenas para geração de PDF
+bunx playwright install chromium   # necessário apenas para geração de PDF
 claude
 ```
 
@@ -196,8 +196,8 @@ O scanner já vem com **45+ empresas** prontas para escanear e **19 consultas de
 O dashboard de terminal integrado permite navegar visualmente pelo seu pipeline:
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 Recursos: 6 abas de filtro, 4 modos de ordenação, visualização agrupada/plana, prévias com carregamento sob demanda e alterações de status inline.

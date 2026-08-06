@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * validate-untrusted-content-coverage.mjs — structural coverage check for the
@@ -20,7 +20,7 @@
  * it). A missing reference is a coverage gap: a new/edited mode can silently
  * lose the directive with no signal until it's exploited.
  *
- * Run: node validate-untrusted-content-coverage.mjs
+ * Run: bun validate-untrusted-content-coverage.mjs
  * Exit 0 = clean. Exit 1 = coverage gap listed.
  */
 

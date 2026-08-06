@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * agent-inbox-tests.mjs — regression tests for agent-inbox.mjs.

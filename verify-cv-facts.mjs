@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * Verify generated candidate-facing documents against the user's source facts.
@@ -7,9 +7,9 @@
  * shared by PDF generators so every generated document gets the same gate.
  *
  * Usage:
- *   node verify-cv-facts.mjs <generated-cv.html|md|tex>
- *   node verify-cv-facts.mjs <generated-cv> --source cv.md --source article-digest.md
- *   node verify-cv-facts.mjs --self-test
+ *   bun verify-cv-facts.mjs <generated-cv.html|md|tex>
+ *   bun verify-cv-facts.mjs <generated-cv> --source cv.md --source article-digest.md
+ *   bun verify-cv-facts.mjs --self-test
  */
 
 import { existsSync, readFileSync } from 'fs';
@@ -384,8 +384,8 @@ function parseCliArgs(args) {
 
 /** Return the command-line usage text. */
 function usage() {
-  return `Usage: node verify-cv-facts.mjs <generated-document> [--source path] [--config path] [--json]
-       node verify-cv-facts.mjs --self-test
+  return `Usage: bun verify-cv-facts.mjs <generated-document> [--source path] [--config path] [--json]
+       bun verify-cv-facts.mjs --self-test
 
 Checks generated candidate-facing text for unsupported metrics and explicitly asserted
 non-metric facts (employers, titles, and tools) absent from source files.

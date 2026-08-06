@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * jd-similarity.mjs — deterministic CV reuse recommendation for similar JDs.
  *
@@ -6,7 +6,7 @@
  * never deletes or overwrites an existing CV.
  *
  * Usage:
- *   node jd-similarity.mjs new-jd.txt previous-jd-or-cv.txt
+ *   bun jd-similarity.mjs new-jd.txt previous-jd-or-cv.txt
  */
 
 import { readFileSync } from 'fs';
@@ -81,7 +81,7 @@ export function recommendCvReuse(newJd, previousText, options = {}) {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const [newJdPath, previousPath] = process.argv.slice(2);
   if (!newJdPath || !previousPath) {
-    console.error('Usage: node jd-similarity.mjs <new-jd.txt> <previous-jd-or-cv.txt>');
+    console.error('Usage: bun jd-similarity.mjs <new-jd.txt> <previous-jd-or-cv.txt>');
     process.exit(1);
   }
   try {

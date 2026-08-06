@@ -16,7 +16,7 @@ Requires Node 20+.
 ```bash
 cd web
 npm ci
-npm run dev
+bun run dev
 ```
 
 Open http://localhost:3000. The app reads the career-ops checkout it lives in
@@ -45,9 +45,9 @@ Open http://localhost:3000. The app reads the career-ops checkout it lives in
 ## Development
 
 ```bash
-npm run dev          # dev server (Turbopack)
+bun run dev          # dev server (Turbopack)
 npx tsc --noEmit     # typecheck
-npm run build        # production build
+bun run build        # production build
 ```
 
 Set `CAREER_OPS_ROOT=/path/to/checkout` in `web/.env.local` to point the app at

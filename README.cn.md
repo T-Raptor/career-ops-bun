@@ -123,7 +123,7 @@ claude   # 或 gemini / codex / qwen / opencode —— 在这里打开你的 AI 
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # 仅生成 PDF 时需要
+bunx playwright install chromium   # 仅生成 PDF 时需要
 claude   # 打开你的 AI CLI —— 它会在首次启动时引导你完成设置
 ```
 
@@ -169,9 +169,9 @@ cp .env.example .env
 npm install
 
 # 3. 评估职位描述
-node gemini-eval.mjs "我们在招聘资深 AI 工程师..."
-node gemini-eval.mjs --file ./jds/my-job.txt
-npm run gemini:eval -- "职位描述文本"
+bun gemini-eval.mjs "我们在招聘资深 AI 工程师..."
+bun gemini-eval.mjs --file ./jds/my-job.txt
+bun run gemini:eval -- "职位描述文本"
 ```
 
 > **免费层：** 两种选项都无需付费。原生 CLI 使用 Google OAuth；API 脚本使用 `gemini-3.6-flash`（速率限制取决于模型和层级；请参阅 Google AI 文档了解当前配额）。
@@ -239,8 +239,8 @@ career-ops 是一个单一斜杠命令，带有多种模式：
 内置终端仪表盘可以让你更直观地浏览整个求职管道：
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 功能包括：6 个筛选标签、4 种排序模式、分组/平铺视图、懒加载预览、行内状态修改。

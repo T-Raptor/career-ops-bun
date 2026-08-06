@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * merge-tracker.mjs — Merge batch tracker additions into applications.md
  *
@@ -11,7 +11,7 @@
  * If duplicate with higher score → update in-place, update report link
  * Validates status against states.yml (rejects non-canonical, logs warning)
  *
- * Run: node career-ops/merge-tracker.mjs [--dry-run] [--verify]
+ * Run: bun career-ops/merge-tracker.mjs [--dry-run] [--verify]
  */
 
 import { readFileSync, readdirSync, mkdirSync, renameSync, existsSync } from 'fs';
@@ -582,7 +582,7 @@ if (MERGE_HOLD_MS > 0) {
 }
 
 // One-time migration: rewrite existing report links so they resolve relative
-// to the tracker file's directory (see #760). Run with: node merge-tracker.mjs --migrate
+// to the tracker file's directory (see #760). Run with: bun merge-tracker.mjs --migrate
 if (MIGRATE) {
   const migrated = appContent
     .split('\n')
@@ -603,7 +603,7 @@ if (MIGRATE) {
 // Company. Header-aware readers auto-detect both layouts, so this is optional —
 // it exists for users who want the column added to an existing tracker.
 // Idempotent: a tracker that already has a Via column is left untouched.
-// Run with: node merge-tracker.mjs --migrate-via [--dry-run]
+// Run with: bun merge-tracker.mjs --migrate-via [--dry-run]
 if (MIGRATE_VIA) {
   const lines = appContent.split('\n');
   const colmap = detectColumns(lines) || LEGACY_COLMAP;
@@ -762,7 +762,7 @@ for (const file of tsvFiles) {
   // make the cross-channel duplicate guard see a channel mismatch and add a
   // second ? row instead of updating the same-agency re-blast.
   if (addition.via && COLMAP.via == null) {
-    console.warn(`⚠️  ${file}: carries via=${addition.via} but the tracker has no Via column — value dropped. Add it with: node merge-tracker.mjs --migrate-via`);
+    console.warn(`⚠️  ${file}: carries via=${addition.via} but the tracker has no Via column — value dropped. Add it with: bun merge-tracker.mjs --migrate-via`);
     addition.via = '';
   }
 
@@ -1012,7 +1012,7 @@ trackerLock.release();
 // Sync PDF flags (idempotent; uses its own lock/transaction)
 if (!DRY_RUN) {
   try {
-    execFileSync('node', [join(CAREER_OPS, 'sync-pdf-flags.mjs')], { stdio: 'inherit' });
+    execFileSync(process.execPath, [join(CAREER_OPS, 'sync-pdf-flags.mjs')], { stdio: 'inherit' });
   } catch (e) {
     console.warn(`⚠️  Failed to sync PDF flags: ${e.message}`);
   }
@@ -1022,7 +1022,7 @@ if (!DRY_RUN) {
 if (VERIFY && !DRY_RUN) {
   console.log('\n--- Running verification ---');
   try {
-    execFileSync('node', [join(CAREER_OPS, 'verify-pipeline.mjs')], { stdio: 'inherit' });
+    execFileSync(process.execPath, [join(CAREER_OPS, 'verify-pipeline.mjs')], { stdio: 'inherit' });
   } catch (e) {
     process.exit(1);
   }

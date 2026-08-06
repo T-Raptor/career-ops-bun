@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * match-star.mjs — Zero-LLM, zero-browser ATS behavioural question matcher.
@@ -8,10 +8,10 @@
  * formatted to ATS paste length (250–500 words).
  *
  * Usage:
- *   node match-star.mjs "Tell me about a time you led a project under pressure"
- *   node match-star.mjs "Describe a conflict you resolved" --jd jds/acme.md
- *   node match-star.mjs "Give an example of handling ambiguity" --top 2
- *   node match-star.mjs --list    # list all stories with their tags
+ *   bun match-star.mjs "Tell me about a time you led a project under pressure"
+ *   bun match-star.mjs "Describe a conflict you resolved" --jd jds/acme.md
+ *   bun match-star.mjs "Give an example of handling ambiguity" --top 2
+ *   bun match-star.mjs --list    # list all stories with their tags
  */
 
 import { readFileSync, existsSync } from 'fs';
@@ -218,8 +218,8 @@ if (LIST_MODE) {
 }
 
 if (!question) {
-  console.error('Usage: node match-star.mjs "<behavioural question>" [--jd <file>] [--top <n>]');
-  console.error('       node match-star.mjs --list');
+  console.error('Usage: bun match-star.mjs "<behavioural question>" [--jd <file>] [--top <n>]');
+  console.error('       bun match-star.mjs --list');
   process.exit(1);
 }
 

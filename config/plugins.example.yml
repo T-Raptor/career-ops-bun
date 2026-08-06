@@ -8,7 +8,7 @@
 #   1. Enable it here (enabled: true) + any non-secret settings.
 #   2. Put the SECRET values (API keys/tokens) in your .env — NEVER here.
 #      Each plugin declares which env vars it needs; see .env.example and
-#      `node doctor.mjs` (lists every plugin + whether its keys are present).
+#      `bun doctor.mjs` (lists every plugin + whether its keys are present).
 #
 # config/plugins.yml is yours: gitignored, never auto-updated. Bundled plugins
 # live in plugins/; your own private plugins go in plugins.local/.
@@ -21,14 +21,14 @@ plugins:
     enabled: false
 
   # ── notion (export + search) ── mirror your tracker to a Notion DB / read records. (features #667/#668, ported from PR #959)
-  # Needs NOTION_ACCESS_TOKEN + NOTION_PARENT_PAGE_ID in .env. Run via `node plugins.mjs run notion export`.
+  # Needs NOTION_ACCESS_TOKEN + NOTION_PARENT_PAGE_ID in .env. Run via `bun plugins.mjs run notion export`.
   # The DB is resolved by NAME ("Applications") under your parent page — no id needed here.
   notion:
     enabled: false
 
   # ── gmail (ingest) ── pull job leads from a Gmail label into your pipeline. (feature #810, ported from PR #1203)
   # Needs GMAIL_CLIENT_ID + GMAIL_CLIENT_SECRET + GMAIL_REFRESH_TOKEN in .env.
-  # Run via `node plugins.mjs run gmail`.
+  # Run via `bun plugins.mjs run gmail`.
   gmail:
     enabled: false
     # label: "Job Leads"     # the Gmail label to scan

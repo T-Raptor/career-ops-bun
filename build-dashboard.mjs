@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // build-dashboard.mjs — cross-platform build for the Go TUI dashboard.
 //
 // `go build -o career-dashboard .` writes an extension-less binary on Windows
@@ -31,4 +31,4 @@ if (result.status !== 0) {
   process.exit(result.status ?? 1);
 }
 
-console.log(`Built dashboard/${out} — run it with: npm run serve:dashboard (or dashboard/${out} --path .)`);
+console.log(`Built dashboard/${out} — run it with: bun run serve:dashboard (or dashboard/${out} --path .)`);

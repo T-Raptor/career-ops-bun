@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 import { readFile, writeFile, stat } from 'fs/promises';
 import { existsSync } from 'fs';
@@ -80,8 +80,8 @@ async function main() {
 
   if (args.length === 0 || args.includes('--help')) {
     console.error('Usage:');
-    console.error('  node build-cv-latex.mjs <input.json> <output.tex>');
-    console.error('  node build-cv-latex.mjs --test');
+    console.error('  bun build-cv-latex.mjs <input.json> <output.tex>');
+    console.error('  bun build-cv-latex.mjs --test');
     process.exit(1);
   }
 
@@ -93,7 +93,7 @@ async function main() {
   const [inputPath, outputPath] = args;
 
   if (!inputPath || !outputPath) {
-    console.error('Usage: node build-cv-latex.mjs <input.json> <output.tex>');
+    console.error('Usage: bun build-cv-latex.mjs <input.json> <output.tex>');
     process.exit(1);
   }
 

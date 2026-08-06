@@ -1,6 +1,6 @@
 # Templates
 
-System-layer template files used by career-ops scripts and modes. These files are auto-updated when you run `npm run update` -- put user customizations in the user-layer files instead (see DATA_CONTRACT.md).
+System-layer template files used by career-ops scripts and modes. These files are auto-updated when you run `bun run update` -- put user customizations in the user-layer files instead (see DATA_CONTRACT.md).
 
 ## Files
 
@@ -50,10 +50,10 @@ LaTeX template for Overleaf-compatible CV generation. Based on the [sb2nov/resum
 **Usage:**
 ```bash
 # Validate and compile .tex → .pdf (requires pdflatex on PATH)
-node generate-latex.mjs output/cv-name-company-date.tex
+bun generate-latex.mjs output/cv-name-company-date.tex
 
 # Or specify a custom output path
-node generate-latex.mjs output/cv-name-company-date.tex output/custom-name.pdf
+bun generate-latex.mjs output/cv-name-company-date.tex output/custom-name.pdf
 ```
 
 **Prerequisites:** `pdflatex` via [MiKTeX](https://miktex.org/) (Windows) or TeX Live (Linux/macOS). First compilation may auto-install missing LaTeX packages. Alternatively, upload the `.tex` file directly to [Overleaf](https://www.overleaf.com) — no local install needed.

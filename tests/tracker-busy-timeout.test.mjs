@@ -20,10 +20,12 @@ const work = mkdtempSync(join(tmpdir(), 'cops-busy-'));
 process.env.CAREER_OPS_TRACKER_DB = join(work, 'applications.db');
 
 try {
-  const { DatabaseSync } = await import('node:sqlite');
+  const DbClass = process.versions.bun
+    ? (await import('bun:sqlite')).Database
+    : (await import('node:sqlite')).DatabaseSync;
   const { openDb } = await import(new URL('../tracker.mjs', import.meta.url).href);
 
-  const db = openDb(DatabaseSync);
+  const db = openDb(DbClass);
   const { timeout } = db.prepare('PRAGMA busy_timeout').get();
   db.close();
 

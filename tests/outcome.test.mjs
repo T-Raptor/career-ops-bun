@@ -36,7 +36,7 @@ try {
 
   // Test 1: Help command
   const helpOut = execFileSync(NODE, [OUTCOME_SCRIPT, '--help'], { encoding: 'utf-8' });
-  check('outcome.mjs --help returns usage info', helpOut.includes('Usage: node outcome.mjs'));
+  check('outcome.mjs --help returns usage info', helpOut.includes('Usage: bun outcome.mjs'));
 
   // Test 2: Invalid outcome type
   try {

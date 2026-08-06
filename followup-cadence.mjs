@@ -1,20 +1,20 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * followup-cadence.mjs — Follow-up Cadence Tracker for career-ops
  *
  * Parses applications.md + follow-ups.md, calculates follow-up cadence
  * for active applications, extracts contacts, and flags overdue entries.
  *
- * Run: node followup-cadence.mjs             (JSON to stdout)
- *      node followup-cadence.mjs --summary   (human-readable dashboard)
- *      node followup-cadence.mjs --overdue-only
- *      node followup-cadence.mjs --applied-days 10
+ * Run: bun followup-cadence.mjs             (JSON to stdout)
+ *      bun followup-cadence.mjs --summary   (human-readable dashboard)
+ *      bun followup-cadence.mjs --overdue-only
+ *      bun followup-cadence.mjs --applied-days 10
  */
 
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname, relative, sep } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { resolveColumns, parseTrackerRow } from './tracker-parse.mjs';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));

@@ -48,7 +48,7 @@ reusable tool that feeds the scanner.
 Preview (the default — writes nothing, prints the entries it would add):
 
 ```bash
-node discover-ats.mjs --in companies.yml
+bun discover-ats.mjs --in companies.yml
 ```
 
 Write — the user must explicitly opt in with `--write` to modify `portals.yml`
@@ -56,16 +56,16 @@ Write — the user must explicitly opt in with `--write` to modify `portals.yml`
 it does not create a Git commit:
 
 ```bash
-node discover-ats.mjs --in companies.yml --write
+bun discover-ats.mjs --in companies.yml --write
 ```
 
 Other forms:
 
 ```bash
-node discover-ats.mjs Stripe Ramp Mollie          # names as positional args
-node discover-ats.mjs --in companies.yml --summary # human-readable table
-node discover-ats.mjs --in companies.yml --vendors gh,ashby  # restrict probes
-node discover-ats.mjs --in companies.yml --vendors workday   # Workday only
+bun discover-ats.mjs Stripe Ramp Mollie          # names as positional args
+bun discover-ats.mjs --in companies.yml --summary # human-readable table
+bun discover-ats.mjs --in companies.yml --vendors gh,ashby  # restrict probes
+bun discover-ats.mjs --in companies.yml --vendors workday   # Workday only
 ```
 
 Vendor keywords for `--vendors`: `gh`, `ashby`, `lever` (slug-resolvable) and

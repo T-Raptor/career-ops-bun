@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * assessment-log.mjs — Skills-assessment event logger (eSkill, HackerRank, Criteria, ...)
  *
@@ -18,12 +18,12 @@
  * Future work (out of scope here): fold per-vendor staleness rates into
  * analyze-patterns.mjs the way ATS channel yield is analyzed today.
  *
- * Run: node assessment-log.mjs add --company <name> [--report <num>] \
+ * Run: bun assessment-log.mjs add --company <name> [--report <num>] \
  *        --platform <vendor> --subject <topic> [--threshold <pct>] \
  *        [--score <pct>] [--stale "<observed staleness note>"]
- *      node assessment-log.mjs             (JSON)
- *      node assessment-log.mjs --summary   (human-readable)
- *      node assessment-log.mjs --self-test
+ *      bun assessment-log.mjs             (JSON)
+ *      bun assessment-log.mjs --summary   (human-readable)
+ *      bun assessment-log.mjs --self-test
  */
 
 import { readFileSync, existsSync, appendFileSync, mkdirSync } from 'fs';
@@ -143,7 +143,7 @@ function addEntry(args) {
     row = buildRow(fields, today);
   } catch (e) {
     console.error(`assessment-log: ${e.message}`);
-    console.error('Usage: node assessment-log.mjs add --company <name> [--report <num>] --platform <vendor> --subject <topic> [--threshold <pct>] [--score <pct>] [--stale "<note>"]');
+    console.error('Usage: bun assessment-log.mjs add --company <name> [--report <num>] --platform <vendor> --subject <topic> [--threshold <pct>] [--score <pct>] [--stale "<note>"]');
     process.exit(1);
   }
   // Append-only: existing rows are never rewritten. Create with header comment on first use.
@@ -240,7 +240,7 @@ function printSummary(result) {
 
   if (!assessments.length) {
     console.log('  No assessments logged yet.');
-    console.log('  Log one: node assessment-log.mjs add --company <name> --platform <vendor> --subject <topic>');
+    console.log('  Log one: bun assessment-log.mjs add --company <name> --platform <vendor> --subject <topic>');
   } else {
     console.log('  Events:');
     for (const a of assessments) {

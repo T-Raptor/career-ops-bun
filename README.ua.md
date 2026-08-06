@@ -126,7 +126,7 @@ claude   # or gemini / codex / qwen / opencode — open your AI CLI here
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # only needed for PDF generation
+bunx playwright install chromium   # only needed for PDF generation
 claude
 ```
 
@@ -199,8 +199,8 @@ career-ops — це одна слеш-команда з кількома реж�
 Вбудований термінальний дашборд дозволяє візуально переглядати поточний стан вашого конвеєра:
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 Функції: 6 вкладок фільтрації, 4 режими сортування, групований/плаский вигляд, lazy-load попереднього перегляду, inline зміна статусів.

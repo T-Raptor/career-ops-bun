@@ -154,10 +154,10 @@ claude   # or codex / qwen / opencode / agy / grok — open your AI CLI here
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # only needed for PDF generation
+bunx playwright install chromium   # only needed for PDF generation
 
 # 2. Check setup
-npm run doctor                     # Validates all prerequisites
+bun run doctor                     # Validates all prerequisites
 
 # 3. Configure
 cp config/profile.example.yml config/profile.yml  # Edit with your details
@@ -289,10 +289,10 @@ cp .env.example .env
 npm install
 
 # 3. Evaluate a job description
-node gemini-eval.mjs "We are looking for a Senior AI Engineer..."
-node gemini-eval.mjs --file ./jds/my-job.txt
-node agent-inbox.mjs add "..."   # queue a request for the next session
-npm run gemini:eval -- "JD text here"
+bun gemini-eval.mjs "We are looking for a Senior AI Engineer..."
+bun gemini-eval.mjs --file ./jds/my-job.txt
+bun agent-inbox.mjs add "..."   # queue a request for the next session
+bun run gemini:eval -- "JD text here"
 ```
 
 > **Free tier:** Both options work without billing. Native CLI uses Google OAuth; the API script uses `gemini-3.6-flash` (rate limits are model- and tier-dependent; see Google AI docs for current quotas).
@@ -360,10 +360,10 @@ The scanner comes with **100+ companies** ready to scan and **45+ search queries
 
 **Job boards searched:** 55+ provider modules cover ATS APIs, board-wide feeds, XML/RSS feeds, markdown feeds, and local parsers. See [Supported job boards](docs/SUPPORTED_JOB_BOARDS.md) for the full table.
 
-By default `node scan.mjs` (a.k.a. `npm run scan`) trusts what each ATS feed returns. Some companies leave stale postings in their public API even after the role is closed, so those expired entries can leak into `pipeline.md`. Pass `--verify` to launch Playwright after the API pass and drop expired postings before they hit the pipeline:
+By default `bun scan.mjs` (a.k.a. `bun run scan`) trusts what each ATS feed returns. Some companies leave stale postings in their public API even after the role is closed, so those expired entries can leak into `pipeline.md`. Pass `--verify` to launch Playwright after the API pass and drop expired postings before they hit the pipeline:
 
 ```bash
-node scan.mjs --verify          # zero-token discovery + Playwright liveness check
+bun scan.mjs --verify          # zero-token discovery + Playwright liveness check
 ```
 
 The verification is sequential and only runs against new offers (after dedup), so the cost stays bounded.
@@ -373,8 +373,8 @@ The verification is sequential and only runs against new offers (after dedup), s
 The built-in terminal dashboard lets you browse your pipeline visually:
 
 ```bash
-npm run serve:dashboard   # launch the TUI
-npm run build:dashboard   # optional: build the standalone binary
+bun run serve:dashboard   # launch the TUI
+bun run build:dashboard   # optional: build the standalone binary
 ```
 
 Features: 6 filter tabs, 4 sort modes, grouped/flat view, lazy-loaded previews, inline status changes.

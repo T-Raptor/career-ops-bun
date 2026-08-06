@@ -4,7 +4,7 @@
  * Focuses on the `responded` branch, where the first follow-up after a recruiter
  * reply must be scheduled with `responded_initial`, not `responded_subsequent`.
  *
- * Run: node followup-cadence.test.mjs
+ * Run: bun followup-cadence.test.mjs
  */
 
 import { dirname, join } from 'path';

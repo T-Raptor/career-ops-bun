@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * set-status.mjs — canonical CLI to update a tracker row's status/note (#1428).
@@ -8,7 +8,7 @@
  * modes (apply Step 9, followup, batch) call this instead of editing the table.
  *
  * Usage:
- *   node set-status.mjs <report#|company> <state> [--note "..."] [--role "..."] [--force] [--dry-run] [--json]
+ *   bun set-status.mjs <report#|company> <state> [--note "..."] [--role "..."] [--force] [--dry-run] [--json]
  *
  * Row resolution:
  *   - --row N     → exact match on the # column, stated explicitly
@@ -84,9 +84,9 @@ const STATES_FILE = join(CAREER_OPS, 'templates/states.yml');
 // acquireTrackerLockForCli() itself (tracker-utils.mjs), via CLI_EXIT.LOCK_TIMEOUT.
 const { OK: EXIT_OK, USAGE: EXIT_USAGE, NOT_FOUND: EXIT_NOT_FOUND, AMBIGUOUS: EXIT_AMBIGUOUS } = CLI_EXIT;
 
-const USAGE = `Usage: node set-status.mjs <report#|company> <state> [--note "..."] [--role "..."] [--on YYYY-MM-DD] [--force] [--dry-run] [--json]
-       node set-status.mjs --row N <state> [...]        (explicit tracker row ID)
-       node set-status.mjs --report N <state> [...]     (explicit report ID)
+const USAGE = `Usage: bun set-status.mjs <report#|company> <state> [--note "..."] [--role "..."] [--on YYYY-MM-DD] [--force] [--dry-run] [--json]
+       bun set-status.mjs --row N <state> [...]        (explicit tracker row ID)
+       bun set-status.mjs --report N <state> [...]     (explicit report ID)
 
   <report#|company>  Row selector: tracker # (exact) or company name (normalized match)
   <state>            Canonical state from templates/states.yml (aliases accepted)
@@ -520,7 +520,7 @@ if (flags.json) {
   const verb = flags.dryRun ? 'would set' : changed ? 'set' : 'already';
   console.log(`✅ #${target.num} ${target.company} — ${target.role}: ${verb} ${oldStatus} → ${newStatus}${note ? ` (note: ${note})` : ''}`);
   if (statusChanged && !flags.dryRun && newStatus === 'Applied') {
-    console.error('ℹ️  Status is Applied — consider seeding follow-ups in data/follow-ups.md (#1430: node followup-cadence.mjs)');
+    console.error('ℹ️  Status is Applied — consider seeding follow-ups in data/follow-ups.md (#1430: bun followup-cadence.mjs)');
   }
 }
 process.exit(EXIT_OK);

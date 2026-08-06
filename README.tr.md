@@ -148,10 +148,10 @@ claude   # veya codex / qwen / opencode / agy / grok — yapay zekâ CLI'nizi bu
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # yalnızca PDF üretimi için gerekli
+bunx playwright install chromium   # yalnızca PDF üretimi için gerekli
 
 # 2. Kurulumu kontrol edin
-npm run doctor                     # Tüm ön koşulları doğrular
+bun run doctor                     # Tüm ön koşulları doğrular
 
 # 3. Yapılandırın
 cp config/profile.example.yml config/profile.yml  # Kendi bilgilerinizle düzenleyin
@@ -271,10 +271,10 @@ cp .env.example .env
 npm install
 
 # 3. Bir iş ilanını değerlendirin
-node gemini-eval.mjs "We are looking for a Senior AI Engineer..."
-node gemini-eval.mjs --file ./jds/my-job.txt
-node agent-inbox.mjs add "..."   # bir sonraki oturum için isteği kuyruğa alır
-npm run gemini:eval -- "JD text here"
+bun gemini-eval.mjs "We are looking for a Senior AI Engineer..."
+bun gemini-eval.mjs --file ./jds/my-job.txt
+bun agent-inbox.mjs add "..."   # bir sonraki oturum için isteği kuyruğa alır
+bun run gemini:eval -- "JD text here"
 ```
 
 > **Ücretsiz katman:** Her iki seçenek de faturalandırma olmadan çalışır. Yerel CLI Google OAuth kullanır; API betiği `gemini-2.5-flash` kullanır (dakikada 15 istek, günde 1M token ücretsiz).
@@ -342,10 +342,10 @@ Tarayıcı, taramaya hazır **45+ şirket** ve başlıca iş ilanı panoları ge
 
 **Taranan iş panoları:** ATS API'lerini, pano geneli beslemeleri, XML/RSS beslemelerini, markdown beslemelerini ve yerel ayrıştırıcıları kapsayan 21 sağlayıcı modülü. Tam tablo için bkz. [Desteklenen iş panoları](docs/SUPPORTED_JOB_BOARDS.md).
 
-Varsayılan olarak `node scan.mjs` (`npm run scan` olarak da bilinir), her ATS beslemesinin döndürdüğüne güvenir. Bazı şirketler, rol kapandıktan sonra bile herkese açık API'lerinde eski ilanları bırakır, bu yüzden bu süresi dolmuş kayıtlar `pipeline.md`'ye sızabilir. API geçişinden sonra Playwright'ı başlatıp süresi dolmuş ilanları hatta girmeden önce düşürmek için `--verify` bayrağını geçin:
+Varsayılan olarak `bun scan.mjs` (`bun run scan` olarak da bilinir), her ATS beslemesinin döndürdüğüne güvenir. Bazı şirketler, rol kapandıktan sonra bile herkese açık API'lerinde eski ilanları bırakır, bu yüzden bu süresi dolmuş kayıtlar `pipeline.md`'ye sızabilir. API geçişinden sonra Playwright'ı başlatıp süresi dolmuş ilanları hatta girmeden önce düşürmek için `--verify` bayrağını geçin:
 
 ```bash
-node scan.mjs --verify          # sıfır token'lı keşif + Playwright canlılık kontrolü
+bun scan.mjs --verify          # sıfır token'lı keşif + Playwright canlılık kontrolü
 ```
 
 Doğrulama sıralıdır ve yalnızca (tekrar tespitinden sonra) yeni ilanlara karşı çalışır, bu yüzden maliyet sınırlı kalır.
@@ -355,8 +355,8 @@ Doğrulama sıralıdır ve yalnızca (tekrar tespitinden sonra) yeni ilanlara ka
 Yerleşik terminal panosu, hattınızı görsel olarak gezmenizi sağlar:
 
 ```bash
-npm run serve:dashboard   # TUI'yi başlat
-npm run build:dashboard   # opsiyonel: bağımsız ikili dosyayı derle
+bun run serve:dashboard   # TUI'yi başlat
+bun run build:dashboard   # opsiyonel: bağımsız ikili dosyayı derle
 ```
 
 Özellikler: 6 filtre sekmesi, 4 sıralama modu, gruplanmış/düz görünüm, geç yüklenen önizlemeler, satır içi durum değişiklikleri.

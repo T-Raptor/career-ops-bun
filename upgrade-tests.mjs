@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * upgrade-tests.mjs — dynamic upgrade regression harness (Layer 1: PR gate).
  *
@@ -13,8 +13,8 @@
  * VERSION (apply has no version gate; equal-VERSION content drift is normal).
  *
  * Usage:
- *   node upgrade-tests.mjs --pr-gate    # newest old tag -> HEAD, one leg
- *   node upgrade-tests.mjs --canary     # planted user-file clobber must go RED
+ *   bun upgrade-tests.mjs --pr-gate    # newest old tag -> HEAD, one leg
+ *   bun upgrade-tests.mjs --canary     # planted user-file clobber must go RED
  */
 import { execFileSync } from 'child_process';
 import { createHash } from 'crypto';
@@ -241,5 +241,5 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const mode = process.argv[2];
   if (mode === '--pr-gate') prGate();
   else if (mode === '--canary') canary();
-  else { console.error('Usage: node upgrade-tests.mjs --pr-gate | --canary'); process.exit(1); }
+  else { console.error('Usage: bun upgrade-tests.mjs --pr-gate | --canary'); process.exit(1); }
 }

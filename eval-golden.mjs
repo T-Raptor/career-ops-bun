@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * eval-golden.mjs — golden-set eval harness for cheap-model routing (#1354)
  *
@@ -18,9 +18,9 @@
  *   - per-model $/run      → COST_PER_RUN_USD (empty until routing rates agreed)
  *
  * Usage:
- *   node eval-golden.mjs --replay --model cheap-stub     # offline, deterministic ($0)
- *   node eval-golden.mjs --live   --model gpt-4o-mini    # calls openai-eval.mjs (needs key + cv.md)
- *   npm run eval:golden -- --replay --model cheap-stub
+ *   bun eval-golden.mjs --replay --model cheap-stub     # offline, deterministic ($0)
+ *   bun eval-golden.mjs --live   --model gpt-4o-mini    # calls openai-eval.mjs (needs key + cv.md)
+ *   bun run eval:golden -- --replay --model cheap-stub
  */
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdtempSync, rmSync } from 'fs';

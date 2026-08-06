@@ -127,7 +127,7 @@ claude   # ou gemini / codex / qwen / opencode — ouvrez votre CLI d'IA ici
 ```bash
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # requis uniquement pour la génération de PDF
+bunx playwright install chromium   # requis uniquement pour la génération de PDF
 claude   # ouvrez votre CLI d'IA — il vous guidera au premier lancement
 ```
 
@@ -174,9 +174,9 @@ cp .env.example .env
 npm install
 
 # 3. Évaluez une description de poste
-node gemini-eval.mjs "We are looking for a Senior AI Engineer..."
-node gemini-eval.mjs --file ./jds/my-job.txt
-npm run gemini:eval -- "Texte de la description de poste ici"
+bun gemini-eval.mjs "We are looking for a Senior AI Engineer..."
+bun gemini-eval.mjs --file ./jds/my-job.txt
+bun run gemini:eval -- "Texte de la description de poste ici"
 ```
 
 > **Offre gratuite :** Les deux options fonctionnent sans facturation. Le CLI natif utilise l'authentification OAuth Google ; le script d'API utilise `gemini-3.6-flash` (les limites de requêtes dépendent du modèle et du niveau d'accès ; voir la documentation Google AI pour les quotas actuels).
@@ -240,10 +240,10 @@ Le scanner est livré avec **plus de 45 entreprises** prêtes à être analysée
 
 **Plateformes d'emploi scannées :** Ashby, Greenhouse, Lever, Wellfound, Workable, RemoteFront  
 
-Par défaut, `node scan.mjs` (alias `npm run scan`) fait confiance aux données renvoyées par les flux ATS. Certaines entreprises laissent des offres obsolètes actives sur leurs API publiques même après la fermeture du poste, ce qui peut polluer `pipeline.md`. Passez l'option `--verify` pour lancer Playwright après l'analyse de l'API afin de supprimer les offres expirées :
+Par défaut, `bun scan.mjs` (alias `bun run scan`) fait confiance aux données renvoyées par les flux ATS. Certaines entreprises laissent des offres obsolètes actives sur leurs API publiques même après la fermeture du poste, ce qui peut polluer `pipeline.md`. Passez l'option `--verify` pour lancer Playwright après l'analyse de l'API afin de supprimer les offres expirées :
 
 ```bash
-node scan.mjs --verify          # découverte sans jeton + vérification de l'état actif via Playwright
+bun scan.mjs --verify          # découverte sans jeton + vérification de l'état actif via Playwright
 ```
 
 La vérification est séquentielle et ne s'exécute que sur les nouvelles offres (après déduplication), afin de limiter l'utilisation des ressources.

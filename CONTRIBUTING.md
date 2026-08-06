@@ -104,7 +104,7 @@ To propose a source (yours or anyone's): [open a source proposal](https://github
 
 - Keep modes language-agnostic when possible (Claude handles both EN and ES)
 - Scripts should handle missing files gracefully (check `existsSync` before `readFileSync`)
-- Dashboard changes require a build (`npm run build:dashboard`) — test with real data before submitting
+- Dashboard changes require a build (`bun run build:dashboard`) — test with real data before submitting
 - Don't commit personal data (cv.md, profile.yml, applications.md, reports/)
 
 ## What we do NOT accept
@@ -123,18 +123,18 @@ To propose a source (yours or anyone's): [open a source proposal](https://github
 
 ```bash
 # Scripts
-npm run doctor                # Setup validation
-node verify-pipeline.mjs     # Health check
-node cv-sync-check.mjs        # Config check
+bun run doctor                # Setup validation
+bun verify-pipeline.mjs     # Health check
+bun cv-sync-check.mjs        # Config check
 
 # Dashboard
-npm run build:dashboard       # go build with platform-correct binary name
-npm run serve:dashboard       # launch the TUI against the repo root
+bun run build:dashboard       # go build with platform-correct binary name
+bun run serve:dashboard       # launch the TUI against the repo root
 
 # Tests
-node test-all.mjs             # Full suite — run before pushing/opening a PR
-node test-all.mjs --quick     # Full suite, skipping the dashboard build
-node test-all.mjs --only providers/themuse   # Run just one provider's test(s)
+bun test-all.mjs             # Full suite — run before pushing/opening a PR
+bun test-all.mjs --quick     # Full suite, skipping the dashboard build
+bun test-all.mjs --only providers/themuse   # Run just one provider's test(s)
 ```
 
 **Adding a test for a new scanner provider:** add one file at
@@ -145,7 +145,7 @@ no registration needed. Do not add a section to `test-all.mjs` for this.
 `tests/` files matching the given substring and skips every inline core
 section (syntax, scripts, dashboard, data contract, personal data, paths,
 etc.). A green `--only` run is **not** a green suite — always run the full
-`node test-all.mjs` before pushing.
+`bun test-all.mjs` before pushing.
 
 ## Brand and Trademark
 

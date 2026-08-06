@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * seed-fixture.mjs — materialize a realistic user-data fixture into an install.
  *
@@ -7,8 +7,8 @@
  * manifest so callers can assert byte-identity later.
  *
  * Usage:
- *   node seed-fixture.mjs <targetDir> [--state state-v1.18]
- *   node seed-fixture.mjs --self-test
+ *   bun seed-fixture.mjs <targetDir> [--state state-v1.18]
+ *   bun seed-fixture.mjs --self-test
  */
 import { createHash } from 'crypto';
 import { cpSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, existsSync, mkdirSync } from 'fs';
@@ -119,7 +119,7 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
       process.exit(1);
     }
   } else {
-    console.error('Usage: node seed-fixture.mjs <targetDir> [--state name] | --self-test');
+    console.error('Usage: bun seed-fixture.mjs <targetDir> [--state name] | --self-test');
     process.exit(1);
   }
 }

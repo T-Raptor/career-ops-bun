@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * contacts.mjs — Job-search phonebook → vCard 3.0 exporter
  *
@@ -33,11 +33,11 @@
  * collected into a `quality` object — reported loudly, never dropped
  * silently, never throwing.
  *
- * Run: node contacts.mjs                     (JSON: contacts + quality + total)
- *      node contacts.mjs --summary           (human-readable table)
- *      node contacts.mjs --vcf [path]        (write vCard, default output/contacts.vcf)
- *      node contacts.mjs --vcf --caller-id   (FN as "Jane Doe (Acme recruiter)")
- *      node contacts.mjs --self-test
+ * Run: bun contacts.mjs                     (JSON: contacts + quality + total)
+ *      bun contacts.mjs --summary           (human-readable table)
+ *      bun contacts.mjs --vcf [path]        (write vCard, default output/contacts.vcf)
+ *      bun contacts.mjs --vcf --caller-id   (FN as "Jane Doe (Acme recruiter)")
+ *      bun contacts.mjs --self-test
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, realpathSync, lstatSync } from 'fs';
@@ -340,7 +340,7 @@ function printSummary(contacts, quality) {
     console.log('  No contacts yet.');
     console.log('  Add lines to data/contacts.tsv:');
     console.log('  {name}\\t{company}\\t{type}\\t{title}\\t{phone}\\t{email}\\t{linkedin}\\t{tracker#|-}\\t{notes}');
-    console.log('  Export to your phone with: node contacts.mjs --vcf');
+    console.log('  Export to your phone with: bun contacts.mjs --vcf');
   } else {
     const rows = contacts.map(c => [
       c.name, c.company, c.type || '—',
@@ -401,7 +401,7 @@ function writeVcf(contacts, quality) {
   const issues = quality.shortRows.length + quality.missingRequired.length
     + quality.invalidTypes.length + quality.duplicates.length;
   if (issues) {
-    console.error(`⚠ ${issues} data-quality issue${issues === 1 ? '' : 's'} in data/contacts.tsv (details: node contacts.mjs --summary):`);
+    console.error(`⚠ ${issues} data-quality issue${issues === 1 ? '' : 's'} in data/contacts.tsv (details: bun contacts.mjs --summary):`);
     if (quality.shortRows.length) console.error(`    ${quality.shortRows.length} row${quality.shortRows.length === 1 ? '' : 's'} with fewer than 4 cells (skipped)`);
     if (quality.missingRequired.length) console.error(`    ${quality.missingRequired.length} row${quality.missingRequired.length === 1 ? '' : 's'} missing name or company (skipped)`);
     if (quality.invalidTypes.length) console.error(`    ${quality.invalidTypes.length} contact${quality.invalidTypes.length === 1 ? '' : 's'} with off-enum type (kept)`);

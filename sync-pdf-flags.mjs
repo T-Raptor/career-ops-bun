@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * sync-pdf-flags.mjs — Reconciles the tracker PDF column against data/pdf-index.tsv.
@@ -10,7 +10,7 @@
  * Runs under the shared tracker lock and replaces the file atomically.
  *
  * Usage:
- *   node sync-pdf-flags.mjs [--dry-run] [--json]
+ *   bun sync-pdf-flags.mjs [--dry-run] [--json]
  */
 
 import { readFileSync, existsSync } from 'fs';
@@ -36,7 +36,7 @@ for (const arg of process.argv.slice(2)) {
 if (unknownOptions.length > 0) {
   const error = `unknown option(s): ${unknownOptions.join(', ')}`;
   if (flags.json) console.error(JSON.stringify({ error, code: 'unknown-option' }));
-  else console.error(`Error: ${error}\nUsage: node sync-pdf-flags.mjs [--dry-run] [--json]`);
+  else console.error(`Error: ${error}\nUsage: bun sync-pdf-flags.mjs [--dry-run] [--json]`);
   process.exit(1);
 }
 

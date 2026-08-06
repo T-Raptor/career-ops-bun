@@ -277,8 +277,8 @@ contracts, plus the bans that are stricter than the shared list.
 
 Resolve the cover-letter template with the shared resolver (do not hardcode `cover-letter-template.html`):
 
-- If the user named a template, run: `node cv-templates.mjs resolve cover "<name>"`
-- Otherwise run: `node cv-templates.mjs resolve cover` (returns the `cover_letter.template` default, or the base template when unset).
+- If the user named a template, run: `bun cv-templates.mjs resolve cover "<name>"`
+- Otherwise run: `bun cv-templates.mjs resolve cover` (returns the `cover_letter.template` default, or the base template when unset).
 
 Fill the resolved template's `{{...}}` placeholders. A non-zero exit means the named template is missing/invalid — surface it, do not silently fall back.
 
@@ -332,7 +332,7 @@ Write payload to `/tmp/cover-payload-{company-slug}.json`.
 
 Run:
 ```bash
-node generate-cover-letter.mjs --payload /tmp/cover-payload-{company-slug}.json
+bun generate-cover-letter.mjs --payload /tmp/cover-payload-{company-slug}.json
 ```
 
 Report the output path and file size.

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * followup-seed-tests.mjs — regression tests for followup-seed.mjs (#1430).
@@ -9,7 +9,7 @@
  * tracker-columns-tests.mjs) end-to-end against sandboxed fixtures, plus a few
  * direct unit-level imports of the exported functions.
  *
- * Run: node followup-seed-tests.mjs
+ * Run: bun followup-seed-tests.mjs
  */
 
 import { execFileSync } from 'child_process';

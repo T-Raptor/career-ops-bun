@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * analyze-patterns.mjs — Rejection Pattern Detector for career-ops
  *
@@ -6,11 +6,11 @@
  * (archetype, seniority, remote, gaps, scores), classifies outcomes,
  * and outputs structured JSON with actionable patterns.
  *
- * Run: node analyze-patterns.mjs          (JSON to stdout)
- *      node analyze-patterns.mjs --summary (human-readable table)
- *      node analyze-patterns.mjs --min-threshold 3
- *      node analyze-patterns.mjs --min-vendor-n 8   (per-vendor sample floor)
- *      node analyze-patterns.mjs --self-test
+ * Run: bun analyze-patterns.mjs          (JSON to stdout)
+ *      bun analyze-patterns.mjs --summary (human-readable table)
+ *      bun analyze-patterns.mjs --min-threshold 3
+ *      bun analyze-patterns.mjs --min-vendor-n 8   (per-vendor sample floor)
+ *      bun analyze-patterns.mjs --self-test
  */
 
 import { readFileSync, existsSync } from 'fs';

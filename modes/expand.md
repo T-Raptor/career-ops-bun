@@ -37,13 +37,13 @@ Fetch public sources linked in the user's `config/profile.yml` (e.g., GitHub use
    EOF_EXPAND_PAYLOAD
    )
 
-   printf '%s' "$PAYLOAD" | node add-entry.mjs --stdin --dry-run
+   printf '%s' "$PAYLOAD" | bun add-entry.mjs --stdin --dry-run
    ```
    Filter out any items that return `"status": "duplicate"`.
 5. **Preview & Confirm Gate.** Show the user the newly discovered, non-duplicate entries. You MUST output your final proposal as a Markdown table containing exactly three columns: | skill | evidence | section |. You **must halt** and ask the user to approve, edit, or cancel. Do **not** proceed without an explicit yes.
 6. **Write via the helper.** For each approved entry, pass the exactly identical stored payload to the final write, avoiding re-derivation:
    ```bash
-   printf '%s' "$PAYLOAD" | node add-entry.mjs --stdin
+   printf '%s' "$PAYLOAD" | bun add-entry.mjs --stdin
    ```
 
 ## Section inference

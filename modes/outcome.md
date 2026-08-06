@@ -7,7 +7,7 @@ Record the outcome of an application conversationally, archive per-application a
 **Phase 1 MVP Scope:**
 - Records outcomes conversationally
 - Archives artifacts in `data/outcomes/{num}_{company_slug}_{role_slug}/`
-- Synchronizes status via `node set-status.mjs`
+- Synchronizes status via `bun set-status.mjs`
 - Append-only outcome logging (never rewrites history)
 - Strictly verbatim feedback recording (never fabricates unstated facts or paraphrases candidate statements)
 
@@ -38,7 +38,7 @@ Record the outcome of an application conversationally, archive per-application a
 Run the helper script:
 
 ```bash
-node outcome.mjs <report#|company> <outcome_type> [--stage "..."] [--feedback "..."] [--note "..."] [--role "..."]
+bun outcome.mjs <report#|company> <outcome_type> [--stage "..."] [--feedback "..."] [--note "..."] [--role "..."]
 ```
 
 ### Script CLI Options

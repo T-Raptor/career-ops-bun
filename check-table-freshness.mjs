@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * check-table-freshness.mjs — Staleness validator for jurisdiction data tables
  *
@@ -41,11 +41,11 @@
  * (bad --max-age-months / --today), 0 otherwise — `review-due` alone never
  * fails the run.
  *
- * Run: node check-table-freshness.mjs                    (JSON to stdout)
- *      node check-table-freshness.mjs --summary          (human-readable table)
- *      node check-table-freshness.mjs --max-age-months 6 (override review threshold)
- *      node check-table-freshness.mjs --today 2026-10-02 (deterministic date for tests)
- *      node check-table-freshness.mjs --self-test
+ * Run: bun check-table-freshness.mjs                    (JSON to stdout)
+ *      bun check-table-freshness.mjs --summary          (human-readable table)
+ *      bun check-table-freshness.mjs --max-age-months 6 (override review threshold)
+ *      bun check-table-freshness.mjs --today 2026-10-02 (deterministic date for tests)
+ *      bun check-table-freshness.mjs --self-test
  *
  * Issue #2036 — github.com/santifer/career-ops
  */
@@ -53,7 +53,7 @@
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { flagValue } from './lib/cli-flags.mjs';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));

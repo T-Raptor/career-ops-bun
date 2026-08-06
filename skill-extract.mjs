@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * skill-extract.mjs — the shared skill vocabulary + canonical extractor (#1896)
  *

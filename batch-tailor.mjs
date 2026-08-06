@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 import { readFileSync, existsSync, readdirSync } from 'fs';
 import { resolve, join } from 'path';
@@ -13,7 +13,7 @@ function usage() {
   console.log(`career-ops batch tailor — bulk generate tailored CVs for high-scoring batch jobs
 
 Usage:
-  node batch-tailor.mjs [--min-score=4.0]
+  bun batch-tailor.mjs [--min-score=4.0]
 
 Options:
   --min-score=N   Minimum score to tailor (default: 4.0)

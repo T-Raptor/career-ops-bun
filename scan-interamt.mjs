@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * scan-interamt.mjs — Interamt.de scanner via Playwright
@@ -11,15 +11,15 @@
  * German IT keywords if the section is absent.
  *
  * Usage:
- *   node scan-interamt.mjs
- *   node scan-interamt.mjs --dry-run
- *   node scan-interamt.mjs --all            # skip date filter (use for first scan)
- *   node scan-interamt.mjs --keyword "Softwareentwickler"
+ *   bun scan-interamt.mjs
+ *   bun scan-interamt.mjs --dry-run
+ *   bun scan-interamt.mjs --all            # skip date filter (use for first scan)
+ *   bun scan-interamt.mjs --keyword "Softwareentwickler"
  */
 
 import { chromium } from 'playwright';
 import { readFileSync, existsSync, mkdirSync } from 'fs';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { appendToPipeline, appendToScanHistory, loadSeenUrls } from './scan.mjs';
 
 // ── Config ───────────────────────────────────────────────────────────

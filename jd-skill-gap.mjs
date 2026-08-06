@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * jd-skill-gap.mjs — Zero-LLM JD skill-gap checker.
@@ -21,9 +21,9 @@
  * only matters if a tool is allowed to add something automatically).
  *
  * Usage:
- *   node jd-skill-gap.mjs jds/acme.md
- *   node jd-skill-gap.mjs jds/acme.md --summary
- *   node jd-skill-gap.mjs --self-test
+ *   bun jd-skill-gap.mjs jds/acme.md
+ *   bun jd-skill-gap.mjs jds/acme.md --summary
+ *   bun jd-skill-gap.mjs --self-test
  */
 
 import { readFileSync, existsSync } from 'fs';
@@ -640,8 +640,8 @@ if (selfTestMode) {
   runSelfTest();
 } else {
   if (!jdPathArg || !existsSync(jdPathArg)) {
-    console.error('Usage: node jd-skill-gap.mjs <jd-file> [--summary]');
-    console.error('       node jd-skill-gap.mjs --self-test');
+    console.error('Usage: bun jd-skill-gap.mjs <jd-file> [--summary]');
+    console.error('       bun jd-skill-gap.mjs --self-test');
     process.exit(1);
   }
   if (!existsSync(CV_PATH)) {

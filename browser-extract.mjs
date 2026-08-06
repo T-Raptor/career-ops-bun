@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * browser-extract.mjs — headless Playwright reader for the scan / JD-extraction
  * path (the opt-in alternative to the browser MCP; see #1449).
@@ -12,7 +12,7 @@
  * fills — that boundary is exactly what keeps this separate from `apply`.
  *
  * Usage:
- *   node browser-extract.mjs <url> [--mode jd|listing] [--max N] [--max-chars N] [--timeout MS]
+ *   bun browser-extract.mjs <url> [--mode jd|listing] [--max N] [--max-chars N] [--timeout MS]
  *
  * `--max-chars` overrides the jd-mode text cap (default 12000) — raise it when a
  * long JD would otherwise be truncated at the tail, at the cost of more tokens.
@@ -34,7 +34,7 @@
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import { LIVENESS_CONTEXT_OPTIONS, rejectPrivateOrInvalid } from './liveness-browser.mjs';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));

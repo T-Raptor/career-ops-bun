@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // @ts-check
 // validate-plugin-registry.mjs — deterministic shape gate for the plugin
 // registry (plugins-registry/<id>.json, one file per plugin; legacy single-file

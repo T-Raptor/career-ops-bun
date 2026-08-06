@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * update-system.mjs — Safe auto-updater for career-ops
@@ -7,10 +7,10 @@
  * NEVER touches user data (cv.md, profile.yml, _profile.md, data/, reports/).
  *
  * Usage:
- *   node update-system.mjs check      # Check if update available
- *   node update-system.mjs apply      # Apply update (after user confirms)
- *   node update-system.mjs rollback   # Rollback last update
- *   node update-system.mjs dismiss    # Dismiss update check
+ *   bun update-system.mjs check      # Check if update available
+ *   bun update-system.mjs apply      # Apply update (after user confirms)
+ *   bun update-system.mjs rollback   # Rollback last update
+ *   bun update-system.mjs dismiss    # Dismiss update check
  *
  * See DATA_CONTRACT.md for the full system/user layer definitions.
  */
@@ -1157,9 +1157,9 @@ async function apply() {
 
     // 5b. Ensure Playwright browser binary is up to date after npm install
     try {
-      execSync('npx playwright install chromium', { cwd: ROOT, timeout: PLAYWRIGHT_INSTALL_TIMEOUT_MS, stdio: 'ignore' });
+      execSync('bunx playwright install chromium', { cwd: ROOT, timeout: PLAYWRIGHT_INSTALL_TIMEOUT_MS, stdio: 'ignore' });
     } catch {
-      console.log('playwright install skipped (run manually: npx playwright install chromium)');
+      console.log('playwright install skipped (run manually: bunx playwright install chromium)');
     }
 
     // 6. Rebuild compiled dashboard if Go sources changed
@@ -1219,19 +1219,19 @@ async function apply() {
       console.error(`${unmaterialized.length} path(s) from the target manifest were not checked out:`);
       for (const path of unmaterialized) console.error(`  ${path}`);
       console.error('\nThis happens when the installed updater predates the paths the target adds.');
-      console.error('Run `node update-system.mjs apply` again — the updater itself is now current,');
+      console.error('Run `bun update-system.mjs apply` again — the updater itself is now current,');
       console.error('so the second pass uses the target manifest and picks up what this one missed.');
       process.exit(1);
     }
 
     console.log(`\nUpdate complete: v${local} → v${remote}`);
     console.log(`Updated ${updated.length} system paths.`);
-    console.log(`Rollback available: node update-system.mjs rollback`);
+    console.log(`Rollback available: bun update-system.mjs rollback`);
 
     console.log('\n-- The CareerOps Manifesto ------------------------------');
     console.log('A new way of job searching is taking shape. You are');
     console.log('already practicing it. Read it, sign it if you want to help:');
-    console.log('    npm run manifesto  ·  https://career-ops.org/manifesto?utm_source=updater');
+    console.log('    bun run manifesto  ·  https://career-ops.org/manifesto?utm_source=updater');
 
   } finally {
     // Remove lock
@@ -1331,7 +1331,7 @@ function rollback() {
 
 function dismiss() {
   writeFileSync(join(ROOT, '.update-dismissed'), new Date().toISOString());
-  console.log('Update check dismissed. Run "node update-system.mjs check" or say "check for updates" to re-enable.');
+  console.log('Update check dismissed. Run "bun update-system.mjs check" or say "check for updates" to re-enable.');
 }
 
 // ── MAIN ────────────────────────────────────────────────────────
@@ -1349,7 +1349,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       case 'rollback': rollback(); break;
       case 'dismiss': dismiss(); break;
       default:
-        console.log('Usage: node update-system.mjs [check|apply|rollback|dismiss]');
+        console.log('Usage: bun update-system.mjs [check|apply|rollback|dismiss]');
         process.exit(1);
     }
   } catch (err) {

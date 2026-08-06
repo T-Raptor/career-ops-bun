@@ -17,7 +17,7 @@ Cowork mounts your career-ops folder and the agent reads the same instruction fi
    ```
 2. Install [Claude Cowork](https://claude.com/download) and, in **Colaborar/Collaborate** mode, add the `~/career-ops` folder.
 3. Say (anchored, so Cowork's own generic setup doesn't hijack the phrase "set me up"):
-   > *"This folder contains career-ops. Read AGENTS.md, run its startup check (`node doctor.mjs --json`) and walk me through career-ops onboarding based on its output."*
+   > *"This folder contains career-ops. Read AGENTS.md, run its startup check (`bun doctor.mjs --json`) and walk me through career-ops onboarding based on its output."*
 4. Hand over your CV any way you like — paste the text, or just point the agent at an existing **PDF**: it reads the file itself and converts it to `cv.md` (the parsing is your agent's ability, not a career-ops script).
 5. Evaluate your first posting: paste a job URL or the JD text into the chat. From there, everything in the [README](../README.md) applies — same modes, same files, same data contract.
 

@@ -13,11 +13,12 @@ console.log('\ndoctor.mjs — CLI-aware Playwright MCP detection');
 
 const DOCTOR = join(ROOT, 'doctor.mjs');
 
-function runDoctor(cwd, args, env) {
+function runDoctor(cwd, args, envOverride = {}) {
+  const env = { ...process.env, CAREER_OPS_CLI: '', ...envOverride };
   try {
     const out = execFileSync(NODE, [DOCTOR, '--json', '--target', cwd, ...args], {
       cwd,
-      env: { ...process.env, ...env },
+      env,
       encoding: 'utf-8',
       stdio: ['ignore', 'pipe', 'pipe'],
     }).trim();

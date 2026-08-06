@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 // Deterministic HTML CV renderer (#557 — the HTML twin of build-cv-latex.mjs).
 //
@@ -655,12 +655,12 @@ async function main() {
 
   if (args.length === 0 || args.includes('--help')) {
     console.error('Usage:');
-    console.error('  node build-cv-html.mjs <input.json> <output.html> [template.html]');
-    console.error('  node build-cv-html.mjs --preview <input.json> [template.html]');
-    console.error('  node build-cv-html.mjs --test');
+    console.error('  bun build-cv-html.mjs <input.json> <output.html> [template.html]');
+    console.error('  bun build-cv-html.mjs --preview <input.json> [template.html]');
+    console.error('  bun build-cv-html.mjs --test');
     console.error('');
     console.error('  [template.html] defaults to templates/cv-template.html. Pass the path');
-    console.error('  printed by `node cv-templates.mjs resolve cv` to use a selected template.');
+    console.error('  printed by `bun cv-templates.mjs resolve cv` to use a selected template.');
     console.error('');
     console.error('  Section partials (#2183):');
     console.error('  If a sections/ directory exists alongside the template file,');
@@ -681,7 +681,7 @@ async function main() {
     ? [args[1], resolve(__dirname, 'output', 'cv-preview.html'), args[2]]
     : args;
   if (!inputPath || !outputPath) {
-    console.error('Usage: node build-cv-html.mjs <input.json> <output.html> [template.html]');
+    console.error('Usage: bun build-cv-html.mjs <input.json> <output.html> [template.html]');
     process.exit(1);
   }
 

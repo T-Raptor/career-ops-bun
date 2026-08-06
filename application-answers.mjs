@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
@@ -176,7 +176,7 @@ function parseArgs(argv) {
 
 function usage() {
   return [
-    'Usage: node application-answers.mjs --report <report.md> --input <answers.json> [--state filled|submitted] [--date YYYY-MM-DD]',
+    'Usage: bun application-answers.mjs --report <report.md> --input <answers.json> [--state filled|submitted] [--date YYYY-MM-DD]',
     '',
     'The input JSON may contain: freeText, selections, fieldValues, files, date, state.',
   ].join('\n');

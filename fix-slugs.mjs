@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * fix-slugs.mjs — write verify-portals.mjs's suggested ATS slug fixes back
@@ -22,11 +22,11 @@
  * round-trip would silently discard.
  *
  * Usage:
- *   node fix-slugs.mjs               # dry run (default, safe) — prints the diff, writes nothing
- *   node fix-slugs.mjs --dry-run     # same as above, explicit
- *   node fix-slugs.mjs --fix         # write the resolved slugs back to portals.yml
- *   node fix-slugs.mjs --apply       # alias for --fix
- *   node fix-slugs.mjs --file <path> # use a specific portals file
+ *   bun fix-slugs.mjs               # dry run (default, safe) — prints the diff, writes nothing
+ *   bun fix-slugs.mjs --dry-run     # same as above, explicit
+ *   bun fix-slugs.mjs --fix         # write the resolved slugs back to portals.yml
+ *   bun fix-slugs.mjs --apply       # alias for --fix
+ *   bun fix-slugs.mjs --file <path> # use a specific portals file
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'fs';

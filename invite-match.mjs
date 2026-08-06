@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * invite-match.mjs — Interview-Invite → Tracker Matcher for career-ops
  *
@@ -15,10 +15,10 @@
  * so ambiguous input always returns all plausible candidates rather than
  * picking one.
  *
- * Run: node invite-match.mjs < invite.txt          (JSON to stdout)
- *      node invite-match.mjs --file invite.txt
- *      echo "..." | node invite-match.mjs --summary
- *      node invite-match.mjs --self-test
+ * Run: bun invite-match.mjs < invite.txt          (JSON to stdout)
+ *      bun invite-match.mjs --file invite.txt
+ *      echo "..." | bun invite-match.mjs --summary
+ *      bun invite-match.mjs --self-test
  *
  * Issue #1495 — github.com/santifer/career-ops
  */

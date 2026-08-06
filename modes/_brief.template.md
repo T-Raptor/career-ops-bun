@@ -3,7 +3,7 @@
 <!-- ============================================================
      THIS FILE IS YOURS. Copy it to `modes/_brief.md` (doctor.mjs
      auto-copies it on first run) and fill in the placeholders.
-     It is USER LAYER — never auto-updated by `node update-system.mjs`.
+     It is USER LAYER — never auto-updated by `bun update-system.mjs`.
 
      PURPOSE: Compact context for first-pass triage agents
      (`modes/triage.md`). It replaces reading the full evaluation

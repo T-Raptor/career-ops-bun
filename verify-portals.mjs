@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * verify-portals.mjs — ATS slug validator for portals.yml.
@@ -15,10 +15,10 @@
  * unresolved (404/wrong) slug so a quiet board isn't mistaken for a typo.
  *
  * Usage:
- *   node verify-portals.mjs                 # sweep tracked_companies in portals.yml
- *   node verify-portals.mjs --add cursor    # probe slug variants for one name
- *   node verify-portals.mjs --strict        # exit non-zero if any slug is unresolved
- *   node verify-portals.mjs --file <path>   # use a specific portals file
+ *   bun verify-portals.mjs                 # sweep tracked_companies in portals.yml
+ *   bun verify-portals.mjs --add cursor    # probe slug variants for one name
+ *   bun verify-portals.mjs --strict        # exit non-zero if any slug is unresolved
+ *   bun verify-portals.mjs --file <path>   # use a specific portals file
  *
  * Network: only the sweep / --add paths hit the network. Importing the module
  * (for tests) runs nothing — main() is guarded — and all network access goes
@@ -28,7 +28,7 @@
 import { existsSync, readFileSync } from 'fs';
 import { dirname, resolve } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 import { fetchJson as defaultFetchJson, makeHttpCtx } from './providers/_http.mjs';
 import { loadProviders, resolveProvider } from './providers/_registry.mjs';
@@ -561,7 +561,7 @@ async function main() {
   }
 }
 
-// Only run main() when invoked directly (`node verify-portals.mjs`), not when
+// Only run main() when invoked directly (`bun verify-portals.mjs`), not when
 // imported by tests. `|| ''` guards `node -e` invocations with no script arg.
 if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
   main().catch((err) => {

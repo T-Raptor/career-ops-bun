@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * Resolve and initialize one application-scoped artifact directory.
@@ -102,7 +102,7 @@ export function writeReuseDecision(paths, {
 }
 
 function usage() {
-  return 'Usage: node application-artifacts.mjs --report N --company NAME --role ROLE [--version N] [--root output] [--init]';
+  return 'Usage: bun application-artifacts.mjs --report N --company NAME --role ROLE [--version N] [--root output] [--init]';
 }
 
 async function main() {

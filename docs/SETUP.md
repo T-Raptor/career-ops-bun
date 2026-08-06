@@ -65,7 +65,7 @@ Then open your AI CLI in the folder — the same first-run onboarding applies. U
 PDFs are rendered with a headless Chromium. Install it once per machine:
 
 ```bash
-npx playwright install chromium
+bunx playwright install chromium
 ```
 
 ## Available Commands
@@ -84,13 +84,13 @@ npx playwright install chromium
 ## Verify Setup
 
 ```bash
-node cv-sync-check.mjs      # Check configuration
-node verify-pipeline.mjs     # Check pipeline integrity
+bun cv-sync-check.mjs      # Check configuration
+bun verify-pipeline.mjs     # Check pipeline integrity
 ```
 
 ## Build Dashboard (Optional)
 
 ```bash
-npm run serve:dashboard     # Opens TUI pipeline viewer
-npm run build:dashboard     # Optional: build the standalone binary
+bun run serve:dashboard     # Opens TUI pipeline viewer
+bun run build:dashboard     # Optional: build the standalone binary
 ```

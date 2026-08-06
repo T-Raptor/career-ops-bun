@@ -1,56 +1,56 @@
 # Scripts Reference
 
 All scripts live in the project root as `.mjs` modules. Most are exposed via
-`npm run <name>`; agent-invoked utilities (bottom section) run via
+`bun run <name>`; agent-invoked utilities (bottom section) run via
 `node <script>` directly.
 
 ## Quick Reference
 
 | Command | Script | Purpose |
 |---------|--------|---------|
-| `npm run doctor` | `doctor.mjs` | Validate setup prerequisites |
-| `npm run verify` | `verify-pipeline.mjs` | Check pipeline data integrity |
-| `npm run normalize` | `normalize-statuses.mjs` | Fix non-canonical statuses |
-| `npm run dedup` | `dedup-tracker.mjs` | Remove duplicate tracker entries |
-| `npm run merge` | `merge-tracker.mjs` | Merge batch TSVs into applications.md |
-| `npm run pdf` | `generate-pdf.mjs` | Convert HTML to ATS-optimized PDF |
-| `npm run jd:similarity` | `jd-similarity.mjs` | Compare a new JD with a previous JD/CV and recommend reuse, edits, or regeneration |
-| `npm run img-to-pdf` | `img-to-pdf.mjs` | Convert a single screenshot/image into a single-page PDF |
-| `node build-cv-latex.mjs` | `build-cv-latex.mjs` | Build .tex from structured JSON payload |
-| `npm run sync-check` | `cv-sync-check.mjs` | Validate CV/profile consistency |
-| `npm run patterns` | `analyze-patterns.mjs` | Analyze tracker outcomes and report patterns |
-| `npm run upskill` | `upskill.mjs` | Aggregate skill-gap map from tracked reports (or `--url-text <url\|file>` for a single-JD targeted gap analysis) |
-| `npm run add` | `add-entry.mjs` | Dedup + insert a `/career-ops add` entry into cv.md / article-digest.md |
-| `npm run update:check` | `update-system.mjs check` | Check for upstream updates |
-| `npm run update` | `update-system.mjs apply` | Apply upstream update |
-| `npm run rollback` | `update-system.mjs rollback` | Rollback last update |
-| `npm run liveness` | `check-liveness.mjs` | Test if job URLs are still active |
-| `npm run extract` | `browser-extract.mjs` | Headless read-only page extractor (opt-in `scan.extractor: cli`) — compact JSON for scan/JD |
-| `npm run scan` | `scan.mjs` | Zero-token portal scanner |
-| `npm run scan:full` | `scan-ats-full.mjs` | Reverse ATS discovery scanner |
-| `npm run company:funded` | `company-funded.mjs` | Review-first discovery of recently funded companies |
-| `npm run validate:portals` | `validate-portals.mjs` | Validate portals.yml shape before scanning |
-| `npm run tracker` | `tracker.mjs` | SQLite derived index over applications.md — sync/query/history/export |
-| `npm run find` | `find.mjs` | Resolve a report#/tracker#/company query to its full pipeline identity |
-| `npm run invite-match` | `invite-match.mjs` | Fuzzy-match a pasted interview-invite email against `data/applications.md` |
-| `npm run application:init` | `application-artifacts.mjs` | Initialize one versioned application-scoped JD/CV/PDF artifact bundle |
-| `npm run paste-reply` | `paste-reply.mjs` | Manual/no-Gmail input into the `reply-watch.mjs` classification pipeline |
-| `npm run freshness` | `check-table-freshness.mjs` | Staleness validator for jurisdiction data tables (`as_of` / `next_effective` watchdog) |
-| `npm run openai:tailor` | `openai-tailor.mjs` | Tailor a CV via any OpenAI-compatible endpoint (headless companion to `openai-eval.mjs`) |
-| `npm run or` | `openrouter-runner.mjs` | Run scan/evaluate/pipeline/apply on OpenRouter free models — no Claude CLI required |
-| `npm run reconcile` | `reconcile-pipeline.mjs` | Remove batch-evaluated offers from pipeline.md "Pendientes" |
-| `npm run cover-letter` | `generate-cover-letter.mjs` | Render a cover-letter JSON payload to PDF |
-| `npm run verify:portals` | `verify-portals.mjs` | Probe ATS endpoints to confirm portals.yml slugs resolve (network) |
-| `node fix-slugs.mjs` | `fix-slugs.mjs` | Write `verify-portals.mjs`'s suggested ATS slug fixes back to portals.yml (dry run by default, `--fix` to write) |
-| `npm run reposts` | `detect-reposts.mjs` | Flag re-listed (ghost) postings from scan history |
-| `npm run gemini:eval` | `gemini-eval.mjs` | Evaluate a JD with Google Gemini (free-tier alternative) |
-| `npm run ollama:eval` | `ollama-eval.mjs` | Evaluate a JD with a local Ollama model |
-| `npm run openai:eval` | `openai-eval.mjs` | Evaluate a JD via any OpenAI-compatible endpoint |
-| `npm run star` | `match-star.mjs` | Match a behavioural question to your best STAR story (zero-LLM) |
-| `npm run archive` | `archive-posting.mjs` | Save a live job posting as PDF before it disappears |
-| `npm run prepare:application` | `prepare-application.mjs` | Print an ATS prefill summary (read-only, never POSTs) |
-| `npm run build:dashboard` | `build-dashboard.mjs` | Build the Go TUI dashboard binary cross-platform |
-| `node upgrade-tests.mjs --pr-gate` | `upgrade-tests.mjs` | Upgrade an install seeded from the newest old release to this commit and prove user data survived (CI gate; `--canary` proves the gate can fail) |
+| `bun run doctor` | `doctor.mjs` | Validate setup prerequisites |
+| `bun run verify` | `verify-pipeline.mjs` | Check pipeline data integrity |
+| `bun run normalize` | `normalize-statuses.mjs` | Fix non-canonical statuses |
+| `bun run dedup` | `dedup-tracker.mjs` | Remove duplicate tracker entries |
+| `bun run merge` | `merge-tracker.mjs` | Merge batch TSVs into applications.md |
+| `bun run pdf` | `generate-pdf.mjs` | Convert HTML to ATS-optimized PDF |
+| `bun run jd:similarity` | `jd-similarity.mjs` | Compare a new JD with a previous JD/CV and recommend reuse, edits, or regeneration |
+| `bun run img-to-pdf` | `img-to-pdf.mjs` | Convert a single screenshot/image into a single-page PDF |
+| `bun build-cv-latex.mjs` | `build-cv-latex.mjs` | Build .tex from structured JSON payload |
+| `bun run sync-check` | `cv-sync-check.mjs` | Validate CV/profile consistency |
+| `bun run patterns` | `analyze-patterns.mjs` | Analyze tracker outcomes and report patterns |
+| `bun run upskill` | `upskill.mjs` | Aggregate skill-gap map from tracked reports (or `--url-text <url\|file>` for a single-JD targeted gap analysis) |
+| `bun run add` | `add-entry.mjs` | Dedup + insert a `/career-ops add` entry into cv.md / article-digest.md |
+| `bun run update:check` | `update-system.mjs check` | Check for upstream updates |
+| `bun run update` | `update-system.mjs apply` | Apply upstream update |
+| `bun run rollback` | `update-system.mjs rollback` | Rollback last update |
+| `bun run liveness` | `check-liveness.mjs` | Test if job URLs are still active |
+| `bun run extract` | `browser-extract.mjs` | Headless read-only page extractor (opt-in `scan.extractor: cli`) — compact JSON for scan/JD |
+| `bun run scan` | `scan.mjs` | Zero-token portal scanner |
+| `bun run scan:full` | `scan-ats-full.mjs` | Reverse ATS discovery scanner |
+| `bun run company:funded` | `company-funded.mjs` | Review-first discovery of recently funded companies |
+| `bun run validate:portals` | `validate-portals.mjs` | Validate portals.yml shape before scanning |
+| `bun run tracker` | `tracker.mjs` | SQLite derived index over applications.md — sync/query/history/export |
+| `bun run find` | `find.mjs` | Resolve a report#/tracker#/company query to its full pipeline identity |
+| `bun run invite-match` | `invite-match.mjs` | Fuzzy-match a pasted interview-invite email against `data/applications.md` |
+| `bun run application:init` | `application-artifacts.mjs` | Initialize one versioned application-scoped JD/CV/PDF artifact bundle |
+| `bun run paste-reply` | `paste-reply.mjs` | Manual/no-Gmail input into the `reply-watch.mjs` classification pipeline |
+| `bun run freshness` | `check-table-freshness.mjs` | Staleness validator for jurisdiction data tables (`as_of` / `next_effective` watchdog) |
+| `bun run openai:tailor` | `openai-tailor.mjs` | Tailor a CV via any OpenAI-compatible endpoint (headless companion to `openai-eval.mjs`) |
+| `bun run or` | `openrouter-runner.mjs` | Run scan/evaluate/pipeline/apply on OpenRouter free models — no Claude CLI required |
+| `bun run reconcile` | `reconcile-pipeline.mjs` | Remove batch-evaluated offers from pipeline.md "Pendientes" |
+| `bun run cover-letter` | `generate-cover-letter.mjs` | Render a cover-letter JSON payload to PDF |
+| `bun run verify:portals` | `verify-portals.mjs` | Probe ATS endpoints to confirm portals.yml slugs resolve (network) |
+| `bun fix-slugs.mjs` | `fix-slugs.mjs` | Write `verify-portals.mjs`'s suggested ATS slug fixes back to portals.yml (dry run by default, `--fix` to write) |
+| `bun run reposts` | `detect-reposts.mjs` | Flag re-listed (ghost) postings from scan history |
+| `bun run gemini:eval` | `gemini-eval.mjs` | Evaluate a JD with Google Gemini (free-tier alternative) |
+| `bun run ollama:eval` | `ollama-eval.mjs` | Evaluate a JD with a local Ollama model |
+| `bun run openai:eval` | `openai-eval.mjs` | Evaluate a JD via any OpenAI-compatible endpoint |
+| `bun run star` | `match-star.mjs` | Match a behavioural question to your best STAR story (zero-LLM) |
+| `bun run archive` | `archive-posting.mjs` | Save a live job posting as PDF before it disappears |
+| `bun run prepare:application` | `prepare-application.mjs` | Print an ATS prefill summary (read-only, never POSTs) |
+| `bun run build:dashboard` | `build-dashboard.mjs` | Build the Go TUI dashboard binary cross-platform |
+| `bun upgrade-tests.mjs --pr-gate` | `upgrade-tests.mjs` | Upgrade an install seeded from the newest old release to this commit and prove user data survived (CI gate; `--canary` proves the gate can fail) |
 
 ---
 
@@ -59,7 +59,7 @@ All scripts live in the project root as `.mjs` modules. Most are exposed via
 Validates that all prerequisites are in place: Node.js >= 18, dependencies installed, Playwright chromium, required files (`cv.md`, `config/profile.yml`, `portals.yml`), fonts directory, and auto-creates `data/`, `output/`, `reports/` if missing.
 
 ```bash
-npm run doctor
+bun run doctor
 ```
 
 **Exit codes:** `0` all checks passed, `1` one or more checks failed (fix messages printed).
@@ -71,7 +71,7 @@ npm run doctor
 Health check for pipeline data integrity. Validates `data/applications.md` against nine rules: canonical statuses (per `templates/states.yml`), no duplicate company+role pairs, all report links point to existing files, scores match `X.XX/5` / `N/A` / `DUP`, rows have proper pipe-delimited format, no pending TSVs in `batch/tracker-additions/`, no markdown bold in scores, no two `reports/*.md` files covering the same company+role, and no orphan reports without a tracker row (#1425). The report checks are warning-level: duplicate reports can be legitimate (re-evaluation after a JD change), so they never fail the run.
 
 ```bash
-npm run verify
+bun run verify
 ```
 
 **Exit codes:** `0` pipeline clean (zero errors), `1` errors found. Warnings (e.g. possible duplicates) do not cause a non-zero exit.
@@ -83,8 +83,8 @@ npm run verify
 Maps non-canonical statuses to their canonical equivalents and strips markdown bold and dates from the status column. Aliases like `Enviada` become `Aplicado`, `CERRADA` becomes `Descartado`, etc. DUPLICADO info is moved to the notes column.
 
 ```bash
-npm run normalize             # apply changes
-npm run normalize -- --dry-run  # preview without writing
+bun run normalize             # apply changes
+bun run normalize -- --dry-run  # preview without writing
 ```
 
 Creates a `.bak` backup of `applications.md` before writing.
@@ -98,8 +98,8 @@ Creates a `.bak` backup of `applications.md` before writing.
 Removes duplicate entries from `applications.md` by grouping on normalized company name + fuzzy role match. Keeps the entry with the highest score. If a removed entry had a more advanced pipeline status, that status is promoted to the keeper.
 
 ```bash
-npm run dedup             # apply changes
-npm run dedup -- --dry-run  # preview without writing
+bun run dedup             # apply changes
+bun run dedup -- --dry-run  # preview without writing
 ```
 
 Creates a `.bak` backup before writing.
@@ -113,9 +113,9 @@ Creates a `.bak` backup before writing.
 Merges batch tracker additions (`batch/tracker-additions/*.tsv`) into `applications.md`. Handles 9-column TSV, 8-column TSV, and pipe-delimited markdown formats. Detects duplicates by report number, entry number, and company+role fuzzy match. Higher-scored re-evaluations update existing entries in place.
 
 ```bash
-npm run merge                 # apply merge
-npm run merge -- --dry-run    # preview without writing
-npm run merge -- --verify     # merge then run verify-pipeline
+bun run merge                 # apply merge
+bun run merge -- --dry-run    # preview without writing
+bun run merge -- --verify     # merge then run verify-pipeline
 ```
 
 Processed TSVs are moved to `batch/tracker-additions/merged/`.
@@ -131,9 +131,9 @@ Validates `portals.yml` before running the scanner. The validator is offline: it
 It reports errors for invalid YAML shape, unknown explicit providers, malformed URLs, empty filter keywords, and invalid local parser blocks. Duplicate enabled company names are warnings because they may be intentional during migrations, but they are worth reviewing.
 
 ```bash
-npm run validate:portals
-npm run validate:portals -- --file templates/portals.example.yml
-node validate-portals.mjs --self-test
+bun run validate:portals
+bun run validate:portals -- --file templates/portals.example.yml
+bun validate-portals.mjs --self-test
 ```
 
 **Exit codes:** `0` no errors (warnings allowed), `1` one or more errors found.
@@ -156,8 +156,8 @@ one the PR ships, not the one already installed.
 Two modes:
 
 ```bash
-node upgrade-tests.mjs --pr-gate    # newest release tag that is an ancestor of HEAD -> this commit
-node upgrade-tests.mjs --canary     # plant a user-file clobber; the harness MUST report it
+bun upgrade-tests.mjs --pr-gate    # newest release tag that is an ancestor of HEAD -> this commit
+bun upgrade-tests.mjs --canary     # plant a user-file clobber; the harness MUST report it
 ```
 
 `--pr-gate` picks the newest release tag that is an ancestor of `HEAD`, seeds an
@@ -187,18 +187,18 @@ Both modes run on every PR, as the `upgrade-gate` job in
 
 Write-side twin of `verify-portals.mjs` (#1703). `verify-portals` already probes every tracked company's ATS slug and, for a failing Greenhouse/Ashby/Lever entry, cross-probes slug variants across all three ATSes and attaches `suggested: { ats, slug }` when one resolves. That tool is read-only; this one patches the matching `tracked_companies` entry in `portals.yml`. It imports the same probe and suggestion logic rather than re-implementing it, so the two can never disagree about what a broken slug is (network, like `verify-portals`).
 
-**It is a dry run by default: writing requires an explicit `--fix` (or its alias `--apply`).** A bare `node fix-slugs.mjs` prints the diff it *would* apply and changes nothing, so the safe invocation is also the shortest one. `--dry-run` exists only to say that out loud.
+**It is a dry run by default: writing requires an explicit `--fix` (or its alias `--apply`).** A bare `bun fix-slugs.mjs` prints the diff it *would* apply and changes nothing, so the safe invocation is also the shortest one. `--dry-run` exists only to say that out loud.
 
 Only entries `verify-portals` classifies as `missing` **and** for which it found a `suggested` alternate are touched. Live entries, empty entries, and entries whose slug genuinely could not be resolved are left completely alone.
 
 The file is edited as text — line-level surgery inside the matching company's block — rather than through a YAML parse-and-dump round trip, because `portals.yml` carries hand-written comments and documentation blocks that `yaml.dump()` would silently discard.
 
 ```bash
-node fix-slugs.mjs                            # dry run (default, safe): print the diff, write nothing
-node fix-slugs.mjs --dry-run                  # same as above, explicit
-node fix-slugs.mjs --fix                      # write the resolved slugs back to portals.yml
-node fix-slugs.mjs --apply                    # alias for --fix
-node fix-slugs.mjs --file templates/portals.example.yml
+bun fix-slugs.mjs                            # dry run (default, safe): print the diff, write nothing
+bun fix-slugs.mjs --dry-run                  # same as above, explicit
+bun fix-slugs.mjs --fix                      # write the resolved slugs back to portals.yml
+bun fix-slugs.mjs --apply                    # alias for --fix
+bun fix-slugs.mjs --file templates/portals.example.yml
 ```
 
 The default path is `portals.yml`, overridable with `--file` or the `CAREER_OPS_PORTALS` environment variable. A missing portals file is reported and treated as nothing to do, not as an error.
@@ -212,9 +212,9 @@ The default path is `portals.yml`, overridable with `--file` or the `CAREER_OPS_
 Renders an HTML file to a print-quality, ATS-parseable PDF via headless Chromium. Resolves font paths from `fonts/`, normalizes Unicode for ATS compatibility (em-dashes, smart quotes, zero-width characters), and reports page count and file size.
 
 ```bash
-npm run pdf -- input.html output.pdf
-npm run pdf -- input.html output.pdf --format=letter   # US letter
-npm run pdf -- input.html output.pdf --format=a4        # A4 (default)
+bun run pdf -- input.html output.pdf
+bun run pdf -- input.html output.pdf --format=letter   # US letter
+bun run pdf -- input.html output.pdf --format=a4        # A4 (default)
 ```
 
 **Exit codes:** `0` PDF generated, `1` missing arguments or generation failure.
@@ -226,9 +226,9 @@ npm run pdf -- input.html output.pdf --format=a4        # A4 (default)
 Converts a single screenshot or image (PNG, JPEG, GIF, WEBP, BMP, SVG) into a single-page PDF via headless Chromium — for ATS upload fields that require a PDF specifically and reject images. Embeds the image as a base64 `data:` URI in a minimal HTML page and renders it with `page.pdf()`, sized to the image's own pixel dimensions so the page is neither cropped nor padded. Zero new dependencies — reuses the `playwright` dependency `generate-pdf.mjs` already uses, and is a deliberately standalone script: it does not go through `generate-pdf.mjs`, so it is never subject to that script's cv.md section-order validation.
 
 ```bash
-npm run img-to-pdf -- screenshot.png output.pdf
-npm run img-to-pdf -- screenshot.png output.pdf --force   # overwrite an existing output file
-node img-to-pdf.mjs --self-test
+bun run img-to-pdf -- screenshot.png output.pdf
+bun run img-to-pdf -- screenshot.png output.pdf --force   # overwrite an existing output file
+bun img-to-pdf.mjs --self-test
 ```
 
 MVP scope: one image in, one PDF page out. Multi-image/multi-page conversion is not implemented.
@@ -242,8 +242,8 @@ MVP scope: one image in, one PDF page out. Multi-image/multi-page conversion is 
 Builds a `.tex` file from a structured JSON payload, handling template merge and LaTeX escaping automatically. The JSON is produced by the agent during evaluation — this script replaces the manual LaTeX generation step in `modes/latex.md`.
 
 ```bash
-node build-cv-latex.mjs input.json output.tex
-node build-cv-latex.mjs --test
+bun build-cv-latex.mjs input.json output.tex
+bun build-cv-latex.mjs --test
 ```
 
 **Exit codes:** `0` file generated, `1` missing inputs, invalid JSON, unresolved placeholders, or template not found.
@@ -255,7 +255,7 @@ node build-cv-latex.mjs --test
 Validates that the career-ops setup is internally consistent: `cv.md` exists and is not too short, `config/profile.yml` exists with required fields, no hardcoded metrics in `modes/_shared.md` or `batch/batch-prompt.md`, and `article-digest.md` freshness (warns if older than 30 days).
 
 ```bash
-npm run sync-check
+bun run sync-check
 ```
 
 **Exit codes:** `0` no errors (warnings allowed), `1` errors found.
@@ -267,10 +267,10 @@ npm run sync-check
 Analyzes application outcomes, scores, archetypes, blockers, remote policy, and company size from `data/applications.md` and linked reports. New reports should include `## Machine Summary` YAML; `analyze-patterns.mjs` uses it first and falls back to legacy markdown parsing for older reports.
 
 ```bash
-npm run patterns
-npm run patterns -- --summary
-npm run patterns -- --min-threshold 3
-node analyze-patterns.mjs --self-test
+bun run patterns
+bun run patterns -- --summary
+bun run patterns -- --min-threshold 3
+bun analyze-patterns.mjs --self-test
 ```
 
 **Exit codes:** `0` analysis succeeded, `1` insufficient data or parser self-test failure.
@@ -282,12 +282,12 @@ node analyze-patterns.mjs --self-test
 Aggregates skill gaps across every tracked report (#1520, phase 1). Extracts skill tokens from each report's Machine Summary `hard_stops`/`soft_gaps` and Gap table, removes skills already present in `cv.md`/`config/profile.yml` (exact-alias matching only — an umbrella term never suppresses a specific skill), and weights each gap by inverse report score (`5.0 − score`, counted once per report). Tiers (Critical/High/Medium/Low) use fixed thresholds over the share of low-fit (score < 4.0) reports naming the gap. Output carries `schema_version` so the `upskill` mode's diff-vs-previous section never compares across extraction-rule changes, plus coverage stats (`reportsWithMachineSummary` vs `reportsRead`). The script emits data only; the `upskill` mode reads the tiered `gaps` JSON and, in phase 2b (#1740), layers a **web-searched learning plan** (free-first resources per Critical/High gap — plus Medium when the map is small) onto the aggregate report. The plan is generated by the agent, not this script — no web-search logic lives in `upskill.mjs`.
 
 ```bash
-npm run upskill
-npm run upskill -- --summary
-npm run upskill -- --min-reports 3
-node upskill.mjs --url-text https://boards.greenhouse.io/acme/jobs/123   # targeted: gaps for one JD
-node upskill.mjs --url-text ./jds/my-job.txt                            # targeted: --url-text also takes a local file
-node upskill.mjs --self-test
+bun run upskill
+bun run upskill -- --summary
+bun run upskill -- --min-reports 3
+bun upskill.mjs --url-text https://boards.greenhouse.io/acme/jobs/123   # targeted: gaps for one JD
+bun upskill.mjs --url-text ./jds/my-job.txt                            # targeted: --url-text also takes a local file
+bun upskill.mjs --self-test
 ```
 
 **Exit codes:** `0` analysis succeeded (including graceful `{error}` JSON for insufficient data), `1` self-test failure.
@@ -299,10 +299,10 @@ node upskill.mjs --self-test
 Folds compensation observations into per-application desired/advertised/actual values and gap aggregates. Sources: `reports/*.md` Machine Summary `advertised_comp` (advertised, source `jd` — historical reports backfill automatically), `data/salary-observations.tsv` (desired/actual/stated, append-only), and `config/profile.yml` `compensation.target_range` (desired default). Fold precedence: highest trust tier wins, then latest date (`actual`: contract > offer-letter > recruiter-verbal > user). Aggregates group by (company, role) and per currency — no FX conversion. Unparseable amounts, orphaned tracker numbers, sample sizes, and staleness are always reported.
 
 ```bash
-node salary-gap.mjs             # JSON
-node salary-gap.mjs --summary   # table + data-quality section
-node salary-gap.mjs --stated-for <tracker#>   # prior `stated` observations for one tracker#, JSON
-node salary-gap.mjs --self-test
+bun salary-gap.mjs             # JSON
+bun salary-gap.mjs --summary   # table + data-quality section
+bun salary-gap.mjs --stated-for <tracker#>   # prior `stated` observations for one tracker#, JSON
+bun salary-gap.mjs --self-test
 ```
 
 Observation line format (TSV, one per line, `#`-prefixed lines are comments):
@@ -326,10 +326,10 @@ Funnel calibration vs market benchmarks + stage velocity. Three payloads, decrea
 Statistical honesty is enforced in code: right-censored counts printed next to every median ("n still waiting, excluded"), same-day catch-up hops excluded and counted, no comparative multiplier claims below n=20 applied, above-range output carries a selection-bias note, every benchmark mention carries its year + "directional". Coverage, orphaned tracker numbers, unparseable lines, and unknown sources are always reported.
 
 ```bash
-node funnel-velocity.mjs             # JSON
-node funnel-velocity.mjs --summary   # human-readable
-node funnel-velocity.mjs --self-test
-node funnel-velocity.mjs --benchmarks path/to/benchmarks.yml
+bun funnel-velocity.mjs             # JSON
+bun funnel-velocity.mjs --summary   # human-readable
+bun funnel-velocity.mjs --self-test
+bun funnel-velocity.mjs --benchmarks path/to/benchmarks.yml
 ```
 
 Ledger line format (TSV, appended by `set-status.mjs`, `#`-prefixed lines are comments):
@@ -349,10 +349,10 @@ Ledger line format (TSV, appended by `set-status.mjs`, `#`-prefixed lines are co
 Logs "received a skills assessment" as a structured per-application event (eSkill, HackerRank, Criteria, Predictive Index, ...) instead of burying it in free-text notes. Each event records platform, subject tested, pass threshold vs score achieved (both optional — vendors often hide them), and a candidate-observed staleness note (e.g. "test content references Adobe Acrobat 9, a 2008-era version"; empty = no staleness observed). Events append to `data/assessments.tsv` (user layer, created on first `add`, never rewritten). Aggregates count events, pass/fail (only when both threshold and score are known), and stale-flagged events per platform; malformed lines are always reported, never dropped silently.
 
 ```bash
-node assessment-log.mjs add --company Acme --report 042 --platform eSkill --subject "MS Office" --threshold 70 --score 92 --stale "references Adobe Acrobat 9 (2008-era)"
-node assessment-log.mjs             # JSON
-node assessment-log.mjs --summary   # per-event + per-platform table
-node assessment-log.mjs --self-test
+bun assessment-log.mjs add --company Acme --report 042 --platform eSkill --subject "MS Office" --threshold 70 --score 92 --stale "references Adobe Acrobat 9 (2008-era)"
+bun assessment-log.mjs             # JSON
+bun assessment-log.mjs --summary   # per-event + per-platform table
+bun assessment-log.mjs --self-test
 ```
 
 Log line format (TSV, one per line, `#`-prefixed lines are comments; for `report#`, `threshold%`, and `score%`, `-` or an absent trailing cell = unknown; an empty `stale_note` means no staleness was observed, not unknown):
@@ -374,15 +374,15 @@ Each card covers two independent fact axes, never combined into a single verdict
 - **`responsiveness`** — has this company ever responded to you, or gone silent on an Applied row past the silence window? A rejection counts as a response (it's an answer, not silence). Labels: `responded-before`, `silent-on-you`, `mixed`, `no-history`. Rows younger than the silence window are **pending** — right-censored, never labeled silent. Facts older than 365 days are **stale** and excluded from label computation unless `--include-stale` is passed. Follow-ups sent never change the label — they only annotate a silent fact's `confidence` (`confirmed-by-followups` vs `unconfirmed`).
 - **`postingChurn`** — does this company repost the same role repeatedly (evergreen requisition / re-opened search), sourced from `detect-reposts.mjs` clusters over `data/scan-history.tsv`. Labels: `reposts-detected`, `none-detected`, `no-scan-data`.
 
-The script deliberately reports **facts, not verdicts** — output is always descriptive and past-tense ("silent 34d since 2026-05-01"), never "ghosted" or "risk". Every silent fact carries a dated `clearInstruction` (the exact `set-status.mjs` command to run if the company actually did respond and it just wasn't logged), and every card with a silent fact is accompanied by an innocent-explanations line: high-volume inboxes, evergreen requisitions, re-opened searches, and the candidate's own unlogged responses all produce the same raw signals as genuine silence. Before trusting the output against real data, run a dry read (`node company-history.mjs --summary`) and sanity-check a few cards where you already know the real story.
+The script deliberately reports **facts, not verdicts** — output is always descriptive and past-tense ("silent 34d since 2026-05-01"), never "ghosted" or "risk". Every silent fact carries a dated `clearInstruction` (the exact `set-status.mjs` command to run if the company actually did respond and it just wasn't logged), and every card with a silent fact is accompanied by an innocent-explanations line: high-volume inboxes, evergreen requisitions, re-opened searches, and the candidate's own unlogged responses all produce the same raw signals as genuine silence. Before trusting the output against real data, run a dry read (`bun company-history.mjs --summary`) and sanity-check a few cards where you already know the real story.
 
 ```bash
-node company-history.mjs                        # full JSON evidence cards to stdout
-node company-history.mjs --summary               # human-readable cards (hygiene nudge, then silent-first, window caveat printed once)
-node company-history.mjs --company "Acme"         # single-card lookup (unknown company returns the minimal no-history/no-scan-data shape)
-node company-history.mjs --silence-window 21      # override the default silence window in days
-node company-history.mjs --include-stale          # include facts older than 365d in label computation
-node company-history.mjs --self-test
+bun company-history.mjs                        # full JSON evidence cards to stdout
+bun company-history.mjs --summary               # human-readable cards (hygiene nudge, then silent-first, window caveat printed once)
+bun company-history.mjs --company "Acme"         # single-card lookup (unknown company returns the minimal no-history/no-scan-data shape)
+bun company-history.mjs --silence-window 21      # override the default silence window in days
+bun company-history.mjs --include-stale          # include facts older than 365d in label computation
+bun company-history.mjs --self-test
 ```
 
 Default silence window: `templates/benchmarks.yml` `days_first_response.range_days[1] * 2` when that file exists, else `28` days.
@@ -396,11 +396,11 @@ Default silence window: `templates/benchmarks.yml` `days_first_response.range_da
 Your job-search phonebook, exportable to your phone. Reads `data/contacts.tsv` (one contact per line — the schema is the vCard fields, nothing more) and emits vCard 3.0 (`VERSION:3.0` for iOS/Android import compatibility) with CRLF line endings, byte-safe 75-octet line folding, and a stable deterministic UID `careerops-{uidPart(name)}--{uidPart(company)}` (double-dash boundary between the two parts). Each `uidPart` is the lowercase slug of the raw value (non-alphanumeric runs collapsed to single dashes, ends trimmed) suffixed with an 8-hex sha1 of the *raw* value — e.g. `jane-doe-cac7bbb6`; when the slug is empty — a fully non-ASCII value such as a CJK name — the part is the bare 8-hex hash. Hashing the raw value (not the lossy slug) keeps distinct inputs that slug identically — e.g. `José` and `Josè` both slug to `jos` (the accented char drops out), and `Acme Inc` and `Acme, Inc.` both to `acme-inc` — from colliding into one UID. Re-importing updates existing entries instead of duplicating them on platforms that honor vCard UID (iOS fallback: assign imports to a group, delete the group to bulk-remove). `--caller-id` renders the display name as `Jane Doe (Acme recruiter)` so the lock screen tells you which recruiter is calling — useful when a phone number is known (often it isn't). Malformed rows are reported in a `quality` block, never dropped silently.
 
 ```bash
-node contacts.mjs                    # JSON (contacts + quality + total)
-node contacts.mjs --summary          # human-readable table
-node contacts.mjs --vcf [path]       # write vCard file (default output/contacts.vcf)
-node contacts.mjs --vcf --caller-id  # FN as "Jane Doe (Acme recruiter)"
-node contacts.mjs --self-test
+bun contacts.mjs                    # JSON (contacts + quality + total)
+bun contacts.mjs --summary          # human-readable table
+bun contacts.mjs --vcf [path]       # write vCard file (default output/contacts.vcf)
+bun contacts.mjs --vcf --caller-id  # FN as "Jane Doe (Acme recruiter)"
+bun contacts.mjs --self-test
 ```
 
 Contact line format (TSV, one per line, `#`-prefixed lines are comments):
@@ -420,11 +420,11 @@ Contact line format (TSV, one per line, `#`-prefixed lines are comments):
 Rolls up `interview-prep/sessions/*.md` — the structured, machine-readable transcripts `interview/debrief` and `interview/practice` already write (schema in `interview-prep/sessions/README.md`) — into a single digest for a date range (default: the current ISO week, Monday–Sunday). Groups sessions by company/role into a per-company round rollup (round type + date per round), counts `<!-- competency: tag[, tag...] -->` annotations across all sessions in range and flags any tag appearing 2+ times as recurring, and — best-effort, since `interview-prep/question-bank.md` has no fixed schema — attributes 🔴-tagged lines to whichever in-range company's heading they fall under. Purely mechanical: front-matter parsing, date filtering, and tag counting, no LLM judgment calls.
 
 ```bash
-node weekly-digest.mjs                                   # JSON, current ISO week
-node weekly-digest.mjs --summary                          # human-readable digest
-node weekly-digest.mjs --from 2026-07-13 --to 2026-07-19  # explicit date range
-node weekly-digest.mjs --dir path/to/sessions             # override sessions dir (test isolation)
-node weekly-digest.mjs --self-test
+bun weekly-digest.mjs                                   # JSON, current ISO week
+bun weekly-digest.mjs --summary                          # human-readable digest
+bun weekly-digest.mjs --from 2026-07-13 --to 2026-07-19  # explicit date range
+bun weekly-digest.mjs --dir path/to/sessions             # override sessions dir (test isolation)
+bun weekly-digest.mjs --self-test
 ```
 
 `interview-prep/sessions/` is gitignored, and session content contains real interviewer names and companies — see the "Privacy — important" section of `interview-prep/sessions/README.md` for the source of that statement. A fresh clone or a week with no interviews reports "no interviews recorded in this range" and exits `0`, never an error.
@@ -444,12 +444,12 @@ Two finding types:
 Each finding copies the row's `sources`, so whoever picks it up knows exactly where to re-verify. Malformed or missing dates produce a warning entry and the row is skipped — never a crash: once an array qualifies as a row-set (≥1 row with `as_of`), a sibling row that *forgot* its mandatory `as_of` warns too, instead of silently vanishing from validation. All date math is UTC-midnight calendar math (no time-of-day drift); dates in tables are quoted `YYYY-MM-DD` strings.
 
 ```bash
-npm run freshness
-node check-table-freshness.mjs                    # JSON
-node check-table-freshness.mjs --summary          # human-readable table
-node check-table-freshness.mjs --max-age-months 6 # override review threshold
-node check-table-freshness.mjs --today 2026-10-02 # deterministic date for tests
-node check-table-freshness.mjs --self-test
+bun run freshness
+bun check-table-freshness.mjs                    # JSON
+bun check-table-freshness.mjs --summary          # human-readable table
+bun check-table-freshness.mjs --max-age-months 6 # override review threshold
+bun check-table-freshness.mjs --today 2026-10-02 # deterministic date for tests
+bun check-table-freshness.mjs --self-test
 ```
 
 **Exit codes (CI-friendly):** `1` if any `expired` finding or on invalid usage (bad `--max-age-months` / `--today` values), `0` otherwise — `review-due` alone never fails the run, so a scheduled job only goes red when a known legal change has actually landed unaddressed.
@@ -461,7 +461,7 @@ node check-table-freshness.mjs --self-test
 Checks whether a newer version of career-ops is available upstream. Outputs JSON to stdout:
 
 ```bash
-npm run update:check
+bun run update:check
 ```
 
 Possible JSON responses:
@@ -482,7 +482,7 @@ Possible JSON responses:
 Applies the upstream update. Creates a timestamped backup branch (`backup-pre-update-<version>-<YYYYMMDDTHHMMSSZ>`), fetches from the canonical repo, checks out only system-layer files, runs `npm install`, and commits. The timestamp is derived from UTC ISO time with separators and milliseconds removed (for example, `backup-pre-update-1.8.1-20260608T071302Z`). User-layer files (`cv.md`, `config/profile.yml`, `data/`, etc.) are never touched.
 
 ```bash
-npm run update
+bun run update
 ```
 
 **Exit codes:** `0` success, `1` lock conflict or safety violation.
@@ -494,7 +494,7 @@ npm run update
 Restores system-layer files from the most recent backup branch created during an update. Rollback prefers the newest timestamped branch matching `backup-pre-update-<version>-<YYYYMMDDTHHMMSSZ>` and still accepts legacy `backup-pre-update-<version>` branches for older installs.
 
 ```bash
-npm run rollback
+bun run rollback
 ```
 
 **Exit codes:** `0` success, `1` no backup branch found or git error.
@@ -508,11 +508,11 @@ Tests whether job posting URLs are still live. Two rungs: a zero-token ATS API c
 Per-job ATS endpoints (Greenhouse, Lever, Workday) treat a 200 as proof the posting is live; Ashby's public API is org-level (the whole job board), so that rung parses the board and confirms the specific job id is still listed. A definitive 404/410 from any ATS API is authoritative and short-circuits the browser check entirely — zero tokens, no browser launch.
 
 ```bash
-npm run liveness -- https://example.com/job/123
-npm run liveness -- https://a.com/job/1 https://b.com/job/2
-npm run liveness -- --file urls.txt
-npm run liveness -- --no-fallback https://a.com/job/1   # stay fully headless (no headed retry on anti-bot walls)
-npm run liveness -- --throttle=5000 --file urls.txt      # jittered wait between checks (rate-based WAFs)
+bun run liveness -- https://example.com/job/123
+bun run liveness -- https://a.com/job/1 https://b.com/job/2
+bun run liveness -- --file urls.txt
+bun run liveness -- --no-fallback https://a.com/job/1   # stay fully headless (no headed retry on anti-bot walls)
+bun run liveness -- --throttle=5000 --file urls.txt      # jittered wait between checks (rate-based WAFs)
 ```
 
 Each URL gets a verdict: `active`, `expired`, or `uncertain` with a reason.
@@ -545,8 +545,8 @@ When the ATS provider's list API returns a description, each new offer is finger
 **Company blacklist (#1742):** if `data/blacklist.md` exists (user layer, opt-in — see `templates/blacklist.example.md`), postings from listed companies are skipped, matched case- and punctuation-insensitively with the same company normalization the tracker scripts share. Skips are never silent: the run summary reports `N skipped (blacklist)` and the count is persisted to `data/scan-runs.tsv` as `filtered_blacklist`. Pass `--include-blacklisted` to bypass the filter for auditing — matching postings flow through annotated (`note: blacklisted: {reason}` in `data/pipeline.md`). No blacklist file = no filtering; nothing ever adds a company to the list automatically.
 
 ```bash
-npm run scan
-node scan.mjs --include-blacklisted   # audit: let blacklisted companies through, annotated
+bun run scan
+bun scan.mjs --include-blacklisted   # audit: let blacklisted companies through, annotated
 ```
 
 **Exit codes:** `0` scan completed, `1` configuration error or no portals.yml found.
@@ -578,16 +578,16 @@ How it works:
 Same detection logic applies to `scan.mjs` (the standard portal scanner) — the sub-section above is shared between both commands.
 
 ```bash
-npm run scan:full                              # all ATS directories, last 3 days
-node scan-ats-full.mjs --since 7               # postings from the last 7 days
-node scan-ats-full.mjs --ats greenhouse,workday # subset of sources
-node scan-ats-full.mjs --limit 200             # max companies per ATS
-node scan-ats-full.mjs --dry-run               # preview without writing
-node scan-ats-full.mjs --liveness              # Playwright-verify matches first
-node scan-ats-full.mjs --include-blacklisted   # audit blacklist matches instead of skipping
-node scan-ats-full.mjs --md-out notes/scans    # also write a dated markdown digest
-npm run scan:seeds                             # probe VC portfolio seed companies (--seeds yc,a16z)
-npm run scan:yc                                # Y Combinator portfolio only (--seeds yc)
+bun run scan:full                              # all ATS directories, last 3 days
+bun scan-ats-full.mjs --since 7               # postings from the last 7 days
+bun scan-ats-full.mjs --ats greenhouse,workday # subset of sources
+bun scan-ats-full.mjs --limit 200             # max companies per ATS
+bun scan-ats-full.mjs --dry-run               # preview without writing
+bun scan-ats-full.mjs --liveness              # Playwright-verify matches first
+bun scan-ats-full.mjs --include-blacklisted   # audit blacklist matches instead of skipping
+bun scan-ats-full.mjs --md-out notes/scans    # also write a dated markdown digest
+bun run scan:seeds                             # probe VC portfolio seed companies (--seeds yc,a16z)
+bun run scan:yc                                # Y Combinator portfolio only (--seeds yc)
 ```
 
 `--seeds <list>` fetches comma-separated VC portfolio sources (e.g. `yc,a16z`)
@@ -606,9 +606,9 @@ How many upstream queries that becomes depends on the OS resolver: `dns.lookup()
 Cache hits and lookups that coalesce onto an in-flight one are free, so only uncached, non-coalesced lookup keys count against the ceiling — a hostname not in the cache, or a cached one requested with different resolver options (the cache key is hostname plus `family`/`all`/`hints`/`verbatim`).
 
 ```bash
-CAREER_OPS_DNS_LOOKUPS_PER_MIN=800 npm run scan:full   # raise the ceiling
-CAREER_OPS_DNS_LOOKUPS_PER_MIN=0 npm run scan:full     # no pacing (pre-#2229 behaviour)
-CAREER_OPS_NO_DNS_CACHE=1 npm run scan:full            # no DNS cache AND no pacing
+CAREER_OPS_DNS_LOOKUPS_PER_MIN=800 bun run scan:full   # raise the ceiling
+CAREER_OPS_DNS_LOOKUPS_PER_MIN=0 bun run scan:full     # no pacing (pre-#2229 behaviour)
+CAREER_OPS_NO_DNS_CACHE=1 bun run scan:full            # no DNS cache AND no pacing
 ```
 
 The cost is real: a full Workday + iCIMS sweep becomes DNS-bound at roughly 35 minutes. Raise the ceiling if your resolver has the budget — but if you see `fetch failed` in bulk from one ATS section, suspect the resolver before the boards.
@@ -622,11 +622,11 @@ The cost is real: a full Workday + iCIMS sweep becomes DNS-bound at roughly 35 m
 Review-first discovery for companies that recently raised funding. It reads structured public RSS/API sources and prints a candidate report for manual review. It never edits `portals.yml` and does not probe company websites.
 
 ```bash
-npm run company:funded -- --dry-run --limit 20
-npm run company:funded -- --dry-run --limit 20 --months 3 --json
-npm run company:funded -- --dry-run --sort score --limit 20
-npm run company:funded -- --sources techcrunch,prnewswire,guardian,hn
-npm run company:funded -- --self-test
+bun run company:funded -- --dry-run --limit 20
+bun run company:funded -- --dry-run --limit 20 --months 3 --json
+bun run company:funded -- --dry-run --sort score --limit 20
+bun run company:funded -- --sources techcrunch,prnewswire,guardian,hn
+bun run company:funded -- --self-test
 ```
 
 Defaults: last 3 months, `--sort date`, sources `techcrunch,prnewswire,guardian,hn`. `--sort score` ranks by source and funding-detail confidence instead.
@@ -648,13 +648,13 @@ Why: at hundreds of rows a markdown table degrades structurally (encoding corrup
 Zero new dependencies — uses `node:sqlite`, built into Node ≥ 22.5.
 
 ```bash
-node tracker.mjs sync                     # (re)build applications.db from applications.md
-node tracker.mjs sync --check             # diagnose corruption only, no write (exit 1 if issues found)
-node tracker.mjs query --status Applied --since 2026-05-01
-node tracker.mjs query --company acme --json
-node tracker.mjs history --id 42          # status transitions observed across syncs (Applied → Interview → ...)
-node tracker.mjs export                   # inverse: index → canonical markdown table on stdout
-node tracker.mjs export --out repaired.md # write to a file (existing file backed up to .bak first)
+bun tracker.mjs sync                     # (re)build applications.db from applications.md
+bun tracker.mjs sync --check             # diagnose corruption only, no write (exit 1 if issues found)
+bun tracker.mjs query --status Applied --since 2026-05-01
+bun tracker.mjs query --company acme --json
+bun tracker.mjs history --id 42          # status transitions observed across syncs (Applied → Interview → ...)
+bun tracker.mjs export                   # inverse: index → canonical markdown table on stdout
+bun tracker.mjs export --out repaired.md # write to a file (existing file backed up to .bak first)
 ```
 
 `query` and `history` auto-resync when the markdown changed since the last sync, so the index can never serve stale reads.
@@ -674,10 +674,10 @@ Resolves a report number, tracker number, or company/role fragment to its full p
 Zero dependencies, strictly read-only. Numeric queries match **both** the tracker # column and the report number from the Report link (`012` and `12` are the same number), so collisions between the two numbering schemes surface as multiple rows instead of a silent wrong pick. Text queries match company/role by case-insensitive substring, with the shared fuzzy matcher (`role-matcher.mjs`) as fallback for multi-word phrases.
 
 ```bash
-node find.mjs 13                # report# OR tracker# 13 — shows both if they differ
-node find.mjs acme              # company fragment
-node find.mjs "data engineer"   # role phrase (fuzzy via role-matcher)
-node find.mjs acme --json       # machine-readable output
+bun find.mjs 13                # report# OR tracker# 13 — shows both if they differ
+bun find.mjs acme              # company fragment
+bun find.mjs "data engineer"   # role phrase (fuzzy via role-matcher)
+bun find.mjs acme --json       # machine-readable output
 ```
 
 Multiple matches print as a table; zero matches print a clean message.
@@ -691,8 +691,8 @@ Multiple matches print as a table; zero matches print a clean message.
 Manual, no-Gmail input path into `reply-watch.mjs`'s classification pipeline (#1802). `reply-watch.mjs` already classifies employer replies and matches them to tracker rows, but its only input is `data/reply-candidates.json`, and the only planned way to populate that file is a Gmail scanner (#1583, unbuilt, requires OAuth inbox-read access). `paste-reply.mjs` normalizes a pasted (or file-provided) email's subject/from/body into the exact candidate shape `reply-watch.mjs` expects and appends it — existing candidates are never overwritten. It does not classify the reply itself (that stays `reply-watch.mjs`'s job) and never runs `reply-watch.mjs` or touches `data/applications.md`.
 
 ```bash
-npm run paste-reply                    # interactive: prompts for subject, from, body
-node paste-reply.mjs --file email.txt  # read subject/from/body from a file
+bun run paste-reply                    # interactive: prompts for subject, from, body
+bun paste-reply.mjs --file email.txt  # read subject/from/body from a file
 ```
 
 `--file` format (header lines optional, blank line separates headers from body):
@@ -704,7 +704,7 @@ From: <sender>
 <body text...>
 ```
 
-If no `Subject:`/`From:` header lines are found, the whole file is treated as the body. After appending, run `node reply-watch.mjs` to classify the new candidate and review suggested tracker updates.
+If no `Subject:`/`From:` header lines are found, the whole file is treated as the body. After appending, run `bun reply-watch.mjs` to classify the new candidate and review suggested tracker updates.
 
 **Exit codes:** `0` candidate appended, `1` missing `--file` argument, input file not found, or no subject/body text found.
 
@@ -716,10 +716,10 @@ Runs the pipeline on OpenRouter free models with automatic fallback — no
 Claude Code CLI required.
 
 ```bash
-npm run or:scan                 # scan configured companies for new listings
-npm run or:eval -- <url>        # evaluate a job by URL (no URL: paste interactively)
-npm run or:pipeline             # process pending URLs
-npm run or:apply                # application assistance
+bun run or:scan                 # scan configured companies for new listings
+bun run or:eval -- <url>        # evaluate a job by URL (no URL: paste interactively)
+bun run or:pipeline             # process pending URLs
+bun run or:apply                # application assistance
 ```
 
 ---
@@ -732,7 +732,7 @@ back to `pipeline.md`, so batch-processed offers would otherwise be
 re-surfaced by every later scan or pipeline run.
 
 ```bash
-npm run reconcile
+bun run reconcile
 ```
 
 ---
@@ -744,8 +744,8 @@ Renders a cover-letter JSON payload to PDF: fills
 same Playwright pipeline as CVs.
 
 ```bash
-npm run cover-letter -- payload.json
-node generate-cover-letter.mjs --payload payload.json --out output/slug-cover.pdf
+bun run cover-letter -- payload.json
+bun generate-cover-letter.mjs --payload payload.json --out output/slug-cover.pdf
 ```
 
 ---
@@ -758,7 +758,7 @@ probes the public Greenhouse / Ashby / Lever endpoints to confirm each slug
 actually resolves.
 
 ```bash
-npm run verify:portals
+bun run verify:portals
 ```
 
 ---
@@ -770,8 +770,8 @@ company, and flags any company+role listed 2+ times with different URLs
 within a 90-day window — a strong ghost-job / re-listing signal.
 
 ```bash
-npm run reposts                 # JSON
-node detect-reposts.mjs --summary
+bun run reposts                 # JSON
+bun detect-reposts.mjs --summary
 ```
 
 ---
@@ -788,10 +788,10 @@ CLI:
   DeepSeek, LM Studio, llama.cpp, vLLM, ...)
 
 ```bash
-npm run gemini:eval -- "We are looking for a Senior AI Engineer..."
-node gemini-eval.mjs --file ./jds/my-job.txt
-npm run ollama:eval -- "JD text"
-npm run openai:eval -- "JD text"
+bun run gemini:eval -- "We are looking for a Senior AI Engineer..."
+bun gemini-eval.mjs --file ./jds/my-job.txt
+bun run ollama:eval -- "JD text"
+bun run openai:eval -- "JD text"
 ```
 
 ---
@@ -804,7 +804,7 @@ text (optionally plus a JD file), and returns the top matches formatted to
 ATS paste length (250-500 words).
 
 ```bash
-npm run star -- "Tell me about a time you disagreed with a decision"
+bun run star -- "Tell me about a time you disagreed with a decision"
 ```
 
 ---
@@ -816,7 +816,7 @@ postings vanish once filled, and the original requirements matter for
 interview prep and salary negotiation evidence.
 
 ```bash
-npm run archive -- https://example.com/job/123
+bun run archive -- https://example.com/job/123
 ```
 
 ---
@@ -830,7 +830,7 @@ open the apply URL, and submit yourself. See
 [APPLY_AUTOFILL.md](APPLY_AUTOFILL.md).
 
 ```bash
-npm run prepare:application -- --url https://boards.greenhouse.io/acme/jobs/123
+bun run prepare:application -- --url https://boards.greenhouse.io/acme/jobs/123
 ```
 
 ---
@@ -843,8 +843,8 @@ platform-correct output name (`career-dashboard.exe` on Windows, else
 binary on Windows. Requires Go 1.24+.
 
 ```bash
-npm run build:dashboard
-npm run serve:dashboard    # or run the TUI directly without building
+bun run build:dashboard
+bun run serve:dashboard    # or run the TUI directly without building
 ```
 
 ---
@@ -856,20 +856,20 @@ These have no `npm run` binding — modes and agents call them with
 
 | Invocation | Purpose |
 |------------|---------|
-| `node set-status.mjs <report#\|company> <State> [--note]` | Canonical tracker write path: strict states.yml validation, shared lock, atomic write. Modes call this instead of hand-editing `applications.md` |
-| `node mark-pdf-ready.mjs <report#> [--dry-run] [--json]` | Mark the matched tracker's PDF cell ready after the web PDF render path finishes; resolves the report number, uses the shared tracker lock, and writes atomically |
-| `node followup-cadence.mjs [--summary]` | Follow-up cadence per active application; flags overdue entries |
-| `node followup-seed.mjs [--backfill]` | Seed `data/follow-ups.md` with a pinned first follow-up date when a row turns Applied |
-| `node reply-watch.mjs` | Classify employer replies from `data/reply-candidates.json`, match to tracker rows, print a review digest |
-| `node process-quality.mjs [--summary]` | Aggregate `[process-friction]` tags from `data/active-interviews.md` per company |
-| `node reserve-report-num.mjs [--count N]` | Atomically reserve report numbers for parallel workers (fixes the #749 race) |
-| `node agent-inbox.mjs add "..."` | Append a request to the queue the agent drains at the next session start |
-| `node generate-latex.mjs <input.tex> [output.pdf]` | Validate and compile a generated `.tex` CV via tectonic or pdflatex |
-| `node classify-tier.mjs` | Classify a job title into intern / entry / mid / senior |
-| `node plugins.mjs list\|run <id> [hook]` | CLI host for non-provider plugin hooks (see [PLUGINS.md](PLUGINS.md)) |
-| `node plugin-install.mjs` | Clone/scaffold/validate community plugins (allowlisted URLs, pinned SHA) |
-| `node plugin-audit.mjs` | Static safety scan for community/registry plugins |
-| `node validate-plugin-registry.mjs` | Shape gate for `plugins-registry/<id>.json` files |
+| `bun set-status.mjs <report#\|company> <State> [--note]` | Canonical tracker write path: strict states.yml validation, shared lock, atomic write. Modes call this instead of hand-editing `applications.md` |
+| `bun mark-pdf-ready.mjs <report#> [--dry-run] [--json]` | Mark the matched tracker's PDF cell ready after the web PDF render path finishes; resolves the report number, uses the shared tracker lock, and writes atomically |
+| `bun followup-cadence.mjs [--summary]` | Follow-up cadence per active application; flags overdue entries |
+| `bun followup-seed.mjs [--backfill]` | Seed `data/follow-ups.md` with a pinned first follow-up date when a row turns Applied |
+| `bun reply-watch.mjs` | Classify employer replies from `data/reply-candidates.json`, match to tracker rows, print a review digest |
+| `bun process-quality.mjs [--summary]` | Aggregate `[process-friction]` tags from `data/active-interviews.md` per company |
+| `bun reserve-report-num.mjs [--count N]` | Atomically reserve report numbers for parallel workers (fixes the #749 race) |
+| `bun agent-inbox.mjs add "..."` | Append a request to the queue the agent drains at the next session start |
+| `bun generate-latex.mjs <input.tex> [output.pdf]` | Validate and compile a generated `.tex` CV via tectonic or pdflatex |
+| `bun classify-tier.mjs` | Classify a job title into intern / entry / mid / senior |
+| `bun plugins.mjs list\|run <id> [hook]` | CLI host for non-provider plugin hooks (see [PLUGINS.md](PLUGINS.md)) |
+| `bun plugin-install.mjs` | Clone/scaffold/validate community plugins (allowlisted URLs, pinned SHA) |
+| `bun plugin-audit.mjs` | Static safety scan for community/registry plugins |
+| `bun validate-plugin-registry.mjs` | Shape gate for `plugins-registry/<id>.json` files |
 
 ---
 
@@ -878,12 +878,12 @@ These have no `npm run` binding — modes and agents call them with
 Canonical tracker write path: strict `states.yml` validation, shared lock, atomic write. Modes and agents call this instead of hand-editing `applications.md`.
 
 ```bash
-node set-status.mjs <report#|company> <state> [--note "..."] [--on YYYY-MM-DD] [--force] [--dry-run] [--json]
-node set-status.mjs --row N <state> [--note "..."]          # explicit tracker row ID
-node set-status.mjs --report N <state> [--note "..."]       # row whose Report cell links report #N
-node set-status.mjs "Company Name" Applied --role "Role"    # narrow match by role fragment
-node set-status.mjs --row 12 Applied
-node set-status.mjs --report 345 Applied --on 2026-08-01
+bun set-status.mjs <report#|company> <state> [--note "..."] [--on YYYY-MM-DD] [--force] [--dry-run] [--json]
+bun set-status.mjs --row N <state> [--note "..."]          # explicit tracker row ID
+bun set-status.mjs --report N <state> [--note "..."]       # row whose Report cell links report #N
+bun set-status.mjs "Company Name" Applied --role "Role"    # narrow match by role fragment
+bun set-status.mjs --row 12 Applied
+bun set-status.mjs --report 345 Applied --on 2026-08-01
 ```
 
 A bare number or company name is convenient, but becomes ambiguous when multiple tracker rows exist for a company or when tracker row IDs and report IDs diverge. That divergence is permanent once it starts: `reserve-report-num.mjs` treats tracker row IDs as occupied when it allocates a report number, so a row that never got a report still consumes a number the report sequence then skips — the two counters leapfrog each other and never realign. On a diverged tracker "5" may mean tracker row #5 or report #5, which are different applications. Base selectors resolve the main target, while explicit selectors and filters disambiguate the target row:
@@ -923,9 +923,9 @@ day-to-day command. The argument is the report number from the `reports/NNN-...`
 filename or Report cell, not the tracker row's `#` value.
 
 ```bash
-node mark-pdf-ready.mjs <report#>                  # mark the matching row
-node mark-pdf-ready.mjs <report#> --dry-run       # validate without writing
-node mark-pdf-ready.mjs <report#> --json          # emit machine-readable output
+bun mark-pdf-ready.mjs <report#>                  # mark the matching row
+bun mark-pdf-ready.mjs <report#> --dry-run       # validate without writing
+bun mark-pdf-ready.mjs <report#> --json          # emit machine-readable output
 ```
 
 The script resolves the report-to-row link, refuses ambiguous matches, and
@@ -943,8 +943,8 @@ and `4` means the tracker lock timed out and the operation should be retried.
 Aggregates lifetime pipeline stats into one JSON report. Stats include tracker, scanner, portals, follow-ups and runs. Reads from data/applications.md, data/scan-history.tsv, portals.yml, data/follow-ups.md and data/scan-runs.tsv. If a file doesn't exist yet, the section turns into null.
 
 ```bash
-node stats.mjs --summary             # returns human-readable table
-node stats.mjs                       # returns json
+bun stats.mjs --summary             # returns human-readable table
+bun stats.mjs                       # returns json
 ```
 On a fresh clone, with no data yet, the JSON format is as follows:
 

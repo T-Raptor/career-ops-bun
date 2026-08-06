@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * extract-latex-content.mjs — Detect LaTeX CV family and list editable prose slots.
@@ -8,8 +8,8 @@
  *   - tabularx-itemize (\\item bodies inside itemize, no resume macros)
  *
  * Usage:
- *   node extract-latex-content.mjs <source.tex>
- *   node extract-latex-content.mjs <source.tex> --out manifest.json
+ *   bun extract-latex-content.mjs <source.tex>
+ *   bun extract-latex-content.mjs <source.tex> --out manifest.json
  */
 
 import { readFile, writeFile } from 'fs/promises';
@@ -29,7 +29,7 @@ async function main() {
 
   const sourcePath = args[0];
   if (!sourcePath) {
-    console.error('Usage: node extract-latex-content.mjs <source.tex> [--out manifest.json]');
+    console.error('Usage: bun extract-latex-content.mjs <source.tex> [--out manifest.json]');
     process.exit(1);
   }
 

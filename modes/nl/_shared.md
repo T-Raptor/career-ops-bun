@@ -187,7 +187,7 @@ Nederland en België gebruiken deels dezelfde taal, maar hebben verschillende ar
 
 0. **Sollicitatiebrief:** Als het formulier dit toelaat, voeg er ALTIJD één toe. PDF in hetzelfde visuele ontwerp als het cv. Koppel citaten uit de vacature aan proof points. Maximaal 1 pagina.
 1. Lees `cv.md` en `article-digest.md` (indien aanwezig) voordat u een vacature evalueert
-1b. **Eerste evaluatie van elke sessie:** Voer `node cv-sync-check.mjs` uit via Bash. Bij waarschuwingen de kandidaat hiervan op de hoogte stellen
+1b. **Eerste evaluatie van elke sessie:** Voer `bun cv-sync-check.mjs` uit via Bash. Bij waarschuwingen de kandidaat hiervan op de hoogte stellen
 2. Detecteer het archetype van de rol en pas de positionering aan
 3. Citeer bij matching de exacte regels uit het CV
 4. Gebruik WebSearch voor belonings- en bedrijfsgegevens
@@ -209,4 +209,4 @@ Nederland en België gebruiken deels dezelfde taal, maar hebben verschillende ar
 | Read | `config/profile.yml`, cv.md, article-digest.md, `_profile.md`, `_custom.md`, voice-dna.md, writing-samples/ en cv-template.html |
 | Write | Tijdelijke HTML voor PDF, rapporten .md en TSV-bestanden in `batch/tracker-additions/` |
 | Edit | Bestaande rapportinhoud bijwerken; bewerk `applications.md` nooit rechtstreeks |
-| Bash | `node generate-pdf.mjs` |
+| Bash | `bun generate-pdf.mjs` |

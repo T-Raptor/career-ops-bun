@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * mark-pdf-ready.mjs — canonical CLI to flip a tracker row's PDF column ❌→✅ (#2172).
@@ -11,7 +11,7 @@
  * atomic write, same shared tracker-parse/tracker-utils primitives.
  *
  * Usage:
- *   node mark-pdf-ready.mjs <report#> [--dry-run] [--json]
+ *   bun mark-pdf-ready.mjs <report#> [--dry-run] [--json]
  *
  * Row resolution is by REPORT NUMBER (the NNN in reports/NNN-{slug}-{date}.md),
  * not the tracker `#` column — those two numbers differ by design (see
@@ -48,7 +48,7 @@ const CAREER_OPS = dirname(fileURLToPath(import.meta.url));
 // acquireTrackerLockForCli() itself (tracker-utils.mjs), via CLI_EXIT.LOCK_TIMEOUT.
 const { OK: EXIT_OK, USAGE: EXIT_USAGE, NOT_FOUND: EXIT_NOT_FOUND, AMBIGUOUS: EXIT_AMBIGUOUS } = CLI_EXIT;
 
-const USAGE = `Usage: node mark-pdf-ready.mjs <report#> [--dry-run] [--json]
+const USAGE = `Usage: bun mark-pdf-ready.mjs <report#> [--dry-run] [--json]
 
   <report#>    The NNN from reports/NNN-{slug}-{date}.md (NOT the tracker # column)
   --dry-run    Resolve and validate, but write nothing

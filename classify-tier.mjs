@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * classify-tier.mjs — Seniority-tier classifier for job titles
@@ -113,8 +113,8 @@ if (isDirect) {
     console.log(classifyTier(args[0]));
   } else {
     console.log('Usage:');
-    console.log('  node classify-tier.mjs "<job-title>"');
-    console.log('  node classify-tier.mjs --test');
+    console.log('  bun classify-tier.mjs "<job-title>"');
+    console.log('  bun classify-tier.mjs --test');
   }
 }
 

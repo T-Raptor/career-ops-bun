@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * set-status-tests.mjs — regression tests for the set-status.mjs CLI (#1428).

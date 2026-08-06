@@ -92,10 +92,10 @@
 # 1. استنساخ المشروع وتثبيت الاعتماديات
 git clone https://github.com/santifer/career-ops.git
 cd career-ops && npm install
-npx playwright install chromium   # مطلوب لتوليد ملفات الـ PDF وسحب البيانات
+bunx playwright install chromium   # مطلوب لتوليد ملفات الـ PDF وسحب البيانات
 
 # 2. فحص إعدادات النظام
-npm run doctor                     # للتحقق من جاهزية كل المتطلبات البرمجية
+bun run doctor                     # للتحقق من جاهزية كل المتطلبات البرمجية
 
 # 3. تكوين البيانات الشخصية
 cp config/profile.example.yml config/profile.yml  # قم بتعديله وإضافة معلوماتك
@@ -152,9 +152,9 @@ cp .env.example .env
 npm install
 
 # 3. تقييم تفاصيل الوظيفة مباشرة
-node gemini-eval.mjs "We are looking for a Senior AI Engineer..."
-node gemini-eval.mjs --file ./jds/my-job.txt
-npm run gemini:eval -- "نص تفاصيل الوظيفة هنا"
+bun gemini-eval.mjs "We are looking for a Senior AI Engineer..."
+bun gemini-eval.mjs --file ./jds/my-job.txt
+bun run gemini:eval -- "نص تفاصيل الوظيفة هنا"
 ```
 
 ---
@@ -213,7 +213,7 @@ npm run gemini:eval -- "نص تفاصيل الوظيفة هنا"
 لضمان سلامة الإعلانات المنشورة وتفادي الوظائف المنتهية صلاحيتها أو الوهمية (Ghost Jobs)، يمكنك تشغيل الفاحص مع خيار التحقق الحي باستخدام Playwright:
 
 ```bash
-node scan.mjs --verify          # كشف سريع بدون استهلاك للرموز + فحص حيوية الإعلان عبر المتصفح
+bun scan.mjs --verify          # كشف سريع بدون استهلاك للرموز + فحص حيوية الإعلان عبر المتصفح
 ```
 
 ---

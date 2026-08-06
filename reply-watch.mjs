@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * reply-watch.mjs — Classify employer replies and generate a review digest (RFC #1585).
@@ -8,7 +8,7 @@
  * review digest. Prompts the user to approve recommended tracker status updates.
  *
  * Usage:
- *   node reply-watch.mjs [path/to/candidates.json]
+ *   bun reply-watch.mjs [path/to/candidates.json]
  */
 
 import fs from 'node:fs';
@@ -317,7 +317,7 @@ async function main() {
       // Sync tracker DB if tracker.mjs exists
       try {
         const { execSync } = await import('child_process');
-        execSync('node tracker.mjs sync', { stdio: 'ignore' });
+        execSync('bun tracker.mjs sync', { stdio: 'ignore' });
         console.log('Synced database index (applications.db).');
       } catch (e) {
         // ignore

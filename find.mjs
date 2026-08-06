@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * find.mjs — resolve a company/role/number query to its full pipeline identity (#1431).
@@ -9,7 +9,7 @@
  * answers it in one lookup.
  *
  * Usage:
- *   node find.mjs <query> [--json]
+ *   bun find.mjs <query> [--json]
  *
  * <query> is a report number, tracker number, or company/role fragment.
  * A numeric query matches BOTH the tracker # column and the report number in
@@ -131,7 +131,7 @@ function main() {
   const json = args.includes('--json');
   const query = args.filter(a => a !== '--json').join(' ').trim();
   if (!query) {
-    console.log('Usage: node find.mjs <report# | tracker# | company/role fragment> [--json]');
+    console.log('Usage: bun find.mjs <report# | tracker# | company/role fragment> [--json]');
     process.exitCode = 1;
     return;
   }

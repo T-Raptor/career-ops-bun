@@ -206,7 +206,7 @@ tracked_companies:
   - name: Fixture Defense
     careers_url: https://boards.example.com/fixture
     parser:
-      command: node
+      command: bun
       script: tests/fixtures/three-city-board.mjs
 `);
 

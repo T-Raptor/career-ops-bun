@@ -3,7 +3,7 @@
  * match ranking, which is the part most likely to silently regress: a wrong
  * top candidate is worse than no candidate at all.
  *
- * Run: node invite-match.test.mjs
+ * Run: bun invite-match.test.mjs
  */
 
 import { matchInvite, normalizeCompanyName, extractPlatform } from './invite-match.mjs';

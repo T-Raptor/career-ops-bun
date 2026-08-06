@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * discover-ats.mjs — Company-list → scannable ATS board resolver for career-ops
  *
@@ -18,12 +18,12 @@
  * Input: a YAML file `companies: [{name, slug?, website?}]` (via --in), and/or
  * bare company names as positional CLI args.
  *
- * Run: node discover-ats.mjs --in companies.yml            (preview — writes nothing)
- *      node discover-ats.mjs --in companies.yml --write    (opt in: append to portals.yml)
- *      node discover-ats.mjs Stripe Ramp Mollie            (bare names)
- *      node discover-ats.mjs --in companies.yml --summary  (human table)
- *      node discover-ats.mjs --in companies.yml --vendors gh,ashby
- *      node discover-ats.mjs --self-test
+ * Run: bun discover-ats.mjs --in companies.yml            (preview — writes nothing)
+ *      bun discover-ats.mjs --in companies.yml --write    (opt in: append to portals.yml)
+ *      bun discover-ats.mjs Stripe Ramp Mollie            (bare names)
+ *      bun discover-ats.mjs --in companies.yml --summary  (human table)
+ *      bun discover-ats.mjs --in companies.yml --vendors gh,ashby
+ *      bun discover-ats.mjs --self-test
  *
  * Probing hits live third-party APIs, so honor CAREER_OPS_PORTALS to point at a
  * scratch portals file during tests/experiments.
@@ -34,7 +34,7 @@
 import { readFileSync, existsSync, writeFileSync, renameSync } from 'fs';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 import { makeHttpCtx } from './providers/_http.mjs';
 import greenhouse from './providers/greenhouse.mjs';
@@ -82,14 +82,14 @@ const VENDOR_ORDER = ['gh', 'ashby', 'lever'];
 const WORKDAY_INSTANCES = ['wd1', 'wd2', 'wd3', 'wd5', 'wd10', 'wd12', 'wd101', 'wd103'];
 
 const USAGE = `Usage:
-  node discover-ats.mjs --in companies.yml            # PREVIEW — resolve + print entries, write nothing
-  node discover-ats.mjs --in companies.yml --write    # opt in: append resolved entries to portals.yml
-  node discover-ats.mjs Stripe Ramp Mollie            # company names as positional args
-  node discover-ats.mjs --in companies.yml --summary  # human-readable table
-  node discover-ats.mjs --in companies.yml --vendors gh,ashby,lever  # restrict probes
-  node discover-ats.mjs --in companies.yml --vendors workday         # Workday only
-  node discover-ats.mjs --self-test                   # inline test suite
-  node discover-ats.mjs --help                        # print this usage block
+  bun discover-ats.mjs --in companies.yml            # PREVIEW — resolve + print entries, write nothing
+  bun discover-ats.mjs --in companies.yml --write    # opt in: append resolved entries to portals.yml
+  bun discover-ats.mjs Stripe Ramp Mollie            # company names as positional args
+  bun discover-ats.mjs --in companies.yml --summary  # human-readable table
+  bun discover-ats.mjs --in companies.yml --vendors gh,ashby,lever  # restrict probes
+  bun discover-ats.mjs --in companies.yml --vendors workday         # Workday only
+  bun discover-ats.mjs --self-test                   # inline test suite
+  bun discover-ats.mjs --help                        # print this usage block
 
 portals.yml is a user-layer file: this command NEVER writes it unless you pass
 --write. The default previews the entries it would add (see pendingEntries).

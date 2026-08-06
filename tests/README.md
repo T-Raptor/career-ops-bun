@@ -27,9 +27,9 @@ Node.js (`tests/helpers.mjs`).
 ## Running
 
 ```bash
-node test-all.mjs                            # full suite — run before pushing
-node test-all.mjs --quick                    # full suite, skip dashboard build
-node test-all.mjs --only providers/themuse   # only matching tests/ files
+bun test-all.mjs                            # full suite — run before pushing
+bun test-all.mjs --quick                    # full suite, skip dashboard build
+bun test-all.mjs --only providers/themuse   # only matching tests/ files
 ```
 
 Discovery walks `tests/` recursively, sorted lexicographically for a
@@ -38,7 +38,7 @@ exits 1 when nothing matches (so a typo cannot turn CI green).
 
 **`--only` is a dev convenience, not a PR gate:** it skips every inline core
 section of `test-all.mjs`. A green `--only` run is not a green suite — always
-run the full `node test-all.mjs` before pushing.
+run the full `bun test-all.mjs` before pushing.
 
 ## Adding a test
 

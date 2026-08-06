@@ -155,7 +155,7 @@ export async function renderAndMarkPdf({ spawnFn, execPath, root, pdfPaths, repo
     warnings.push(
       mark.data?.error
         ? `PDF rendered, but the tracker wasn't updated: ${mark.data.error}`
-        : `PDF rendered, but the tracker's PDF column wasn't updated automatically — run \`node mark-pdf-ready.mjs ${reportNum}\` manually.`,
+        : `PDF rendered, but the tracker's PDF column wasn't updated automatically — run \`bun mark-pdf-ready.mjs ${reportNum}\` manually.`,
     );
   }
 

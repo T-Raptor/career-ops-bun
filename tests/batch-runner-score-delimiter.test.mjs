@@ -24,7 +24,7 @@
 //
 // This test extracts the REAL emitter out of batch/batch-runner.sh and runs it,
 // rather than restating it, so the two cannot drift apart.
-import { pass, fail, getBash } from './helpers.mjs';
+import { pass, fail, getBash, toBashPath, NODE } from './helpers.mjs';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -66,9 +66,9 @@ if (!emit) {
 // A successful worker: error is empty and score is present. That is the exact
 // shape that broke, and the only one worth asserting.
 if (emit && read) {
-  const nodeProg = SRC.match(/parsed=\$\(printf '%s' "\$worker_result_json" \| node -e '([\s\S]*?)'\s*2>\/dev\/null/);
+  const nodeProg = SRC.match(/parsed=\$\(printf '%s' "\$worker_result_json" \| (?:node|bun) -e '([\s\S]*?)'\s*2>\/dev\/null/);
   if (!nodeProg) {
-    fail('could not extract the node -e payload parser from batch-runner.sh');
+    fail('could not extract the node/bun -e payload parser from batch-runner.sh');
   } else {
     const work = mkdtempSync(join(tmpdir(), 'cops-delim-'));
     try {
@@ -76,7 +76,7 @@ if (emit && read) {
       writeFileSync(script, [
         '#!/usr/bin/env bash',
         `worker_result_json='{"status":"completed","error":null,"score":3.4}'`,
-        `parsed=$(printf '%s' "$worker_result_json" | node -e '${nodeProg[1]}' 2>/dev/null || true)`,
+        `parsed=$(printf '%s' "$worker_result_json" | "${toBashPath(NODE)}" -e '${nodeProg[1]}' 2>/dev/null || true)`,
         `IFS=$'${read[1]}' read -r parsed_status parsed_error parsed_score <<< "$parsed"`,
         'score="-"',
         'if [[ "$parsed_status" == "failed" ]]; then :',

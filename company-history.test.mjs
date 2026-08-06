@@ -11,7 +11,7 @@
  * loading real files from disk via the exported loaders, and CLI smoke
  * tests.
  *
- * Run: node company-history.test.mjs
+ * Run: bun company-history.test.mjs
  */
 
 import {
@@ -333,7 +333,7 @@ console.log('\n--- 6. unknown-company churn label depends on scanHistory load st
 console.log('\n--- 7. CLI smoke tests ---');
 
 try {
-  execFileSync('node', [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 10000 });
+  execFileSync(process.execPath, [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 10000 });
   ok('--self-test exits 0', true);
 } catch (e) {
   ok('--self-test exits 0', false);
@@ -341,7 +341,7 @@ try {
 }
 
 try {
-  const bareOut = execFileSync('node', [scriptPath], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
+  const bareOut = execFileSync(process.execPath, [scriptPath], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
   const bareJson = JSON.parse(bareOut);
   ok('bare run produces valid JSON', typeof bareJson === 'object' && bareJson !== null);
   ok('bare run JSON has metadata key', 'metadata' in bareJson);
@@ -352,7 +352,7 @@ try {
 }
 
 try {
-  execFileSync('node', [scriptPath, '--bogus-flag-xyz'], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
+  execFileSync(process.execPath, [scriptPath, '--bogus-flag-xyz'], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
   ok('unknown flag exits 1', false);
 } catch (e) {
   ok('unknown flag exits 1', e.status === 1);
@@ -363,7 +363,7 @@ try {
 for (const bad of ['abc', '0', '--silence-window=-5']) {
   const flagArgs = bad.startsWith('--') ? [bad] : ['--silence-window', bad];
   try {
-    execFileSync('node', [scriptPath, ...flagArgs], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
+    execFileSync(process.execPath, [scriptPath, ...flagArgs], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
     ok(`--silence-window rejects "${bad}" with exit 1`, false);
   } catch (e) {
     ok(`--silence-window rejects "${bad}" with exit 1`,
@@ -372,7 +372,7 @@ for (const bad of ['abc', '0', '--silence-window=-5']) {
 }
 
 try {
-  const winOut = execFileSync('node', [scriptPath, '--silence-window', '21'], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
+  const winOut = execFileSync(process.execPath, [scriptPath, '--silence-window', '21'], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
   ok('--silence-window accepts a positive integer', JSON.parse(winOut).metadata.silenceWindowDays === 21);
 } catch (e) {
   ok('--silence-window accepts a positive integer', false);
@@ -384,7 +384,7 @@ try {
 for (const flagArgs of [['--company', '--summary'], ['--company'], ['--scan-history', '--summary'], ['--followups='], ['--company='], ['--company', ''], ['--scan-history', ''], ['--followups', '']]) {
   const label = flagArgs.join(' ');
   try {
-    execFileSync('node', [scriptPath, ...flagArgs], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
+    execFileSync(process.execPath, [scriptPath, ...flagArgs], { encoding: 'utf-8', timeout: 10000, cwd: dirname(scriptPath) });
     ok(`value flag without a value ("${label}") exits 1`, false);
   } catch (e) {
     ok(`value flag without a value ("${label}") exits 1`,

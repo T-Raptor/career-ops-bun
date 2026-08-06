@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * doctor.mjs — Setup validation for career-ops
@@ -8,7 +8,7 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import dotenv from 'dotenv';
 import { discoverPlugins, pluginRoots, pluginStatus } from './plugins/_engine.mjs';
 import { resolveExtractorMode } from './browser-extract.mjs';
@@ -21,7 +21,7 @@ const projectRoot =
   targetIdx !== -1 && argv[targetIdx + 1] ? argv[targetIdx + 1] : __dirname;
 const JSON_OUT = argv.includes('--json');
 // --strict adds a live ATS-slug probe of portals.yml (network). Opt-in so the
-// default `npm run doctor` stays fast and fully offline.
+// default `bun run doctor` stays fast and fully offline.
 const STRICT = argv.includes('--strict');
 
 // CLIs the doctor recognises.
@@ -38,6 +38,9 @@ const yellow = (s) => isTTY ? `\x1b[33m${s}\x1b[0m` : s;
 const dim = (s) => isTTY ? `\x1b[2m${s}\x1b[0m` : s;
 
 function checkNodeVersion() {
+  if (process.versions.bun) {
+    return { pass: true, label: `Bun >= 1.0 (v${process.versions.bun})` };
+  }
   const versionStr = process.versions.node;
   const [major, minor] = versionStr.split('.').map(Number);
   const hasSqlite = major > 22 || (major === 22 && minor >= 5);
@@ -71,7 +74,7 @@ function checkDependencies() {
   return {
     pass: false,
     label: 'Dependencies not installed',
-    fix: 'Run: npm install',
+    fix: 'Run: bun install',
   };
 }
 
@@ -83,7 +86,7 @@ async function checkPlaywright() {
     return {
       pass: false,
       label: 'Playwright chromium not installed',
-      fix: 'Run: npx playwright install chromium',
+      fix: 'Run: bunx playwright install chromium',
     };
   }
   // Validate by launching — chromium.executablePath() points at Chrome for Testing
@@ -99,7 +102,7 @@ async function checkPlaywright() {
     return {
       pass: false,
       label: 'Playwright chromium not installed',
-      fix: 'Run: npx playwright install chromium',
+      fix: 'Run: bunx playwright install chromium',
     };
   } finally {
     try { await browser?.close(); } catch { /* ignore */ }
@@ -151,20 +154,23 @@ function resolveActiveCli() {
     }
     return { cli: cliFlag, source: 'flag' };
   }
-  if (process.env.CAREER_OPS_CLI) {
-    if (!VALID_CLIS.includes(process.env.CAREER_OPS_CLI)) {
-      return { cli: 'unknown', source: 'env', warning: `CAREER_OPS_CLI="${process.env.CAREER_OPS_CLI}" is not a recognized CLI. Valid: ${VALID_CLIS.join(', ')}.` };
+  const envVal = process.env.CAREER_OPS_CLI?.trim();
+  if (envVal) {
+    if (!VALID_CLIS.includes(envVal)) {
+      return { cli: 'unknown', source: 'env', warning: `CAREER_OPS_CLI="${envVal}" is not a recognized CLI. Valid: ${VALID_CLIS.join(', ')}.` };
     }
-    return { cli: process.env.CAREER_OPS_CLI, source: 'env' };
+    return { cli: envVal, source: 'env' };
   }
+  delete process.env.CAREER_OPS_CLI;
   // .env is best-effort: missing file → fall through to default. dotenv does
   // not throw on a missing path when `quiet: true`, so no try/catch is needed.
   dotenv.config({ path: join(projectRoot, '.env'), quiet: true });
-  if (process.env.CAREER_OPS_CLI) {
-    if (!VALID_CLIS.includes(process.env.CAREER_OPS_CLI)) {
+  const dotenvVal = process.env.CAREER_OPS_CLI?.trim();
+  if (dotenvVal) {
+    if (!VALID_CLIS.includes(dotenvVal)) {
       return { cli: 'unknown', source: '.env', warning: `CAREER_OPS_CLI in .env is not a recognized CLI. Valid: ${VALID_CLIS.join(', ')}.` };
     }
-    return { cli: process.env.CAREER_OPS_CLI, source: '.env' };
+    return { cli: dotenvVal, source: '.env' };
   }
   return { cli: 'claude', source: 'default' };
 }
@@ -336,7 +342,7 @@ async function checkPortalSlugs(root) {
           if (r.suggested) line += ` → try ${r.suggested.ats}/${r.suggested.slug}`;
           return line;
         }),
-        'Probe variants with: node verify-portals.mjs --add "<company>"',
+        'Probe variants with: bun verify-portals.mjs --add "<company>"',
       ],
     };
   } catch (err) {
@@ -451,14 +457,14 @@ async function main() {
 
   console.log('');
   if (failures > 0) {
-    console.log(`Result: ${failures} issue${failures === 1 ? '' : 's'} found. Fix them and run \`npm run doctor\` again.`);
+    console.log(`Result: ${failures} issue${failures === 1 ? '' : 's'} found. Fix them and run \`bun run doctor\` again.`);
     process.exit(1);
   } else {
     const warnNote = warnings > 0 ? ` (${warnings} warning${warnings === 1 ? '' : 's'} — see above)` : '';
     console.log(`Result: All checks passed${warnNote}. You're ready to go! Run \`claude\` (or \`opencode\`) to start.`);
     console.log('');
     console.log('Join the community: https://discord.gg/8pRpHETxa4');
-    console.log('Read the manifesto: `npm run manifesto` — a new way of job searching is taking shape, and you are now part of it.');
+    console.log('Read the manifesto: `bun run manifesto` — a new way of job searching is taking shape, and you are now part of it.');
     process.exit(0);
   }
 }

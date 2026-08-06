@@ -428,7 +428,7 @@ If score is greater than or equal to the threshold:
 12. Run:
 
 ```bash
-node generate-pdf.mjs \
+bun generate-pdf.mjs \
   output/cv-candidate-{company-slug}.html \
   output/cv-candidate-{company-slug}-{{DATE}}.pdf \
   --format={letter|a4} \

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // manifesto.mjs — read The CareerOps Manifesto and open the signing page.
 // Zero dependencies. No network calls beyond opening your own browser.
 import { spawn } from 'node:child_process';

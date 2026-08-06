@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * paste-reply-tests.mjs — regression tests for paste-reply.mjs (#1802).

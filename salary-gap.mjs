@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * salary-gap.mjs — Desired vs Advertised vs Actual compensation analyzer
  *
@@ -21,16 +21,16 @@
  * They carry no trust tier and never participate in the fold/gap math above;
  * look them up with getStatedObservations() or `--stated-for <tracker#>`.
  *
- * Run: node salary-gap.mjs             (JSON)
- *      node salary-gap.mjs --summary   (human-readable)
- *      node salary-gap.mjs --stated-for <tracker#>   (prior stated-comp observations, JSON)
- *      node salary-gap.mjs --self-test
+ * Run: bun salary-gap.mjs             (JSON)
+ *      bun salary-gap.mjs --summary   (human-readable)
+ *      bun salary-gap.mjs --stated-for <tracker#>   (prior stated-comp observations, JSON)
+ *      bun salary-gap.mjs --self-test
  */
 
 import { readFileSync, existsSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));
 const OBS_PATH = join(CAREER_OPS, 'data/salary-observations.tsv');
@@ -670,7 +670,7 @@ function main() {
 
   if (statedForFlagIdx !== -1) {
     if (!statedForNum) {
-      console.error('Usage: node salary-gap.mjs --stated-for <tracker#>');
+      console.error('Usage: bun salary-gap.mjs --stated-for <tracker#>');
       process.exit(1);
     }
     const { observations } = collectSources();

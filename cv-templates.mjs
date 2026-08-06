@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // cv-templates.mjs — discover, resolve, and validate CV / cover-letter templates.
 // Single source of truth for "which template file, and is it usable?".
 // Backward-compatible: with no config and no named files, resolves the base
@@ -7,7 +7,7 @@
 import { readdirSync, readFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_TEMPLATES_DIR = resolve(__dirname, 'templates');
@@ -181,7 +181,7 @@ if (isMain) {
       const name = positionals[0];
       process.stdout.write(resolveTemplate(kind, name, { format, fallback: Boolean(flags.fallback) }) + '\n');
     } else {
-      process.stderr.write('Usage: node cv-templates.mjs <list|resolve> <cv|cover> [name] [--format=html|tex] [--fallback]\n');
+      process.stderr.write('Usage: bun cv-templates.mjs <list|resolve> <cv|cover> [name] [--format=html|tex] [--fallback]\n');
       process.exit(2);
     }
   } catch (err) {

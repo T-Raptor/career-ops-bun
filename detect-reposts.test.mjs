@@ -14,7 +14,7 @@
  * - CLI behavior (args, flags, missing file)
  * - Integration (full TSV round-trip, multi-company, mixed statuses)
  *
- * Run: node detect-reposts.test.mjs
+ * Run: bun detect-reposts.test.mjs
  */
 
 import { detectReposts, parseScanHistory, companyKey } from './detect-reposts.mjs';
@@ -1145,7 +1145,7 @@ const scriptPath = join(dirname(fileURLToPath(import.meta.url)), 'detect-reposts
 
 // Test --self-test exit code
 try {
-  execFileSync('node', [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 10000 });
+  execFileSync(process.execPath, [scriptPath, '--self-test'], { encoding: 'utf-8', timeout: 10000 });
   ok('--self-test exits 0', true);
 } catch (e) {
   ok('--self-test exits 0', false);
@@ -1153,7 +1153,7 @@ try {
 }
 
 // Test --window flag
-const windowOut = execFileSync('node', [scriptPath, '--window', '30'], {
+const windowOut = execFileSync(process.execPath, [scriptPath, '--window', '30'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
@@ -1162,14 +1162,14 @@ ok('--window produces valid JSON output', typeof windowJson === 'object' && 'met
 eq('--window sets windowDays in metadata', windowJson.metadata.windowDays, 30);
 
 // Test --summary flag
-const summaryOut = execFileSync('node', [scriptPath, '--summary'], {
+const summaryOut = execFileSync(process.execPath, [scriptPath, '--summary'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
 ok('--summary produces human-readable output', summaryOut.includes('Repost Detector'));
 
 // Test no args (default JSON output)
-const defaultOut = execFileSync('node', [scriptPath], {
+const defaultOut = execFileSync(process.execPath, [scriptPath], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
@@ -1180,7 +1180,7 @@ ok('default has clusters array', 'clusters' in defaultJson && Array.isArray(defa
 eq('default windowDays = 90', defaultJson.metadata.windowDays, 90);
 
 // Test --window with non-numeric value (falls back to default)
-const badWindowOut = execFileSync('node', [scriptPath, '--window', 'abc'], {
+const badWindowOut = execFileSync(process.execPath, [scriptPath, '--window', 'abc'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
@@ -1188,7 +1188,7 @@ const badWindowJson = JSON.parse(badWindowOut);
 eq('--window abc falls back to 90', badWindowJson.metadata.windowDays, 90);
 
 // Test --window with no value (falls back to default)
-const noWindowOut = execFileSync('node', [scriptPath, '--window'], {
+const noWindowOut = execFileSync(process.execPath, [scriptPath, '--window'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
@@ -1196,7 +1196,7 @@ const noWindowJson = JSON.parse(noWindowOut);
 eq('--window without value falls back to 90', noWindowJson.metadata.windowDays, 90);
 
 // Test --help flag
-const helpOut = execFileSync('node', [scriptPath, '--help'], {
+const helpOut = execFileSync(process.execPath, [scriptPath, '--help'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });
@@ -1207,7 +1207,7 @@ ok('--help documents --self-test', helpOut.includes('--self-test'));
 ok('--help documents --help', helpOut.includes('--help'));
 
 // Test -h flag
-const hOut = execFileSync('node', [scriptPath, '-h'], {
+const hOut = execFileSync(process.execPath, [scriptPath, '-h'], {
   encoding: 'utf-8', timeout: 10000,
   cwd: dirname(scriptPath),
 });

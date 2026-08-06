@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * gemini-eval.mjs — Gemini-powered Job Offer Evaluator for career-ops
  *
@@ -8,8 +8,8 @@
  * passed as a command-line argument.
  *
  * Usage:
- *   node gemini-eval.mjs "Paste full JD text here"
- *   node gemini-eval.mjs --file ./jds/my-job.txt
+ *   bun gemini-eval.mjs "Paste full JD text here"
+ *   bun gemini-eval.mjs --file ./jds/my-job.txt
  *
  * Requires:
  *   GEMINI_API_KEY in .env (or environment variable)
@@ -90,9 +90,9 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
   Evaluate a job offer using Google Gemini instead of Claude.
 
   USAGE
-    node gemini-eval.mjs "<JD text>"
-    node gemini-eval.mjs --file ./jds/my-job.txt
-    node gemini-eval.mjs --model gemini-3.6-flash "<JD text>"
+    bun gemini-eval.mjs "<JD text>"
+    bun gemini-eval.mjs --file ./jds/my-job.txt
+    bun gemini-eval.mjs --model gemini-3.6-flash "<JD text>"
 
   OPTIONS
     --file <path>    Read JD from a file instead of inline text
@@ -107,8 +107,8 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
     3. Run: npm install   (installs @google/generative-ai + dotenv)
 
   EXAMPLES
-    node gemini-eval.mjs "We are looking for a Senior AI Engineer..."
-    node gemini-eval.mjs --file ./jds/openai-swe.txt
+    bun gemini-eval.mjs "We are looking for a Senior AI Engineer..."
+    bun gemini-eval.mjs --file ./jds/openai-swe.txt
 `);
   process.exit(0);
 }

@@ -70,7 +70,7 @@ short message; otherwise run the LinkedIn power move below.
    the person's existing line in place if they are already there — match by
    name+company, the same key the vCard UID uses. NEVER save without the
    candidate confirming first. Saved contacts export to the phone with
-   `node contacts.mjs --vcf` (vCard).
+   `bun contacts.mjs --vcf` (vCard).
 
 **Contact channel preference:** Read `contact_preferences.preferred_channel` from
 `config/profile.yml`. If it is absent or set to `"either"`, write the CTA

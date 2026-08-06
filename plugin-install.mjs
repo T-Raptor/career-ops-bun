@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 // @ts-check
 // plugin-install.mjs — clone/scaffold/validate community plugins. Lives at repo
 // ROOT (not under plugins/) because it uses node:child_process to run git, which
@@ -79,7 +79,7 @@ export function validateInstall(dir, expectId) {
 export function installFromRepo(root, { url, sha }) {
   const { url: safeUrl, id } = parseRepoArg(url);
   const dest = path.join(root, 'plugins.local', id);
-  if (existsSync(dest)) throw new Error(`plugins.local/${id} already exists — \`node plugins.mjs remove ${id}\` first`);
+  if (existsSync(dest)) throw new Error(`plugins.local/${id} already exists — \`bun plugins.mjs remove ${id}\` first`);
   let cloned = safeClone(safeUrl, sha);
   let result;
   try { result = validateInstall(cloned, id); }

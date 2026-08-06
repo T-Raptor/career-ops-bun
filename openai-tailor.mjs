@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * openai-tailor.mjs — OpenAI-compatible CV Tailoring for career-ops
  *
@@ -8,7 +8,7 @@
  * cv-template.html ready to be turned into a PDF.
  *
  * Usage:
- *   node openai-tailor.mjs --jd ./jds/my-job.txt --report reports/001-company-2026.md
+ *   bun openai-tailor.mjs --jd ./jds/my-job.txt --report reports/001-company-2026.md
  *
  * Requires (for hosted endpoints):
  *   OPENAI_API_KEY (or --key)   — your provider key
@@ -19,7 +19,7 @@
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'fs';
 import { join, dirname, basename } from 'path';
 import { fileURLToPath } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 try {
   const { config } = await import('dotenv');
@@ -55,8 +55,8 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
   Tailor your CV with any OpenAI-compatible API to output a filled HTML file.
 
   USAGE
-    node openai-tailor.mjs --jd <path> --report <path>
-    node openai-tailor.mjs --url <base> --model <id> --jd <path> --report <path>
+    bun openai-tailor.mjs --jd <path> --report <path>
+    bun openai-tailor.mjs --url <base> --model <id> --jd <path> --report <path>
 
   OPTIONS
     --jd <path>      Path to the Job Description text file
@@ -71,7 +71,7 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
     OPENAI_API_KEY, OPENAI_BASE_URL, OPENAI_MODEL, OPENAI_TIMEOUT_MS
 
   EXAMPLES
-    OPENAI_API_KEY=sk-... node openai-tailor.mjs --jd ./jds/job.txt --report reports/001-company-2026-01-01.md
+    OPENAI_API_KEY=sk-... bun openai-tailor.mjs --jd ./jds/job.txt --report reports/001-company-2026-01-01.md
 `);
   process.exit(0);
 }
@@ -154,7 +154,7 @@ let endpointHost;
   if (!isLoopback && !apiKey) {
     console.error(`
 ❌  No API key for ${endpointHost}.
-   Set one and re-run: OPENAI_API_KEY=your_key node openai-tailor.mjs ...
+   Set one and re-run: OPENAI_API_KEY=your_key bun openai-tailor.mjs ...
 `);
     process.exit(1);
   }
@@ -341,7 +341,7 @@ try {
   const reportNumMatch = reportFilename.match(/^(\d+)-/);
   const reportNum = reportNumMatch ? reportNumMatch[1] : '001';
 
-  console.log(`\n📄  Next step (generate PDF):\n    node generate-pdf.mjs output/${filename} output/${pdfFilename} --format=letter --report=${reportNum}\n`);
+  console.log(`\n📄  Next step (generate PDF):\n    bun generate-pdf.mjs output/${filename} output/${pdfFilename} --format=letter --report=${reportNum}\n`);
 
 } catch (err) {
   console.warn(`⚠️   Could not save HTML: ${err.message}`);

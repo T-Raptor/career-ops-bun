@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * weekly-digest.mjs — Weekly Interview Digest for career-ops
  *
@@ -25,11 +25,11 @@
  *     match, not a strict parser — absent or unmatched entries degrade
  *     silently rather than erroring.
  *
- * Run: node weekly-digest.mjs                       (JSON to stdout)
- *      node weekly-digest.mjs --summary              (human-readable digest)
- *      node weekly-digest.mjs --from 2026-07-13 --to 2026-07-19
- *      node weekly-digest.mjs --dir path/to/sessions  (override sessions dir; test isolation)
- *      node weekly-digest.mjs --self-test
+ * Run: bun weekly-digest.mjs                       (JSON to stdout)
+ *      bun weekly-digest.mjs --summary              (human-readable digest)
+ *      bun weekly-digest.mjs --from 2026-07-13 --to 2026-07-19
+ *      bun weekly-digest.mjs --dir path/to/sessions  (override sessions dir; test isolation)
+ *      bun weekly-digest.mjs --self-test
  *
  * Default range: the current ISO week (Monday–Sunday), matching the
  * `isoWeek` convention already used by `stats.mjs`'s scan-run trends.
@@ -40,7 +40,7 @@
 import { readFileSync, existsSync, readdirSync, mkdtempSync, writeFileSync, rmSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_SESSIONS_DIR = join(CAREER_OPS, 'interview-prep', 'sessions');

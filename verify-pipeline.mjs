@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * verify-pipeline.mjs — Health check for career-ops pipeline integrity
  *
@@ -16,7 +16,7 @@
  * 11. Via channel consistency (see #1596)
  * 12. No # value reused across 2+ tracker rows (error — see #1704)
  *
- * Run: node career-ops/verify-pipeline.mjs
+ * Run: bun career-ops/verify-pipeline.mjs
  */
 
 import { readFileSync, readdirSync, existsSync, mkdirSync, unlinkSync, statSync } from 'fs';
@@ -362,7 +362,7 @@ for (const e of entries) {
   const via = String(e.via || '').trim();
   if (company === '?') {
     if (COLMAP.via == null) {
-      warn(`#${e.num}: unknown employer (?) but the tracker has no Via column — add it with: node merge-tracker.mjs --migrate-via`);
+      warn(`#${e.num}: unknown employer (?) but the tracker has no Via column — add it with: bun merge-tracker.mjs --migrate-via`);
       viaIssues++;
     } else if (!via || via === '—') {
       error(`#${e.num}: unknown employer (?) with no Via channel — record the agency/recruiter firm`);

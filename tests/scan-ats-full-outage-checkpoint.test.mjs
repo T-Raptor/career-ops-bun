@@ -74,6 +74,18 @@ dns.lookup = (hostname, options, callback) => {
   err.hostname = hostname;
   process.nextTick(cb, err);
 };
+if (process.versions.bun) {
+  globalThis.fetch = async (url, opts) => {
+    const hostname = new URL(url).hostname;
+    const err = new Error('getaddrinfo ' + code + ' ' + hostname);
+    err.code = code;
+    err.syscall = 'getaddrinfo';
+    err.hostname = hostname;
+    const fetchErr = new TypeError('fetch failed');
+    fetchErr.cause = err;
+    throw fetchErr;
+  };
+}
 process.argv[1] = ${JSON.stringify(join(ROOT, 'scan-ats-full.mjs'))};
 await import(${JSON.stringify(scanUrl)});
 `, 'utf-8');

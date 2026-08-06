@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 /**
  * cv-sync-check.mjs — Validates that the career-ops setup is consistent.
