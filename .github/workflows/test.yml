@@ -83,3 +83,5 @@ jobs:
         run: bun upgrade-tests.mjs --pr-gate
       - name: Canary (harness must be able to fail)
         run: bun upgrade-tests.mjs --canary
+      - name: Local-paths declaration survives a real apply (#2421)
+        run: bun upgrade-tests.mjs --local-paths
