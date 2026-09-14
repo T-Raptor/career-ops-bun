@@ -1744,7 +1744,12 @@ for (const f of skillEntrypoints) {
   if (!staged) {
     fail(`Could not read git index entry for ${f} (lookup failed — not evidence of absence)`);
   } else if (staged.mode === '120000') {
-    pass(`Entrypoint is a real symlink in git: ${f}`);
+    const target = run('git', ['cat-file', 'blob', staged.sha])?.trim();
+    if (target && target.startsWith('..') && !target.includes('\n')) {
+      pass(`Entrypoint is a real symlink in git: ${f}`);
+    } else {
+      fail(`Entrypoint is a symlink (mode 120000) whose target in git is invalid or contains file contents instead of a relative path: ${f}`);
+    }
   } else if (canonicalEntry && staged.sha === canonicalEntry.sha) {
     pass(`Entrypoint is a materialized regular file with canonical content: ${f}`);
   } else {
@@ -6323,6 +6328,7 @@ const symlinks = [
   '.qwen/skills/career-ops/SKILL.md',
   '.antigravitycli/skills/career-ops/SKILL.md',
   '.grok/skills/career-ops/SKILL.md',
+  '.kimi/skills/career-ops/SKILL.md',
 ];
 
 let canonicalReal = null;
