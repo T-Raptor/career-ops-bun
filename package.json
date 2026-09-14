@@ -15,6 +15,8 @@
     "or:apply": "bun openrouter-runner.mjs apply",
     "verify": "bun verify-pipeline.mjs",
     "lint": "bun scripts/check-syntax.mjs",
+    "bunify": "bun scripts/bunify.mjs",
+    "sync-upstream": "bun scripts/sync-upstream.mjs",
     "normalize": "bun normalize-statuses.mjs",
     "dedup": "bun dedup-tracker.mjs",
     "merge": "bun merge-tracker.mjs",
